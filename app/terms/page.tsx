@@ -34,7 +34,7 @@ export default function TermsPage() {
             </CardHeader>
             <CardContent className="prose prose-sm max-w-none">
               <p>
-                Permission is granted to temporarily download one copy of the materials on Maniuz's website 
+                Permission is granted to temporarily download one copy of the materials on Maniuz&apos;s website 
                 for personal, non-commercial transitory viewing only.
               </p>
             </CardContent>

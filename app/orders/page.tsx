@@ -21,7 +21,7 @@ export default function OrdersPage() {
   const router = useRouter();
 
   const getStatusLabel = (status: string) => {
-    const statusKey = `order_status_${status}` as any;
+    const statusKey = `order_status_${status}`;
     return t(statusKey);
   };
 

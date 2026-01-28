@@ -17,8 +17,9 @@ export default function AdminSeedPage() {
     try {
       const res = await seedDatabase();
       setResult(res);
-    } catch (error) {
+    } catch (err) {
       setResult({ success: false, message: 'Bir hata oluştu' });
+      console.error('Seed error:', err);
     } finally {
       setLoading(false);
     }

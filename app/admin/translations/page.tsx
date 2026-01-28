@@ -46,6 +46,7 @@ export default function TranslationsPage() {
 
   useEffect(() => {
     fetchTranslations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedLanguage]);
 
   const fetchTranslations = async () => {
