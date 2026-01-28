@@ -23,10 +23,10 @@ export default function Navbar() {
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <nav className="bg-white border-b">
+    <nav className="sticky top-0 z-50 backdrop-blur-lg bg-white/80 border-b border-gray-200/50 shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="text-2xl font-bold text-primary">
+          <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
             Maniuz
           </Link>
 

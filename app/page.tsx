@@ -16,6 +16,9 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { Customer } from '@/types';
 
+// Constants
+const LOW_STOCK_THRESHOLD = 10;
+
 // Memoized ProductCard component for better performance
 const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
   product: Product;
@@ -68,21 +71,29 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
 
   return (
     <Card 
-      className="flex flex-col cursor-pointer group hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+      className="flex flex-col cursor-pointer group hover:shadow-modern-lg transition-all duration-300 hover:-translate-y-2 relative overflow-hidden border-0 shadow-modern"
       onClick={handleCardClick}
     >
-      <CardHeader>
-        <div className="aspect-square relative mb-4 bg-gray-100 rounded-md overflow-hidden">
+      {/* Gradient overlay on hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-indigo-500/0 group-hover:from-blue-500/5 group-hover:to-indigo-500/5 transition-all duration-300 pointer-events-none" />
+      
+      <CardHeader className="relative">
+        <div className="aspect-square relative mb-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl overflow-hidden">
           <img
             src={product.imageUrl || '/placeholder.png'}
             alt={product.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           />
+          {product.stock < LOW_STOCK_THRESHOLD && (
+            <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-semibold">
+              {t('low_stock')}
+            </div>
+          )}
         </div>
-        <CardTitle className="line-clamp-2 group-hover:text-primary transition-colors">
+        <CardTitle className="line-clamp-2 min-h-[3rem] group-hover:text-primary transition-colors">
           {product.name}
         </CardTitle>
-        <CardDescription className="line-clamp-2">
+        <CardDescription className="line-clamp-3 min-h-[4.5rem]">
           {product.description}
         </CardDescription>
       </CardHeader>
@@ -90,7 +101,7 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
         <div className="space-y-2">
           {user && customer ? (
             <p className="text-2xl font-bold text-primary">
-              {displayPrice} ₺
+              {displayPrice} {t('currency_symbol')}
             </p>
           ) : (
             <p className="text-sm text-muted-foreground">
@@ -218,28 +229,73 @@ export default function HomePage() {
       <Navbar />
       
       <main className="container mx-auto px-4 py-8 flex-1">
-        <h1 className="text-4xl font-bold mb-8 text-center">{t('products_title')}</h1>
+        {/* Hero Section */}
+        <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-20 mb-12 rounded-2xl overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 bg-grid-pattern" />
+          
+          {/* Content */}
+          <div className="relative container mx-auto px-4 text-center">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
+              {t('hero_title')}
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-2xl mx-auto">
+              {t('hero_subtitle')}
+            </p>
+            <div className="flex gap-4 justify-center flex-wrap">
+              <Button 
+                size="lg" 
+                variant="secondary" 
+                className="text-lg px-8"
+                onClick={() => {
+                  const productsSection = document.getElementById('products-section');
+                  if (productsSection) {
+                    productsSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
+                {t('hero_cta_products')}
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="text-lg px-8 border-white text-white hover:bg-white/10"
+                onClick={() => router.push('/partnership')}
+              >
+                {t('hero_cta_partnership')}
+              </Button>
+            </div>
+          </div>
 
-        {loading ? (
-          <div className="text-center py-12">{t('loading')}</div>
-        ) : products.length === 0 ? (
-          <div className="text-center py-12 text-muted-foreground">
-            {t('products_empty')}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                user={user}
-                customer={customer}
-                onAddToCart={handleAddToCart}
-                getPrice={getPrice}
-              />
-            ))}
-          </div>
-        )}
+          {/* Decorative Elements */}
+          <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl" aria-hidden="true" />
+          <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-xl" aria-hidden="true" />
+        </section>
+
+        <div id="products-section">
+          <h2 className="text-3xl font-bold mb-8">{t('products_title')}</h2>
+
+          {loading ? (
+            <div className="text-center py-12">{t('loading')}</div>
+          ) : products.length === 0 ? (
+            <div className="text-center py-12 text-muted-foreground">
+              {t('products_empty')}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {products.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  user={user}
+                  customer={customer}
+                  onAddToCart={handleAddToCart}
+                  getPrice={getPrice}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </main>
       
       <Footer />
