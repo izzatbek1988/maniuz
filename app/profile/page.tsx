@@ -22,7 +22,7 @@ export default function ProfilePage() {
     if (customer?.priceTypeId) {
       fetchPriceTypeName(customer.priceTypeId);
     }
-  }, [user, customer]);
+  }, [user, customer, router]);
 
   const fetchPriceTypeName = async (priceTypeId: string) => {
     try {

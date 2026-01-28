@@ -38,8 +38,12 @@ export default function RegisterPage() {
     try {
       await signUp(email, password, name);
       router.push('/');
-    } catch (err: any) {
-      setError(err.message || 'Kayıt olunamadı');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || 'Kayıt olunamadı');
+      } else {
+        setError('Kayıt olunamadı');
+      }
     } finally {
       setLoading(false);
     }

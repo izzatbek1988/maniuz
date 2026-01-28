@@ -25,8 +25,12 @@ export default function LoginPage() {
     try {
       await signIn(email, password);
       router.push('/');
-    } catch (err: any) {
-      setError(err.message || 'Giriş yapılamadı');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || 'Giriş yapılamadı');
+      } else {
+        setError('Giriş yapılamadı');
+      }
     } finally {
       setLoading(false);
     }
