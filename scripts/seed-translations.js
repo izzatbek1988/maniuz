@@ -84,6 +84,22 @@ const uzbekTranslations = {
   "profile_name": "Ism",
   "profile_email": "Email",
   "profile_price_type": "Narx turi",
+  "profile_role": "Rol",
+  "profile_role_admin": "Administrator",
+  "profile_role_customer": "Mijoz",
+  
+  // Product
+  "product_not_found": "Mahsulot topilmadi",
+  "product_pieces": "dona",
+  "product_out_of_stock": "Stokda yo'q",
+  
+  // Order
+  "order_delivery_pickup": "O'zim olib ketaman",
+  "order_delivery_address": "Yetkazib berish",
+  
+  // Validation
+  "validation_password_mismatch": "Parollar mos kelmaydi",
+  "validation_password_length": "Parol kamida 6 ta belgidan iborat bo'lishi kerak",
   
   // Admin
   "admin_dashboard": "Boshqaruv paneli",
@@ -219,6 +235,22 @@ const turkishTranslations = {
   "profile_name": "İsim",
   "profile_email": "E-posta",
   "profile_price_type": "Fiyat Türü",
+  "profile_role": "Rol",
+  "profile_role_admin": "Yönetici",
+  "profile_role_customer": "Müşteri",
+  
+  // Product
+  "product_not_found": "Ürün bulunamadı",
+  "product_pieces": "adet",
+  "product_out_of_stock": "Stokta yok",
+  
+  // Order
+  "order_delivery_pickup": "Kendim alacağım",
+  "order_delivery_address": "Teslimat",
+  
+  // Validation
+  "validation_password_mismatch": "Şifreler eşleşmiyor",
+  "validation_password_length": "Şifre en az 6 karakter olmalıdır",
   
   // Admin
   "admin_dashboard": "Kontrol Paneli",
@@ -354,6 +386,22 @@ const russianTranslations = {
   "profile_name": "Имя",
   "profile_email": "Email",
   "profile_price_type": "Тип цены",
+  "profile_role": "Роль",
+  "profile_role_admin": "Администратор",
+  "profile_role_customer": "Клиент",
+  
+  // Product
+  "product_not_found": "Товар не найден",
+  "product_pieces": "шт",
+  "product_out_of_stock": "Нет в наличии",
+  
+  // Order
+  "order_delivery_pickup": "Самовывоз",
+  "order_delivery_address": "Доставка",
+  
+  // Validation
+  "validation_password_mismatch": "Пароли не совпадают",
+  "validation_password_length": "Пароль должен быть не менее 6 символов",
   
   // Admin
   "admin_dashboard": "Панель управления",

@@ -23,10 +23,12 @@ export function TranslationProvider({ children }: { children: React.ReactNode })
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Load language preference from localStorage
-    const savedLanguage = localStorage.getItem(STORAGE_KEY) as Language;
-    if (savedLanguage && ['uz', 'tr', 'ru'].includes(savedLanguage)) {
-      setLanguageState(savedLanguage);
+    // Load language preference from localStorage (client-side only)
+    if (typeof window !== 'undefined') {
+      const savedLanguage = localStorage.getItem(STORAGE_KEY) as Language;
+      if (savedLanguage && ['uz', 'tr', 'ru'].includes(savedLanguage)) {
+        setLanguageState(savedLanguage);
+      }
     }
   }, []);
 
@@ -56,7 +58,9 @@ export function TranslationProvider({ children }: { children: React.ReactNode })
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem(STORAGE_KEY, lang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(STORAGE_KEY, lang);
+    }
   };
 
   const t = (key: string): string => {
