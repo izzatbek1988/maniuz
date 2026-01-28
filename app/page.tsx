@@ -89,7 +89,7 @@ export default function HomePage() {
                   <div className="space-y-2">
                     {user && customer ? (
                       <p className="text-2xl font-bold text-primary">
-                        {getPrice(product).toFixed(2)} ₺
+                        {getPrice(product).toFixed(2)} {t('currency_symbol')}
                       </p>
                     ) : (
                       <p className="text-sm text-muted-foreground">
