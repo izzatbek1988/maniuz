@@ -3,10 +3,12 @@
 import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import { useTranslation } from '@/contexts/TranslationContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Package, Users, ShoppingBag, DollarSign } from 'lucide-react';
 
 export default function AdminDashboard() {
+  const { t } = useTranslation();
   const [stats, setStats] = useState({
     products: 0,
     customers: 0,
@@ -40,12 +42,12 @@ export default function AdminDashboard() {
 
   return (
     <div>
-      <h1 className="text-4xl font-bold mb-8">Dashboard</h1>
+      <h1 className="text-4xl font-bold mb-8">{t('admin_dashboard')}</h1>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Toplam Ürün</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin_total_products')}</CardTitle>
             <Package className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -55,7 +57,7 @@ export default function AdminDashboard() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Toplam Müşteri</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin_total_customers')}</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -65,7 +67,7 @@ export default function AdminDashboard() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Toplam Sipariş</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin_total_orders')}</CardTitle>
             <ShoppingBag className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -75,7 +77,7 @@ export default function AdminDashboard() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Fiyat Tipleri</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin_price_types')}</CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>

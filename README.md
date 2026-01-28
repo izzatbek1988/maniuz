@@ -2,15 +2,28 @@
 
 Tam özellikli, modern bir e-ticaret platformu. Next.js 14, TypeScript, Firebase ve Tailwind CSS ile geliştirilmiştir.
 
+## 🌍 Çok Dilli Destek
+
+Bu uygulama **3 dil** destekler:
+- 🇺🇿 **O'zbek** (Özbekçe) - Varsayılan
+- 🇹🇷 **Türkçe**
+- 🇷🇺 **Русский** (Rusça)
+
+Dil değiştirme navigation bar'ın sağ üst köşesindeki dil seçicisinden yapılabilir.
+
 ## 🚀 Özellikler
 
 ### Müşteri Özellikleri
+- ✅ **Çok dilli arayüz** (Özbekçe, Türkçe, Rusça)
 - ✅ Ürün listeleme ve detay sayfaları
 - ✅ Kullanıcıya özel fiyatlandırma (fiyat tipleri)
 - ✅ Alışveriş sepeti yönetimi
 - ✅ Sipariş oluşturma (teslimat tipi seçimi ile)
 - ✅ Sipariş geçmişi
 - ✅ Kullanıcı profili
+- ✅ Hakkımızda sayfası
+- ✅ İş ortaklığı başvuru formu
+- ✅ İletişim sayfası ve formu
 - ✅ Responsive tasarım (mobil, tablet, desktop)
 
 ### Admin Panel Özellikleri
@@ -19,6 +32,7 @@ Tam özellikli, modern bir e-ticaret platformu. Next.js 14, TypeScript, Firebase
 - ✅ Müşteri yönetimi
 - ✅ Sipariş yönetimi (durum güncelleme)
 - ✅ Fiyat tipi yönetimi
+- ✅ **Çeviri yönetimi** (Admin panel üzerinden tüm dilleri yönetebilme)
 - ✅ Admin yetkilendirmesi
 
 ### Güvenlik
@@ -109,6 +123,33 @@ npm run dev
 
 Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresini açın.
 
+### 8. Çeviri Verilerini Yükleyin
+
+Uygulama çalıştıktan sonra çeviri verilerini Firebase'e yükleyin:
+
+#### Yöntem 1: Admin Panel Üzerinden (Önerilen)
+
+1. Admin kullanıcı ile giriş yapın
+2. `/admin/translations` sayfasına gidin
+3. Her dil için (uz, tr, ru) çeviri key-value çiftlerini manuel olarak ekleyin
+
+#### Yöntem 2: Seed Script ile (Otomatik)
+
+**Not:** Bu yöntem Firebase Admin SDK gerektirir ve Firebase servis hesabı kimlik bilgilerini gerektirir.
+
+```bash
+# Firebase Admin credentials ayarlayın
+export GOOGLE_APPLICATION_CREDENTIALS="/path/to/serviceAccountKey.json"
+
+# Seed script'i çalıştırın
+npm run seed-translations
+```
+
+Firebase servis hesabı JSON dosyası için:
+1. Firebase Console > Project Settings > Service Accounts
+2. "Generate New Private Key" butonuna tıklayın
+3. JSON dosyasını indirin ve güvenli bir yere kaydedin
+
 ## 📊 İlk Veri Girişi
 
 ### Otomatik Veri Ekleme (Önerilen)
@@ -146,12 +187,17 @@ Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresini açın.
 /cart                -> Sepet sayfası
 /orders              -> Siparişlerim
 /profile             -> Profil sayfası
+/about               -> Hakkımızda
+/partnership         -> İş Ortaklığı
+/contact             -> İletişim
+/terms               -> Kullanım Şartları
 
 /admin               -> Admin dashboard
 /admin/products      -> Ürün yönetimi
 /admin/customers     -> Müşteri yönetimi
 /admin/orders        -> Sipariş yönetimi
 /admin/price-types   -> Fiyat tipi yönetimi
+/admin/translations  -> Çeviri yönetimi
 ```
 
 ## 💾 Veri Yapısı
@@ -213,15 +259,98 @@ Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresini açın.
 }
 ```
 
+### Translations Collection
+```typescript
+{
+  // Document ID: 'uz', 'tr', or 'ru'
+  [key: string]: string; // Key-value pairs for translations
+  
+  // Example:
+  "nav_home": "Bosh sahifa",
+  "nav_products": "Mahsulotlar",
+  "cart_title": "Savat",
+  // ... more translations
+}
+```
+
+### Partnership Applications Collection
+```typescript
+{
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  status: 'pending';
+  createdAt: timestamp;
+}
+```
+
+### Contact Messages Collection
+```typescript
+{
+  id: string;
+  name: string;
+  email: string;
+  message: string;
+  status: 'unread';
+  createdAt: timestamp;
+}
+```
+
 ## 🔐 Güvenlik Kuralları
 
 Firestore güvenlik kuralları şunları sağlar:
 
 - ✅ Herkes ürünleri ve fiyat tiplerini okuyabilir
+- ✅ Herkes çevirileri okuyabilir (translations koleksiyonu)
 - ✅ Sadece admin'ler ürün, müşteri ve fiyat tipi ekleyebilir/düzenleyebilir
+- ✅ Sadece admin'ler çevirileri düzenleyebilir
 - ✅ Kullanıcılar sadece kendi siparişlerini görebilir
 - ✅ Admin'ler tüm siparişleri görebilir ve durumlarını güncelleyebilir
 - ✅ Kullanıcılar sadece kendi profillerini görebilir
+- ✅ Herkes iş ortaklığı başvurusu ve iletişim mesajı oluşturabilir
+- ✅ Sadece admin'ler başvuruları ve mesajları görebilir
+
+## 🌐 Çeviri Sistemi
+
+### Dil Değiştirme
+
+Kullanıcılar navigation bar'daki dil seçiciyi kullanarak dil değiştirebilir. Seçilen dil `localStorage`'da saklanır ve sayfa yeniden yüklendiğinde hatırlanır.
+
+### Yeni Çeviri Ekleme (Admin)
+
+1. Admin paneline giriş yapın
+2. Sol menüden "Çeviriler" seçeneğine tıklayın
+3. Üstten dil seçin (Özbekçe, Türkçe, Rusça)
+4. "Add Translation" butonuna tıklayın
+5. Key ve Value alanlarını doldurun
+6. Kaydedin
+
+### Mevcut Çeviriyi Düzenleme
+
+1. Çeviriler sayfasında istediğiniz key'i bulun
+2. Düzenle (✏️) butonuna tıklayın
+3. Değeri değiştirin
+4. Kaydet (💾) butonuna tıklayın
+
+### Kod İçinde Çeviri Kullanımı
+
+```typescript
+import { useTranslation } from '@/contexts/TranslationContext';
+
+function MyComponent() {
+  const { t, language, setLanguage } = useTranslation();
+  
+  return (
+    <div>
+      <h1>{t('products_title')}</h1>
+      <p>Current language: {language}</p>
+      <button onClick={() => setLanguage('uz')}>Özbekçe</button>
+    </div>
+  );
+}
+```
 
 ## 🎨 UI/UX
 
@@ -262,6 +391,16 @@ Next.js uygulamaları Node.js destekleyen herhangi bir platformda çalıştırı
 - **Ödeme Sistemi Yok:** Bu uygulama ödeme entegrasyonu içermez. Siparişler sadece kayıt edilir.
 - **İlk Admin:** `.env.local` dosyasında tanımlanan email ile kayıt olan ilk kullanıcı otomatik admin olur.
 - **Fiyat Tipleri:** Yeni müşteriler kaydolduğunda ilk fiyat tipi otomatik atanır.
+- **Çeviriler:** İlk çalıştırmada çeviri verilerini yüklemeyi unutmayın (Adım 8)
+- **Varsayılan Dil:** Uygulama varsayılan olarak Özbekçe (uz) ile açılır
+
+## 🌍 Desteklenen Diller
+
+| Dil | Kod | Emoji |
+|-----|-----|-------|
+| O'zbek (Özbekçe) | `uz` | 🇺🇿 |
+| Türkçe | `tr` | 🇹🇷 |
+| Русский (Rusça) | `ru` | 🇷🇺 |
 
 ## 🐛 Sorun Giderme
 
@@ -276,6 +415,16 @@ Next.js uygulamaları Node.js destekleyen herhangi bir platformda çalıştırı
 ### Ürünler Görünmüyor
 - Firestore'da products koleksiyonunun oluşturulduğundan emin olun
 - Admin panelinden en az bir ürün ekleyin
+
+### Çeviriler Görünmüyor
+- Firebase'de translations koleksiyonunun oluşturulduğundan emin olun
+- Admin panelinden `/admin/translations` sayfasına giderek çevirileri ekleyin
+- Veya `npm run seed-translations` komutu ile otomatik yükleyin
+
+### Dil Değişmiyor
+- Tarayıcı console'unda hata olup olmadığını kontrol edin
+- localStorage'ın etkin olduğundan emin olun
+- Sayfayı yenileyin
 
 ## 📄 Lisans
 

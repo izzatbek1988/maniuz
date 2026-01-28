@@ -3,12 +3,15 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTranslation } from '@/contexts/TranslationContext';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, User, LogOut, Package } from 'lucide-react';
 import { useCartStore } from '@/lib/cart-store';
+import LanguageSelector from '@/components/LanguageSelector';
 
 export default function Navbar() {
   const { user, customer, signOut } = useAuth();
+  const { t } = useTranslation();
   const router = useRouter();
   const cartItems = useCartStore((state) => state.items);
 
@@ -28,6 +31,7 @@ export default function Navbar() {
           </Link>
 
           <div className="flex items-center gap-4">
+            <LanguageSelector />
             {user ? (
               <>
                 <Link href="/cart">
@@ -52,7 +56,7 @@ export default function Navbar() {
                 </Link>
                 {customer?.role === 'admin' && (
                   <Link href="/admin">
-                    <Button variant="outline">Admin Panel</Button>
+                    <Button variant="outline">{t('nav_admin')}</Button>
                   </Link>
                 )}
                 <Button variant="ghost" size="icon" onClick={handleSignOut}>
@@ -62,10 +66,10 @@ export default function Navbar() {
             ) : (
               <>
                 <Link href="/login">
-                  <Button variant="outline">Giriş Yap</Button>
+                  <Button variant="outline">{t('nav_login')}</Button>
                 </Link>
                 <Link href="/register">
-                  <Button>Kayıt Ol</Button>
+                  <Button>{t('nav_register')}</Button>
                 </Link>
               </>
             )}

@@ -51,3 +51,9 @@ export interface CartItem {
   product: Product;
   quantity: number;
 }
+
+export interface Translation {
+  [key: string]: string;
+}
+
+export type Language = 'uz' | 'tr' | 'ru';

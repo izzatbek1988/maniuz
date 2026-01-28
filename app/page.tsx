@@ -5,10 +5,12 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { Product } from '@/types';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTranslation } from '@/contexts/TranslationContext';
 import { useCartStore } from '@/lib/cart-store';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { ShoppingCart, Eye } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -17,6 +19,7 @@ export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const { user, customer } = useAuth();
+  const { t } = useTranslation();
   const addItem = useCartStore((state) => state.addItem);
   const router = useRouter();
 
@@ -53,17 +56,17 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar />
       
-      <main className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8 text-center">Ürünlerimiz</h1>
+      <main className="container mx-auto px-4 py-8 flex-1">
+        <h1 className="text-4xl font-bold mb-8 text-center">{t('products_title')}</h1>
 
         {loading ? (
-          <div className="text-center py-12">Yükleniyor...</div>
+          <div className="text-center py-12">{t('loading')}</div>
         ) : products.length === 0 ? (
           <div className="text-center py-12 text-muted-foreground">
-            Henüz ürün bulunmamaktadır.
+            {t('products_empty')}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -90,11 +93,11 @@ export default function HomePage() {
                       </p>
                     ) : (
                       <p className="text-sm text-muted-foreground">
-                        Fiyat görmek için giriş yapın
+                        {t('view_price')}
                       </p>
                     )}
                     <p className="text-sm text-muted-foreground">
-                      Stok: {product.stock}
+                      {t('product_stock')}: {product.stock}
                     </p>
                   </div>
                 </CardContent>
@@ -102,7 +105,7 @@ export default function HomePage() {
                   <Link href={`/product/${product.id}`} className="flex-1">
                     <Button variant="outline" className="w-full">
                       <Eye className="mr-2 h-4 w-4" />
-                      Detaylar
+                      {t('product_view_details')}
                     </Button>
                   </Link>
                   <Button
@@ -111,7 +114,7 @@ export default function HomePage() {
                     disabled={product.stock === 0}
                   >
                     <ShoppingCart className="mr-2 h-4 w-4" />
-                    Sepete Ekle
+                    {t('product_add_to_cart')}
                   </Button>
                 </CardFooter>
               </Card>
@@ -119,6 +122,8 @@ export default function HomePage() {
           </div>
         )}
       </main>
+      
+      <Footer />
     </div>
   );
 }

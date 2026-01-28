@@ -4,13 +4,16 @@ import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTranslation } from '@/contexts/TranslationContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import { useRouter } from 'next/navigation';
 
 export default function ProfilePage() {
   const { user, customer } = useAuth();
+  const { t } = useTranslation();
   const router = useRouter();
   const [priceTypeName, setPriceTypeName] = useState('');
 
@@ -40,38 +43,40 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-gray-50">
       <Navbar />
       
-      <main className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8">Profilim</h1>
+      <main className="flex-1 container mx-auto px-4 py-8">
+        <h1 className="text-4xl font-bold mb-8">{t('profile_title')}</h1>
 
         <div className="max-w-2xl">
           <Card>
             <CardHeader>
-              <CardTitle>Kullanıcı Bilgileri</CardTitle>
+              <CardTitle>{t('profile_title')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label>Ad Soyad</Label>
+                <Label>{t('profile_name')}</Label>
                 <p className="text-lg mt-1">{customer.name}</p>
               </div>
               <div>
-                <Label>Email</Label>
+                <Label>{t('profile_email')}</Label>
                 <p className="text-lg mt-1">{customer.email}</p>
               </div>
               <div>
-                <Label>Fiyat Tipi</Label>
-                <p className="text-lg mt-1">{priceTypeName || 'Yükleniyor...'}</p>
+                <Label>{t('profile_price_type')}</Label>
+                <p className="text-lg mt-1">{priceTypeName || t('loading')}</p>
               </div>
               <div>
-                <Label>Rol</Label>
-                <p className="text-lg mt-1 capitalize">{customer.role === 'admin' ? 'Admin' : 'Müşteri'}</p>
+                <Label>{t('profile_role')}</Label>
+                <p className="text-lg mt-1 capitalize">{customer.role === 'admin' ? t('profile_role_admin') : t('profile_role_customer')}</p>
               </div>
             </CardContent>
           </Card>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 }
