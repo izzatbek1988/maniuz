@@ -232,7 +232,7 @@ export default function HomePage() {
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-20 mb-12 rounded-2xl overflow-hidden">
           {/* Background Pattern */}
-          <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]" />
+          <div className="absolute inset-0 bg-grid-pattern" />
           
           {/* Content */}
           <div className="relative container mx-auto px-4 text-center">
@@ -278,23 +278,24 @@ export default function HomePage() {
           {loading ? (
             <div className="text-center py-12">{t('loading')}</div>
           ) : products.length === 0 ? (
-          <div className="text-center py-12 text-muted-foreground">
-            {t('products_empty')}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                user={user}
-                customer={customer}
-                onAddToCart={handleAddToCart}
-                getPrice={getPrice}
-              />
-            ))}
-          </div>
-        )}
+            <div className="text-center py-12 text-muted-foreground">
+              {t('products_empty')}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {products.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  user={user}
+                  customer={customer}
+                  onAddToCart={handleAddToCart}
+                  getPrice={getPrice}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </main>
       
       <Footer />
