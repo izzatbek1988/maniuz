@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { Product, PriceType } from '@/types';
+import { useTranslation } from '@/contexts/TranslationContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -13,6 +14,7 @@ import { Plus, Edit, Trash2 } from 'lucide-react';
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [priceTypes, setPriceTypes] = useState<PriceType[]>([]);
+  const { t } = useTranslation();
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [formData, setFormData] = useState({
@@ -221,7 +223,7 @@ export default function AdminProductsPage() {
                   <div className="flex flex-wrap gap-2 mt-2">
                     {priceTypes.map((pt) => (
                       <span key={pt.id} className="text-xs bg-gray-100 px-2 py-1 rounded">
-                        {pt.name}: {product.prices[pt.id]?.toFixed(2) || '0.00'} ₺
+                        {pt.name}: {product.prices[pt.id]?.toFixed(2) || '0.00'} {t('currency_symbol')}
                       </span>
                     ))}
                   </div>

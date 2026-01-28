@@ -116,7 +116,7 @@ export default function ProductDetailPage() {
             {user && customer ? (
               <div>
                 <p className="text-4xl font-bold text-primary">
-                  {getPrice().toFixed(2)} ₺
+                  {getPrice().toFixed(2)} {t('currency_symbol')}
                 </p>
               </div>
             ) : (
