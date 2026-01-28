@@ -1,11 +1,13 @@
 'use client';
 
 import { useAuth } from '@/contexts/AuthContext';
+import { useTranslation } from '@/contexts/TranslationContext';
 import { useCartStore } from '@/lib/cart-store';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import { Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -14,6 +16,7 @@ import { db } from '@/lib/firebase';
 
 export default function CartPage() {
   const { user, customer } = useAuth();
+  const { t } = useTranslation();
   const router = useRouter();
   const { items, deliveryType, updateQuantity, removeItem, setDeliveryType, clearCart, getTotalAmount } = useCartStore();
   const [loading, setLoading] = useState(false);
@@ -49,7 +52,7 @@ export default function CartPage() {
       router.push('/orders');
     } catch (error) {
       console.error('Error creating order:', error);
-      alert('Sipariş oluşturulurken bir hata oluştu');
+      alert(t('login_error'));
     } finally {
       setLoading(false);
     }
@@ -64,28 +67,29 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 flex flex-col">
         <Navbar />
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8 flex-grow">
           <Card className="text-center py-12">
             <CardContent>
               <ShoppingBag className="mx-auto h-16 w-16 text-muted-foreground mb-4" />
-              <h2 className="text-2xl font-bold mb-2">Sepetiniz Boş</h2>
-              <p className="text-muted-foreground mb-4">Henüz ürün eklemediniz</p>
-              <Button onClick={() => router.push('/')}>Alışverişe Başla</Button>
+              <h2 className="text-2xl font-bold mb-2">{t('cart_empty')}</h2>
+              <p className="text-muted-foreground mb-4">{t('cart_empty')}</p>
+              <Button onClick={() => router.push('/')}>{t('cart_continue_shopping')}</Button>
             </CardContent>
           </Card>
         </div>
+        <Footer />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar />
       
-      <main className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8">Sepetim</h1>
+      <main className="container mx-auto px-4 py-8 flex-grow">
+        <h1 className="text-4xl font-bold mb-8">{t('cart_title')}</h1>
 
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-4">
@@ -127,6 +131,7 @@ export default function CartPage() {
                           variant="destructive"
                           className="ml-auto"
                           onClick={() => removeItem(item.product.id)}
+                          title={t('cart_remove')}
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
@@ -141,11 +146,11 @@ export default function CartPage() {
           <div className="lg:col-span-1">
             <Card>
               <CardHeader>
-                <CardTitle>Sipariş Özeti</CardTitle>
+                <CardTitle>{t('cart_title')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label>Teslimat Tipi</Label>
+                  <Label>{t('cart_delivery_type')}</Label>
                   <div className="space-y-2">
                     <label className="flex items-center space-x-2 cursor-pointer">
                       <input
@@ -155,7 +160,7 @@ export default function CartPage() {
                         onChange={() => setDeliveryType('pickup')}
                         className="w-4 h-4"
                       />
-                      <span>Mağazadan Teslim Alma</span>
+                      <span>{t('cart_pickup')}</span>
                     </label>
                     <label className="flex items-center space-x-2 cursor-pointer">
                       <input
@@ -165,14 +170,14 @@ export default function CartPage() {
                         onChange={() => setDeliveryType('delivery')}
                         className="w-4 h-4"
                       />
-                      <span>Adrese Teslimat</span>
+                      <span>{t('cart_delivery')}</span>
                     </label>
                   </div>
                 </div>
 
                 <div className="border-t pt-4">
                   <div className="flex justify-between text-lg font-bold">
-                    <span>Toplam:</span>
+                    <span>{t('cart_total')}:</span>
                     <span>{customer && getTotalAmount(customer.priceTypeId).toFixed(2)} ₺</span>
                   </div>
                 </div>
@@ -184,13 +189,14 @@ export default function CartPage() {
                   onClick={handleCheckout}
                   disabled={loading}
                 >
-                  {loading ? 'Sipariş Oluşturuluyor...' : 'Siparişi Tamamla'}
+                  {loading ? t('loading') : t('cart_complete_order')}
                 </Button>
               </CardFooter>
             </Card>
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
