@@ -190,6 +190,19 @@ const uzbekTranslations = {
   
   // Currency
   "currency_symbol": "so'm",
+  "currency_name": "So'm",
+  
+  // Hero Section
+  "hero_title": "Maniuz - Sifatli ichimliklar",
+  "hero_subtitle": "Eng yaxshi narxlarda yuqori sifatli ichimliklar. Ulgurji va chakana savdo.",
+  "hero_cta_products": "Mahsulotlarni ko'rish",
+  "hero_cta_partnership": "Hamkor bo'lish",
+  
+  // Admin Additional
+  "admin_panel": "Boshqaruv paneli",
+  "admin_items_per_box": "Bir kolidagi mahsulotlar",
+  "admin_items_per_box_hint": "Bir qutida nechta dona mahsulot bor",
+  "low_stock": "Kam qoldi",
 };
 
 // Turkish translations
@@ -363,7 +376,20 @@ const turkishTranslations = {
   "view_price": "Fiyat görmek için giriş yapın",
   
   // Currency
-  "currency_symbol": "₺",
+  "currency_symbol": "so'm",
+  "currency_name": "So'm",
+  
+  // Hero Section
+  "hero_title": "Maniuz - Kaliteli İçecekler",
+  "hero_subtitle": "En iyi fiyatlarla yüksek kaliteli içecekler. Toptan ve perakende satış.",
+  "hero_cta_products": "Ürünleri Görüntüle",
+  "hero_cta_partnership": "Ortak Ol",
+  
+  // Admin Additional
+  "admin_panel": "Yönetim Paneli",
+  "admin_items_per_box": "Bir kolideki ürün sayısı",
+  "admin_items_per_box_hint": "Bir kolide kaç adet ürün var",
+  "low_stock": "Az kaldı",
 };
 
 // Russian translations
@@ -538,6 +564,19 @@ const russianTranslations = {
   
   // Currency
   "currency_symbol": "сум",
+  "currency_name": "Сум",
+  
+  // Hero Section
+  "hero_title": "Maniuz - Качественные напитки",
+  "hero_subtitle": "Высококачественные напитки по лучшим ценам. Оптовая и розничная торговля.",
+  "hero_cta_products": "Посмотреть товары",
+  "hero_cta_partnership": "Стать партнером",
+  
+  // Admin Additional
+  "admin_panel": "Панель управления",
+  "admin_items_per_box": "Товаров в коробке",
+  "admin_items_per_box_hint": "Сколько единиц товара в одной коробке",
+  "low_stock": "Мало осталось",
 };
 
 async function seedTranslations() {

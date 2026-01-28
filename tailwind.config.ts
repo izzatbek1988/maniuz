@@ -25,6 +25,11 @@ const config: Config = {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          50: '#eff6ff',
+          100: '#dbeafe',
+          500: '#3b82f6',
+          600: '#2563eb',
+          700: '#1d4ed8',
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -50,11 +55,21 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        gradient: {
+          from: '#667eea',
+          via: '#764ba2',
+          to: '#f093fb',
+        }
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        'modern': '0 10px 40px -10px rgba(0, 0, 0, 0.1)',
+        'modern-lg': '0 20px 60px -15px rgba(0, 0, 0, 0.15)',
+        'glow': '0 0 20px rgba(59, 130, 246, 0.3)',
       },
     },
   },

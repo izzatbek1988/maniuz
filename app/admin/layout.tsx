@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Home, Package, Users, ShoppingBag, DollarSign, LogOut, Languages, Handshake } from 'lucide-react';
+import LanguageSelector from '@/components/LanguageSelector';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const { customer, signOut, loading } = useAuth();
@@ -34,9 +35,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Admin Header */}
+      <header className="bg-white border-b sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-primary">{t('admin_panel')}</h1>
+          <LanguageSelector />
+        </div>
+      </header>
+
       <div className="flex">
         {/* Sidebar */}
-        <aside className="w-64 bg-white border-r min-h-screen">
+        <aside className="w-64 bg-white border-r min-h-[calc(100vh-73px)]">
           <div className="p-6">
             <h1 className="text-2xl font-bold text-primary">Maniuz Admin</h1>
           </div>
