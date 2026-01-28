@@ -11,16 +11,17 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import Link from 'next/link';
 import { ShoppingCart, Eye, Plus, Minus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { Customer } from '@/types';
 
 // Memoized ProductCard component for better performance
 const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
   product: Product;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   user: any;
-  customer: any;
+  customer: Customer | null;
   onAddToCart: (product: Product, quantity: number) => void;
   getPrice: (product: Product) => number;
 }) => {

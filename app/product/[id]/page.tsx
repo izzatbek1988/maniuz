@@ -16,6 +16,7 @@ import Footer from '@/components/Footer';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { ShoppingCart, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -53,6 +54,18 @@ export default function ProductDetailPage() {
     }
     if (product) {
       addItem(product, quantity);
+      
+      const itemsPerBox = product.itemsPerBox || 1;
+      const totalItems = quantity * itemsPerBox;
+      
+      toast.success(
+        `${quantity} ${t('product_boxes')} (${totalItems} ${t('product_pieces')}) ${t('cart_added')}!`,
+        {
+          duration: 3000,
+          icon: '🛒',
+        }
+      );
+      
       router.push('/cart');
     }
   };
@@ -127,7 +140,16 @@ export default function ProductDetailPage() {
 
             <div>
               <p className={`text-lg ${product.stock > 0 ? 'text-green-600' : 'text-red-600'}`}>
-                {product.stock > 0 ? `${t('product_stock')} (${product.stock} ${t('product_pieces')})` : t('product_out_of_stock')}
+                {product.stock > 0 ? (
+                  <>
+                    {t('product_stock')}: <span className="font-semibold">{product.stock} {t('product_boxes')}</span>
+                    {product.itemsPerBox && (
+                      <span className="text-muted-foreground text-base">
+                        {' '}({product.stock * product.itemsPerBox} {t('product_pieces')})
+                      </span>
+                    )}
+                  </>
+                ) : t('product_out_of_stock')}
               </p>
             </div>
 
@@ -137,7 +159,7 @@ export default function ProductDetailPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="quantity">{t('product_quantity')}</Label>
+                  <Label htmlFor="quantity">{t('product_quantity')} ({t('product_boxes')})</Label>
                   <Input
                     id="quantity"
                     type="number"
@@ -146,6 +168,11 @@ export default function ProductDetailPage() {
                     value={quantity}
                     onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
                   />
+                  {product.itemsPerBox && quantity > 0 && (
+                    <p className="text-sm text-muted-foreground">
+                      {t('cart_total')}: {quantity * product.itemsPerBox} {t('product_pieces')}
+                    </p>
+                  )}
                 </div>
                 <Button
                   className="w-full"

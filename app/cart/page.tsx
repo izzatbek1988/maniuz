@@ -109,6 +109,14 @@ export default function CartPage() {
                       <p className="text-primary font-bold">
                         {getPrice(item.product.id).toFixed(2)} ₺
                       </p>
+                      <p className="text-sm text-muted-foreground">
+                        {item.quantity} {t('product_boxes')} × {getPrice(item.product.id).toFixed(2)} ₺
+                      </p>
+                      {item.product.itemsPerBox && (
+                        <p className="text-xs text-muted-foreground">
+                          ({t('cart_total')}: {item.quantity * item.product.itemsPerBox} {t('product_pieces')})
+                        </p>
+                      )}
                       <div className="flex items-center gap-2 mt-2">
                         <Button
                           size="icon"
@@ -117,7 +125,7 @@ export default function CartPage() {
                         >
                           <Minus className="h-4 w-4" />
                         </Button>
-                        <span className="w-12 text-center">{item.quantity}</span>
+                        <span className="w-12 text-center font-semibold">{item.quantity}</span>
                         <Button
                           size="icon"
                           variant="outline"
