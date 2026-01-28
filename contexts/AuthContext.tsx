@@ -8,7 +8,7 @@ import {
   signOut as firebaseSignOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, getDoc, setDoc, serverTimestamp, getDocs, collection } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
 import { Customer } from '@/types';
 
@@ -92,7 +92,14 @@ export function useAuth() {
 }
 
 async function getDefaultPriceTypeId(): Promise<string> {
-  // This will be implemented to fetch the first price type
-  // For now, return a default value
+  try {
+    const priceTypesSnapshot = await getDocs(collection(db, 'priceTypes'));
+    if (!priceTypesSnapshot.empty) {
+      return priceTypesSnapshot.docs[0].id;
+    }
+  } catch (error) {
+    console.error('Error fetching default price type:', error);
+  }
+  // Return a placeholder if no price types exist yet
   return 'default-price-type';
 }
