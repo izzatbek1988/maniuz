@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { collection, getDocs, updateDoc, doc, orderBy, query } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { Order } from '@/types';
+import { useTranslation } from '@/contexts/TranslationContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -26,6 +27,7 @@ export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [editingOrder, setEditingOrder] = useState<string | null>(null);
   const [selectedStatus, setSelectedStatus] = useState('');
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchOrders();
@@ -136,12 +138,12 @@ export default function AdminOrdersPage() {
                 {order.items.map((item, index) => (
                   <div key={index} className="flex justify-between">
                     <span>{item.productName} x {item.quantity}</span>
-                    <span className="font-medium">{(item.price * item.quantity).toFixed(2)} ₺</span>
+                    <span className="font-medium">{(item.price * item.quantity).toFixed(2)} {t('currency_symbol')}</span>
                   </div>
                 ))}
                 <div className="border-t pt-2 mt-2 flex justify-between font-bold text-lg">
                   <span>Toplam:</span>
-                  <span>{order.totalAmount.toFixed(2)} ₺</span>
+                  <span>{order.totalAmount.toFixed(2)} {t('currency_symbol')}</span>
                 </div>
               </div>
             </CardContent>

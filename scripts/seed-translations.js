@@ -187,6 +187,9 @@ const uzbekTranslations = {
   "sort": "Saralash",
   "all": "Hammasi",
   "view_price": "Narxni ko'rish uchun kiring",
+  
+  // Currency
+  "currency_symbol": "so'm",
 };
 
 // Turkish translations
@@ -358,6 +361,9 @@ const turkishTranslations = {
   "sort": "Sırala",
   "all": "Tümü",
   "view_price": "Fiyat görmek için giriş yapın",
+  
+  // Currency
+  "currency_symbol": "₺",
 };
 
 // Russian translations
@@ -529,6 +535,9 @@ const russianTranslations = {
   "sort": "Сортировка",
   "all": "Все",
   "view_price": "Войдите, чтобы увидеть цену",
+  
+  // Currency
+  "currency_symbol": "сум",
 };
 
 async function seedTranslations() {

@@ -107,7 +107,7 @@ export default function CartPage() {
                     <div className="flex-grow">
                       <h3 className="font-semibold text-lg">{item.product.name}</h3>
                       <p className="text-primary font-bold">
-                        {getPrice(item.product.id).toFixed(2)} ₺
+                        {getPrice(item.product.id).toFixed(2)} {t('currency_symbol')}
                       </p>
                       <p className="text-sm text-muted-foreground">
                         {item.quantity} {t('product_boxes')} × {getPrice(item.product.id).toFixed(2)} ₺
@@ -186,7 +186,7 @@ export default function CartPage() {
                 <div className="border-t pt-4">
                   <div className="flex justify-between text-lg font-bold">
                     <span>{t('cart_total')}:</span>
-                    <span>{customer && getTotalAmount(customer.priceTypeId).toFixed(2)} ₺</span>
+                    <span>{customer && getTotalAmount(customer.priceTypeId).toFixed(2)} {t('currency_symbol')}</span>
                   </div>
                 </div>
               </CardContent>
