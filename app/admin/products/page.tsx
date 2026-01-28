@@ -20,6 +20,7 @@ export default function AdminProductsPage() {
     description: '',
     imageUrl: '',
     stock: 0,
+    itemsPerBox: 1,
   });
   const [prices, setPrices] = useState<{ [key: string]: number }>({});
 
@@ -77,6 +78,7 @@ export default function AdminProductsPage() {
       description: product.description,
       imageUrl: product.imageUrl,
       stock: product.stock,
+      itemsPerBox: product.itemsPerBox || 1,
     });
     setPrices(product.prices);
     setShowForm(true);
@@ -95,7 +97,7 @@ export default function AdminProductsPage() {
   };
 
   const resetForm = () => {
-    setFormData({ name: '', description: '', imageUrl: '', stock: 0 });
+    setFormData({ name: '', description: '', imageUrl: '', stock: 0, itemsPerBox: 1 });
     setPrices({});
   };
 
@@ -135,16 +137,37 @@ export default function AdminProductsPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="stock">Stok *</Label>
+                  <Label htmlFor="itemsPerBox">1 Kolide Kaç Adet? *</Label>
                   <Input
-                    id="stock"
+                    id="itemsPerBox"
                     type="number"
-                    min="0"
-                    value={formData.stock}
-                    onChange={(e) => setFormData({ ...formData, stock: parseInt(e.target.value) || 0 })}
+                    min="1"
+                    value={formData.itemsPerBox}
+                    onChange={(e) => setFormData({ ...formData, itemsPerBox: parseInt(e.target.value) || 1 })}
+                    placeholder="Örnek: 24"
                     required
                   />
+                  <p className="text-xs text-muted-foreground">
+                    Örnek: Coca Cola 330ml için 24 adet = 1 koli
+                  </p>
                 </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="stock">Stok (Koli) *</Label>
+                <Input
+                  id="stock"
+                  type="number"
+                  min="0"
+                  value={formData.stock}
+                  onChange={(e) => setFormData({ ...formData, stock: parseInt(e.target.value) || 0 })}
+                  required
+                />
+                {formData.itemsPerBox && formData.stock > 0 && (
+                  <p className="text-xs text-muted-foreground">
+                    Toplam: <span className="font-semibold">{formData.stock * formData.itemsPerBox} adet</span>
+                  </p>
+                )}
               </div>
               
               <div className="space-y-2">
@@ -217,7 +240,12 @@ export default function AdminProductsPage() {
                 <div className="flex-grow">
                   <h3 className="font-semibold text-lg">{product.name}</h3>
                   <p className="text-sm text-muted-foreground">{product.description}</p>
-                  <p className="text-sm mt-2">Stok: {product.stock}</p>
+                  <p className="text-sm mt-2">
+                    Stok: <span className="font-semibold">{product.stock} koli</span>
+                    {product.itemsPerBox && (
+                      <span className="text-muted-foreground"> ({product.stock * product.itemsPerBox} adet)</span>
+                    )}
+                  </p>
                   <div className="flex flex-wrap gap-2 mt-2">
                     {priceTypes.map((pt) => (
                       <span key={pt.id} className="text-xs bg-gray-100 px-2 py-1 rounded">

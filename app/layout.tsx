@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { TranslationProvider } from "@/contexts/TranslationContext";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Maniuz E-Ticaret - Soğuk İçecekler ve Enerji İçecekleri",
@@ -19,6 +20,7 @@ export default function RootLayout({
         <AuthProvider>
           <TranslationProvider>
             {children}
+            <Toaster position="top-right" />
           </TranslationProvider>
         </AuthProvider>
       </body>

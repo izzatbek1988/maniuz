@@ -92,6 +92,8 @@ const uzbekTranslations = {
   "product_not_found": "Mahsulot topilmadi",
   "product_pieces": "dona",
   "product_out_of_stock": "Stokda yo'q",
+  "product_boxes": "koli",
+  "cart_added": "Savatga qo'shildi",
   
   // Order
   "order_delivery_pickup": "O'zim olib ketaman",
@@ -118,6 +120,13 @@ const uzbekTranslations = {
   "admin_total_orders": "Jami buyurtmalar",
   "admin_seed_data": "Ma'lumot qo'shish",
   "admin_home": "Bosh sahifa",
+  "admin_partnerships": "Hamkorlik arizalari",
+  "admin_view_details": "Batafsil",
+  "admin_actions": "Amallar",
+  "admin_delete_confirm": "O'chirishni tasdiqlaysizmi?",
+  "admin_notes": "Admin izohi",
+  "admin_notes_placeholder": "Bu ariza haqida izoh yozing...",
+  "admin_notes_saved": "Izoh saqlandi",
   
   // Footer
   "footer_about": "Biz haqimizda",
@@ -145,6 +154,17 @@ const uzbekTranslations = {
   "partnership_message": "Xabar",
   "partnership_submit": "Yuborish",
   "partnership_success": "Arizangiz muvaffaqiyatli yuborildi!",
+  "partnership_name": "Ism",
+  "partnership_email": "Email",
+  "partnership_phone": "Telefon",
+  "partnership_date": "Sana",
+  "partnership_status": "Holati",
+  "partnership_status_pending": "Kutilmoqda",
+  "partnership_status_contacted": "Bog'lanildi",
+  "partnership_status_approved": "Tasdiqlandi",
+  "partnership_status_rejected": "Rad etildi",
+  "partnership_no_applications": "Hozircha ariza yo'q",
+  "partnership_application_details": "Ariza tafsilotlari",
   
   "contact_title": "Biz bilan bog'laning",
   "contact_phone": "Telefon",
@@ -243,6 +263,8 @@ const turkishTranslations = {
   "product_not_found": "Ürün bulunamadı",
   "product_pieces": "adet",
   "product_out_of_stock": "Stokta yok",
+  "product_boxes": "koli",
+  "cart_added": "Sepete eklendi",
   
   // Order
   "order_delivery_pickup": "Kendim alacağım",
@@ -269,6 +291,13 @@ const turkishTranslations = {
   "admin_total_orders": "Toplam Sipariş",
   "admin_seed_data": "Veri Ekle",
   "admin_home": "Ana Sayfa",
+  "admin_partnerships": "İş Ortaklığı Başvuruları",
+  "admin_view_details": "Detaylar",
+  "admin_actions": "İşlemler",
+  "admin_delete_confirm": "Silmek istediğinizden emin misiniz?",
+  "admin_notes": "Admin Notu",
+  "admin_notes_placeholder": "Bu başvuru hakkında not yazın...",
+  "admin_notes_saved": "Not kaydedildi",
   
   // Footer
   "footer_about": "Hakkımızda",
@@ -296,6 +325,17 @@ const turkishTranslations = {
   "partnership_message": "Mesaj",
   "partnership_submit": "Gönder",
   "partnership_success": "Başvurunuz başarıyla gönderildi!",
+  "partnership_name": "Ad",
+  "partnership_email": "E-posta",
+  "partnership_phone": "Telefon",
+  "partnership_date": "Tarih",
+  "partnership_status": "Durum",
+  "partnership_status_pending": "Beklemede",
+  "partnership_status_contacted": "Görüşüldü",
+  "partnership_status_approved": "Onaylandı",
+  "partnership_status_rejected": "Reddedildi",
+  "partnership_no_applications": "Henüz başvuru yok",
+  "partnership_application_details": "Başvuru Detayları",
   
   "contact_title": "Bize Ulaşın",
   "contact_phone": "Telefon",
@@ -394,6 +434,8 @@ const russianTranslations = {
   "product_not_found": "Товар не найден",
   "product_pieces": "шт",
   "product_out_of_stock": "Нет в наличии",
+  "product_boxes": "коробка",
+  "cart_added": "Добавлено в корзину",
   
   // Order
   "order_delivery_pickup": "Самовывоз",
@@ -420,6 +462,13 @@ const russianTranslations = {
   "admin_total_orders": "Всего заказов",
   "admin_seed_data": "Добавить данные",
   "admin_home": "Главная",
+  "admin_partnerships": "Заявки на партнёрство",
+  "admin_view_details": "Подробнее",
+  "admin_actions": "Действия",
+  "admin_delete_confirm": "Вы уверены, что хотите удалить?",
+  "admin_notes": "Заметка администратора",
+  "admin_notes_placeholder": "Напишите заметку об этой заявке...",
+  "admin_notes_saved": "Заметка сохранена",
   
   // Footer
   "footer_about": "О нас",
@@ -447,6 +496,17 @@ const russianTranslations = {
   "partnership_message": "Сообщение",
   "partnership_submit": "Отправить",
   "partnership_success": "Ваша заявка успешно отправлена!",
+  "partnership_name": "Имя",
+  "partnership_email": "Email",
+  "partnership_phone": "Телефон",
+  "partnership_date": "Дата",
+  "partnership_status": "Статус",
+  "partnership_status_pending": "Ожидает",
+  "partnership_status_contacted": "Связались",
+  "partnership_status_approved": "Одобрено",
+  "partnership_status_rejected": "Отклонено",
+  "partnership_no_applications": "Пока нет заявок",
+  "partnership_application_details": "Детали заявки",
   
   "contact_title": "Свяжитесь с нами",
   "contact_phone": "Телефон",
