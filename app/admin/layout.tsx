@@ -2,13 +2,15 @@
 
 import { useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTranslation } from '@/contexts/TranslationContext';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Home, Package, Users, ShoppingBag, DollarSign, LogOut } from 'lucide-react';
+import { Home, Package, Users, ShoppingBag, DollarSign, LogOut, Languages } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const { customer, signOut, loading } = useAuth();
+  const { t } = useTranslation();
   const router = useRouter();
 
   useEffect(() => {
@@ -23,7 +25,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   };
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center">Yükleniyor...</div>;
+    return <div className="min-h-screen flex items-center justify-center">{t('loading')}</div>;
   }
 
   if (!customer || customer.role !== 'admin') {
@@ -42,48 +44,54 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <Link href="/">
               <Button variant="ghost" className="w-full justify-start">
                 <Home className="mr-2 h-4 w-4" />
-                Ana Sayfa
+                {t('admin_home')}
               </Button>
             </Link>
             <Link href="/admin">
               <Button variant="ghost" className="w-full justify-start">
                 <Package className="mr-2 h-4 w-4" />
-                Dashboard
+                {t('admin_dashboard')}
               </Button>
             </Link>
             <Link href="/admin/products">
               <Button variant="ghost" className="w-full justify-start">
                 <Package className="mr-2 h-4 w-4" />
-                Ürünler
+                {t('admin_products')}
               </Button>
             </Link>
             <Link href="/admin/customers">
               <Button variant="ghost" className="w-full justify-start">
                 <Users className="mr-2 h-4 w-4" />
-                Müşteriler
+                {t('admin_customers')}
               </Button>
             </Link>
             <Link href="/admin/orders">
               <Button variant="ghost" className="w-full justify-start">
                 <ShoppingBag className="mr-2 h-4 w-4" />
-                Siparişler
+                {t('admin_orders')}
               </Button>
             </Link>
             <Link href="/admin/price-types">
               <Button variant="ghost" className="w-full justify-start">
                 <DollarSign className="mr-2 h-4 w-4" />
-                Fiyat Tipleri
+                {t('admin_price_types')}
+              </Button>
+            </Link>
+            <Link href="/admin/translations">
+              <Button variant="ghost" className="w-full justify-start">
+                <Languages className="mr-2 h-4 w-4" />
+                {t('admin_translations')}
               </Button>
             </Link>
             <Link href="/admin/seed">
               <Button variant="ghost" className="w-full justify-start">
                 <Package className="mr-2 h-4 w-4" />
-                Veri Ekle
+                {t('admin_seed_data')}
               </Button>
             </Link>
             <Button variant="ghost" className="w-full justify-start" onClick={handleSignOut}>
               <LogOut className="mr-2 h-4 w-4" />
-              Çıkış Yap
+              {t('nav_logout')}
             </Button>
           </nav>
         </aside>
