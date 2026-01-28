@@ -51,7 +51,8 @@ async function seed() {
         name: 'Coca-Cola 330ml',
         description: 'Klasik Coca-Cola kutu içecek',
         imageUrl: 'https://images.unsplash.com/photo-1554866585-cd94860890b7?w=400',
-        stock: 100,
+        stock: 100, // 100 boxes
+        itemsPerBox: 24, // 24 cans per box
         prices: {
           [priceTypeRefs[0].id]: 8.50,  // Perakende
           [priceTypeRefs[1].id]: 7.00,  // Toptan
@@ -64,7 +65,8 @@ async function seed() {
         name: 'Red Bull Energy Drink 250ml',
         description: 'Red Bull enerji içeceği',
         imageUrl: 'https://images.unsplash.com/photo-1622543925917-763c34c1a86e?w=400',
-        stock: 50,
+        stock: 50, // 50 boxes
+        itemsPerBox: 24, // 24 cans per box
         prices: {
           [priceTypeRefs[0].id]: 25.00,
           [priceTypeRefs[1].id]: 22.00,
@@ -77,7 +79,8 @@ async function seed() {
         name: 'Monster Energy 500ml',
         description: 'Monster enerji içeceği',
         imageUrl: 'https://images.unsplash.com/photo-1592838064575-70ed626d3a0e?w=400',
-        stock: 75,
+        stock: 75, // 75 boxes
+        itemsPerBox: 12, // 12 cans per box (larger cans)
         prices: {
           [priceTypeRefs[0].id]: 30.00,
           [priceTypeRefs[1].id]: 26.00,
@@ -90,7 +93,8 @@ async function seed() {
         name: 'Fanta Portakal 330ml',
         description: 'Portakal aromalı gazlı içecek',
         imageUrl: 'https://images.unsplash.com/photo-1624517452488-04869289c4ca?w=400',
-        stock: 120,
+        stock: 120, // 120 boxes
+        itemsPerBox: 24, // 24 cans per box
         prices: {
           [priceTypeRefs[0].id]: 8.00,
           [priceTypeRefs[1].id]: 6.50,
@@ -103,7 +107,8 @@ async function seed() {
         name: 'Sprite 330ml',
         description: 'Limon aromalı gazlı içecek',
         imageUrl: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=400',
-        stock: 100,
+        stock: 100, // 100 boxes
+        itemsPerBox: 24, // 24 cans per box
         prices: {
           [priceTypeRefs[0].id]: 8.00,
           [priceTypeRefs[1].id]: 6.50,
@@ -116,7 +121,8 @@ async function seed() {
         name: 'Ice Tea Şeftali 330ml',
         description: 'Şeftali aromalı soğuk çay',
         imageUrl: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400',
-        stock: 80,
+        stock: 80, // 80 boxes
+        itemsPerBox: 24, // 24 cans per box
         prices: {
           [priceTypeRefs[0].id]: 10.00,
           [priceTypeRefs[1].id]: 8.50,
