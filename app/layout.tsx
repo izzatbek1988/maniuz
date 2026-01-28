@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { TranslationProvider } from "@/contexts/TranslationContext";
 
 export const metadata: Metadata = {
   title: "Maniuz E-Ticaret - Soğuk İçecekler ve Enerji İçecekleri",
@@ -16,7 +17,9 @@ export default function RootLayout({
     <html lang="tr">
       <body className="antialiased">
         <AuthProvider>
-          {children}
+          <TranslationProvider>
+            {children}
+          </TranslationProvider>
         </AuthProvider>
       </body>
     </html>
