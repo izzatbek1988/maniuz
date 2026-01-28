@@ -46,10 +46,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <div className="flex">
         {/* Sidebar */}
         <aside className="w-64 bg-white border-r min-h-[calc(100vh-73px)]">
-          <div className="p-6">
-            <h1 className="text-2xl font-bold text-primary">Maniuz Admin</h1>
-          </div>
-          <nav className="px-4 space-y-2">
+          <nav className="px-4 py-6 space-y-2">
             <Link href="/">
               <Button variant="ghost" className="w-full justify-start">
                 <Home className="mr-2 h-4 w-4" />

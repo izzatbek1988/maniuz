@@ -16,6 +16,9 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { Customer } from '@/types';
 
+// Constants
+const LOW_STOCK_THRESHOLD = 10;
+
 // Memoized ProductCard component for better performance
 const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
   product: Product;
@@ -68,20 +71,20 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
 
   return (
     <Card 
-      className="flex flex-col cursor-pointer group hover:shadow-modern-lg transition-all duration-500 hover:-translate-y-2 relative overflow-hidden border-0 shadow-modern"
+      className="flex flex-col cursor-pointer group hover:shadow-modern-lg transition-all duration-300 hover:-translate-y-2 relative overflow-hidden border-0 shadow-modern"
       onClick={handleCardClick}
     >
       {/* Gradient overlay on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-indigo-500/0 group-hover:from-blue-500/5 group-hover:to-indigo-500/5 transition-all duration-500 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-indigo-500/0 group-hover:from-blue-500/5 group-hover:to-indigo-500/5 transition-all duration-300 pointer-events-none" />
       
       <CardHeader className="relative">
         <div className="aspect-square relative mb-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl overflow-hidden">
           <img
             src={product.imageUrl || '/placeholder.png'}
             alt={product.name}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           />
-          {product.stock < 10 && (
+          {product.stock < LOW_STOCK_THRESHOLD && (
             <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-semibold">
               {t('low_stock')}
             </div>
@@ -240,7 +243,17 @@ export default function HomePage() {
               {t('hero_subtitle')}
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
-              <Button size="lg" variant="secondary" className="text-lg px-8">
+              <Button 
+                size="lg" 
+                variant="secondary" 
+                className="text-lg px-8"
+                onClick={() => {
+                  const productsSection = document.getElementById('products-section');
+                  if (productsSection) {
+                    productsSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
                 {t('hero_cta_products')}
               </Button>
               <Button 
@@ -255,15 +268,16 @@ export default function HomePage() {
           </div>
 
           {/* Decorative Elements */}
-          <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl" />
-          <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-xl" />
+          <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl" aria-hidden="true" />
+          <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-xl" aria-hidden="true" />
         </section>
 
-        <h2 className="text-3xl font-bold mb-8">{t('products_title')}</h2>
+        <div id="products-section">
+          <h2 className="text-3xl font-bold mb-8">{t('products_title')}</h2>
 
-        {loading ? (
-          <div className="text-center py-12">{t('loading')}</div>
-        ) : products.length === 0 ? (
+          {loading ? (
+            <div className="text-center py-12">{t('loading')}</div>
+          ) : products.length === 0 ? (
           <div className="text-center py-12 text-muted-foreground">
             {t('products_empty')}
           </div>

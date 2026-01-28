@@ -31,7 +31,7 @@ async function addItemsPerBox() {
     snapshot.forEach((doc) => {
       const product = doc.data();
       
-      // Eğer itemsPerBox yoksa, default olarak 24 ekle
+      // If itemsPerBox doesn't exist, add default value of 24
       if (!product.itemsPerBox) {
         batch.update(doc.ref, { itemsPerBox: 24 });
         count++;
@@ -41,14 +41,14 @@ async function addItemsPerBox() {
     
     if (count > 0) {
       await batch.commit();
-      console.log(`\n✅ ${count} ürüne itemsPerBox eklendi!`);
+      console.log(`\n✅ Successfully added itemsPerBox to ${count} product(s)!`);
     } else {
-      console.log('\n✅ Tüm ürünlerde itemsPerBox zaten mevcut.');
+      console.log('\n✅ All products already have itemsPerBox field.');
     }
     
     process.exit(0);
   } catch (error) {
-    console.error('Hata:', error);
+    console.error('Error:', error);
     process.exit(1);
   }
 }
