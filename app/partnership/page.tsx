@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 export default function PartnershipPage() {
@@ -30,10 +30,11 @@ export default function PartnershipPage() {
     setLoading(true);
 
     try {
-      await addDoc(collection(db, 'partnershipApplications'), {
+      await addDoc(collection(db, 'partnerships'), {
         ...formData,
-        createdAt: serverTimestamp(),
         status: 'pending',
+        createdAt: Timestamp.now(),
+        notes: ''
       });
 
       setSubmitted(true);

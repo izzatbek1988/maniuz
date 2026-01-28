@@ -5,7 +5,8 @@ export interface Product {
   name: string;
   description: string;
   imageUrl: string;
-  stock: number;
+  stock: number; // Now represents box count (koli)
+  itemsPerBox: number; // NEW: Number of items per box (e.g., 24)
   prices: {
     [priceTypeId: string]: number;
   };
@@ -57,3 +58,16 @@ export interface Translation {
 }
 
 export type Language = 'uz' | 'tr' | 'ru';
+
+export interface PartnershipApplication {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  status: 'pending' | 'contacted' | 'approved' | 'rejected';
+  createdAt: Timestamp;
+  notes?: string;
+}
+
+export type PartnershipStatus = PartnershipApplication['status'];

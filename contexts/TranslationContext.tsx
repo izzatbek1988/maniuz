@@ -12,10 +12,58 @@ interface TranslationContextType {
   loading: boolean;
 }
 
+interface CachedTranslations {
+  data: Record<string, string>;
+  timestamp: number;
+  language: string;
+}
+
 const TranslationContext = createContext<TranslationContextType | undefined>(undefined);
 
 const STORAGE_KEY = 'maniuz_language';
+const CACHE_KEY = 'maniuz_translations';
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 const DEFAULT_LANGUAGE: Language = 'uz';
+
+// Cache helper functions
+const getCachedTranslations = (language: string): Record<string, string> | null => {
+  try {
+    if (typeof window === 'undefined') return null;
+    
+    const cached = localStorage.getItem(`${CACHE_KEY}_${language}`);
+    if (!cached) return null;
+    
+    const parsed: CachedTranslations = JSON.parse(cached);
+    const now = Date.now();
+    
+    // Check if cache is still valid
+    if (now - parsed.timestamp < CACHE_DURATION && parsed.language === language) {
+      console.log('✅ Translations loaded from cache');
+      return parsed.data;
+    }
+    
+    return null;
+  } catch (error) {
+    console.error('Cache read error:', error);
+    return null;
+  }
+};
+
+const setCachedTranslations = (language: string, data: Record<string, string>) => {
+  try {
+    if (typeof window === 'undefined') return;
+    
+    const cache: CachedTranslations = {
+      data,
+      timestamp: Date.now(),
+      language
+    };
+    localStorage.setItem(`${CACHE_KEY}_${language}`, JSON.stringify(cache));
+    console.log('✅ Translations cached');
+  } catch (error) {
+    console.error('Cache write error:', error);
+  }
+};
 
 export function TranslationProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>(DEFAULT_LANGUAGE);
@@ -33,17 +81,28 @@ export function TranslationProvider({ children }: { children: React.ReactNode })
   }, []);
 
   useEffect(() => {
-    fetchTranslations(language);
+    loadTranslations(language);
   }, [language]);
 
-  const fetchTranslations = async (lang: Language) => {
+  const loadTranslations = async (lang: Language) => {
+    // 1. First, check cache
+    const cached = getCachedTranslations(lang);
+    if (cached) {
+      setTranslations(cached);
+      setLoading(false);
+      return;
+    }
+    
+    // 2. If no cache, fetch from Firebase
     try {
       setLoading(true);
       const docRef = doc(db, 'translations', lang);
       const docSnap = await getDoc(docRef);
       
       if (docSnap.exists()) {
-        setTranslations(docSnap.data() as Translation);
+        const data = docSnap.data() as Translation;
+        setTranslations(data);
+        setCachedTranslations(lang, data); // Save to cache
       } else {
         console.warn(`No translations found for language: ${lang}`);
         setTranslations({});
