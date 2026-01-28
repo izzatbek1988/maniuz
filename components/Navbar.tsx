@@ -1,0 +1,77 @@
+'use client';
+
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
+import { Button } from '@/components/ui/button';
+import { ShoppingCart, User, LogOut, Package } from 'lucide-react';
+import { useCartStore } from '@/lib/cart-store';
+
+export default function Navbar() {
+  const { user, customer, signOut } = useAuth();
+  const router = useRouter();
+  const cartItems = useCartStore((state) => state.items);
+
+  const handleSignOut = async () => {
+    await signOut();
+    router.push('/login');
+  };
+
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+  return (
+    <nav className="bg-white border-b">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          <Link href="/" className="text-2xl font-bold text-primary">
+            Maniuz
+          </Link>
+
+          <div className="flex items-center gap-4">
+            {user ? (
+              <>
+                <Link href="/cart">
+                  <Button variant="ghost" size="icon" className="relative">
+                    <ShoppingCart className="h-5 w-5" />
+                    {cartCount > 0 && (
+                      <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                        {cartCount}
+                      </span>
+                    )}
+                  </Button>
+                </Link>
+                <Link href="/orders">
+                  <Button variant="ghost" size="icon">
+                    <Package className="h-5 w-5" />
+                  </Button>
+                </Link>
+                <Link href="/profile">
+                  <Button variant="ghost" size="icon">
+                    <User className="h-5 w-5" />
+                  </Button>
+                </Link>
+                {customer?.role === 'admin' && (
+                  <Link href="/admin">
+                    <Button variant="outline">Admin Panel</Button>
+                  </Link>
+                )}
+                <Button variant="ghost" size="icon" onClick={handleSignOut}>
+                  <LogOut className="h-5 w-5" />
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button variant="outline">Giriş Yap</Button>
+                </Link>
+                <Link href="/register">
+                  <Button>Kayıt Ol</Button>
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+}
