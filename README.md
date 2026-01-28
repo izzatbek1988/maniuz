@@ -111,13 +111,24 @@ Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresini açın.
 
 ## 📊 İlk Veri Girişi
 
-### Fiyat Tiplerini Oluşturun
+### Otomatik Veri Ekleme (Önerilen)
+
+1. Admin paneline giriş yapın (`/admin`)
+2. Sol menüden "Veri Ekle" seçeneğine tıklayın
+3. "Örnek Verileri Ekle" butonuna tıklayın
+4. Sistem otomatik olarak:
+   - 3 fiyat tipi (Perakende, Toptan, VIP)
+   - 6 örnek ürün (içecekler) ekleyecektir
+
+### Manuel Veri Ekleme
+
+#### Fiyat Tiplerini Oluşturun
 
 1. Admin paneline giriş yapın (`/admin`)
 2. "Fiyat Tipleri" menüsüne gidin
 3. En az bir fiyat tipi oluşturun (örn: "Perakende", "Toptan", "VIP")
 
-### Ürün Ekleyin
+#### Ürün Ekleyin
 
 1. Admin panelinde "Ürünler" menüsüne gidin
 2. "Yeni Ürün" butonuna tıklayın

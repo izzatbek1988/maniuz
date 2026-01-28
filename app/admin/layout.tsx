@@ -75,6 +75,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 Fiyat Tipleri
               </Button>
             </Link>
+            <Link href="/admin/seed">
+              <Button variant="ghost" className="w-full justify-start">
+                <Package className="mr-2 h-4 w-4" />
+                Veri Ekle
+              </Button>
+            </Link>
             <Button variant="ghost" className="w-full justify-start" onClick={handleSignOut}>
               <LogOut className="mr-2 h-4 w-4" />
               Çıkış Yap
