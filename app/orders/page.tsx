@@ -36,16 +36,12 @@ export default function OrdersPage() {
     if (!customer) return;
 
     try {
-      console.log('Fetching orders for customer:', customer.id); // DEBUG
-
       const ordersQuery = query(
         collection(db, 'orders'),
         where('customerId', '==', customer.id),
         orderBy('createdAt', 'desc')
       );
       const ordersSnapshot = await getDocs(ordersQuery);
-      
-      console.log('Orders found:', ordersSnapshot.size); // DEBUG
 
       const ordersData = ordersSnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -54,11 +50,6 @@ export default function OrdersPage() {
       setOrders(ordersData);
     } catch (error) {
       console.error('Error fetching orders:', error);
-      // Check if this is a Firestore index error
-      // @ts-expect-error Accessing error code
-      if (error?.code === 'failed-precondition') {
-        console.error('Firestore index needed. Check console for link.');
-      }
     } finally {
       setLoading(false);
     }
@@ -115,6 +106,7 @@ export default function OrdersPage() {
                         order.status === 'completed' ? 'bg-green-100 text-green-800' :
                         order.status === 'delivering' ? 'bg-blue-100 text-blue-800' :
                         order.status === 'preparing' ? 'bg-yellow-100 text-yellow-800' :
+                        order.status === 'cancelled' ? 'bg-red-100 text-red-800' :
                         'bg-gray-100 text-gray-800'
                       }`}>
                         {getStatusLabel(order.status)}
