@@ -93,6 +93,13 @@ export function useAuth() {
 
 async function getDefaultPriceTypeId(): Promise<string> {
   try {
+    // First, try to get default from settings
+    const settingsDoc = await getDoc(doc(db, 'settings', 'general'));
+    if (settingsDoc.exists() && settingsDoc.data().defaultPriceTypeId) {
+      return settingsDoc.data().defaultPriceTypeId;
+    }
+    
+    // Fallback: Get first price type
     const priceTypesSnapshot = await getDocs(collection(db, 'priceTypes'));
     if (!priceTypesSnapshot.empty) {
       return priceTypesSnapshot.docs[0].id;

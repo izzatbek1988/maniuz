@@ -31,9 +31,7 @@ export default function AboutPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Maniuz is committed to providing the highest quality cold and energy drinks to our customers. 
-                  We strive to deliver exceptional service and products that meet the needs of both retail and 
-                  wholesale customers.
+                  {t('about_mission_text')}
                 </p>
               </CardContent>
             </Card>
@@ -44,8 +42,7 @@ export default function AboutPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  To become the leading distributor of cold and energy drinks in the region, known for our 
-                  reliability, quality products, and exceptional customer service.
+                  {t('about_vision_text')}
                 </p>
               </CardContent>
             </Card>
@@ -59,23 +56,23 @@ export default function AboutPage() {
               <ul className="space-y-3 text-muted-foreground">
                 <li className="flex items-start">
                   <span className="mr-2">✓</span>
-                  <span>Wide selection of premium cold and energy drinks</span>
+                  <span>{t('about_why_us_1')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2">✓</span>
-                  <span>Competitive pricing with flexible price types for different customer segments</span>
+                  <span>{t('about_why_us_2')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2">✓</span>
-                  <span>Fast and reliable delivery service</span>
+                  <span>{t('about_why_us_3')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2">✓</span>
-                  <span>Excellent customer support</span>
+                  <span>{t('about_why_us_4')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2">✓</span>
-                  <span>Online ordering system for convenience</span>
+                  <span>{t('about_why_us_5')}</span>
                 </li>
               </ul>
             </CardContent>

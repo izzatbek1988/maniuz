@@ -188,6 +188,29 @@ const uzbekTranslations = {
   "all": "Hammasi",
   "view_price": "Narxni ko'rish uchun kiring",
   
+  // Partnership benefits
+  "partnership_benefit_1": "Raqobatbardosh foyda marjasi",
+  "partnership_benefit_2": "Eksklyuziv hudud huquqlari",
+  "partnership_benefit_3": "Marketing va reklama yordami",
+  "partnership_benefit_4": "O'qitish va doimiy yordam",
+  "partnership_benefit_5": "Moslashuvchan to'lov shartlari",
+  
+  // Admin Settings
+  "admin_settings": "Sozlamalar",
+  "settings_title": "Tizim sozlamalari",
+  "settings_default_price_type": "Standart narx turi",
+  "settings_save": "Saqlash",
+  "settings_saved": "Saqlandi!",
+  
+  // About page content
+  "about_mission_text": "Maniuz mijozlarimizga eng yuqori sifatli sovuq va energetik ichimliklar taqdim etishga intiladi. Biz chakana va ulgurji mijozlar ehtiyojlarini qondiradigan ajoyib xizmat va mahsulotlarni yetkazib berishga harakat qilamiz.",
+  "about_vision_text": "Mintaqadagi sovuq va energetik ichimliklar yetkazib beruvchisining yetakchi kompaniyasiga aylanish, ishonchlilik, sifatli mahsulotlar va mukammal mijozlarga xizmat ko'rsatish bilan tanilish.",
+  "about_why_us_1": "Yuqori sifatli sovuq va energetik ichimliklarning keng tanlovi",
+  "about_why_us_2": "Turli mijozlar uchun moslashuvchan narx turlari bilan raqobatbardosh narxlar",
+  "about_why_us_3": "Tez va ishonchli yetkazib berish xizmati",
+  "about_why_us_4": "Ajoyib mijozlarga xizmat ko'rsatish",
+  "about_why_us_5": "Qulaylik uchun onlayn buyurtma tizimi",
+  
   // Currency
   "currency_symbol": "so'm",
 };
@@ -362,6 +385,29 @@ const turkishTranslations = {
   "all": "Tümü",
   "view_price": "Fiyat görmek için giriş yapın",
   
+  // Partnership benefits
+  "partnership_benefit_1": "Rekabetçi kar marjları",
+  "partnership_benefit_2": "Özel bölge hakları",
+  "partnership_benefit_3": "Pazarlama ve promosyon desteği",
+  "partnership_benefit_4": "Eğitim ve sürekli destek",
+  "partnership_benefit_5": "Esnek ödeme koşulları",
+  
+  // Admin Settings
+  "admin_settings": "Ayarlar",
+  "settings_title": "Sistem Ayarları",
+  "settings_default_price_type": "Varsayılan fiyat türü",
+  "settings_save": "Kaydet",
+  "settings_saved": "Kaydedildi!",
+  
+  // About page content
+  "about_mission_text": "Maniuz, müşterilerimize en yüksek kaliteli soğuk ve enerji içeceklerini sunmayı taahhüt eder. Hem perakende hem de toptan müşterilerin ihtiyaçlarını karşılayan olağanüstü hizmet ve ürünler sunmaya çalışıyoruz.",
+  "about_vision_text": "Bölgedeki soğuk ve enerji içecekleri distribütörlerinin lider şirketi olmak, güvenilirlik, kaliteli ürünler ve olağanüstü müşteri hizmeti ile tanınmak.",
+  "about_why_us_1": "Premium soğuk ve enerji içeceklerinin geniş seçimi",
+  "about_why_us_2": "Farklı müşteri segmentleri için esnek fiyat türleri ile rekabetçi fiyatlandırma",
+  "about_why_us_3": "Hızlı ve güvenilir teslimat hizmeti",
+  "about_why_us_4": "Mükemmel müşteri desteği",
+  "about_why_us_5": "Kolaylık için online sipariş sistemi",
+  
   // Currency
   "currency_symbol": "₺",
 };
@@ -535,6 +581,29 @@ const russianTranslations = {
   "sort": "Сортировка",
   "all": "Все",
   "view_price": "Войдите, чтобы увидеть цену",
+  
+  // Partnership benefits
+  "partnership_benefit_1": "Конкурентная прибыль",
+  "partnership_benefit_2": "Эксклюзивные территориальные права",
+  "partnership_benefit_3": "Маркетинговая и рекламная поддержка",
+  "partnership_benefit_4": "Обучение и постоянная поддержка",
+  "partnership_benefit_5": "Гибкие условия оплаты",
+  
+  // Admin Settings
+  "admin_settings": "Настройки",
+  "settings_title": "Системные настройки",
+  "settings_default_price_type": "Тип цены по умолчанию",
+  "settings_save": "Сохранить",
+  "settings_saved": "Сохранено!",
+  
+  // About page content
+  "about_mission_text": "Maniuz стремится предоставлять нашим клиентам холодные и энергетические напитки высочайшего качества. Мы стремимся предоставлять исключительный сервис и продукты, которые отвечают потребностям как розничных, так и оптовых клиентов.",
+  "about_vision_text": "Стать ведущим дистрибьютором холодных и энергетических напитков в регионе, известным своей надежностью, качественными продуктами и исключительным обслуживанием клиентов.",
+  "about_why_us_1": "Широкий выбор премиальных холодных и энергетических напитков",
+  "about_why_us_2": "Конкурентные цены с гибкими типами цен для различных сегментов клиентов",
+  "about_why_us_3": "Быстрая и надежная служба доставки",
+  "about_why_us_4": "Отличная поддержка клиентов",
+  "about_why_us_5": "Онлайн-система заказов для удобства",
   
   // Currency
   "currency_symbol": "сум",
