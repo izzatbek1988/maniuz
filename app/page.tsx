@@ -142,6 +142,7 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
             e.stopPropagation();
             router.push(`/product/${product.id}`);
           }}
+          aria-label={t('product_view_details')}
         >
           <Eye className="h-4 w-4" />
         </Button>
@@ -151,6 +152,7 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
             className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600"
             onClick={handleAddToCartClick}
             disabled={product.stock === 0}
+            aria-label={t('product_add_to_cart')}
           >
             <ShoppingCart className="h-4 w-4" />
           </Button>
@@ -162,13 +164,17 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
 
 ProductCard.displayName = 'ProductCard';
 
-// Hero Section Component
+/**
+ * Hero Section Component
+ * Displays the main hero banner with title, subtitle, and call-to-action buttons
+ * Required translation keys: hero_title, hero_subtitle, hero_cta_products, hero_cta_partnership
+ */
 const HeroSection = () => {
   const { t } = useTranslation();
   
   return (
     <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-20 mb-12 rounded-2xl overflow-hidden">
-      <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]" />
+      <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]" aria-hidden="true" />
       
       <div className="relative container mx-auto px-4 text-center">
         <h1 className="text-5xl md:text-6xl font-bold mb-6">
@@ -191,8 +197,8 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl" />
-      <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-xl" />
+      <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl" aria-hidden="true" />
+      <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-xl" aria-hidden="true" />
     </section>
   );
 };
