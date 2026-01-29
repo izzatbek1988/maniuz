@@ -15,6 +15,7 @@ import { ShoppingCart, Eye, Plus, Minus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { Customer } from '@/types';
+import Link from 'next/link';
 
 // Memoized ProductCard component for better performance
 const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
@@ -90,7 +91,7 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
         <div className="space-y-2">
           {user && customer ? (
             <p className="text-2xl font-bold text-primary">
-              {displayPrice} ₺
+              {displayPrice} {t('currency_symbol')}
             </p>
           ) : (
             <p className="text-sm text-muted-foreground">
@@ -135,23 +136,23 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
       <CardFooter className="flex gap-2" onClick={(e) => e.stopPropagation()}>
         <Button
           variant="outline"
+          size="icon"
           className="flex-1"
           onClick={(e) => {
             e.stopPropagation();
             router.push(`/product/${product.id}`);
           }}
         >
-          <Eye className="mr-2 h-4 w-4" />
-          {t('product_view_details')}
+          <Eye className="h-4 w-4" />
         </Button>
         {user && customer && (
           <Button
-            className="flex-1"
+            size="icon"
+            className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600"
             onClick={handleAddToCartClick}
             disabled={product.stock === 0}
           >
-            <ShoppingCart className="mr-2 h-4 w-4" />
-            {t('product_add_to_cart')}
+            <ShoppingCart className="h-4 w-4" />
           </Button>
         )}
       </CardFooter>
@@ -160,6 +161,41 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
 });
 
 ProductCard.displayName = 'ProductCard';
+
+// Hero Section Component
+const HeroSection = () => {
+  const { t } = useTranslation();
+  
+  return (
+    <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-20 mb-12 rounded-2xl overflow-hidden">
+      <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]" />
+      
+      <div className="relative container mx-auto px-4 text-center">
+        <h1 className="text-5xl md:text-6xl font-bold mb-6">
+          {t('hero_title')}
+        </h1>
+        <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-2xl mx-auto">
+          {t('hero_subtitle')}
+        </p>
+        <div className="flex gap-4 justify-center flex-wrap">
+          <Link href="#products">
+            <Button size="lg" variant="secondary" className="text-lg px-8">
+              {t('hero_cta_products')}
+            </Button>
+          </Link>
+          <Link href="/partnership">
+            <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white/10">
+              {t('hero_cta_partnership')}
+            </Button>
+          </Link>
+        </div>
+      </div>
+
+      <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl" />
+      <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-xl" />
+    </section>
+  );
+};
 
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -218,7 +254,9 @@ export default function HomePage() {
       <Navbar />
       
       <main className="container mx-auto px-4 py-8 flex-1">
-        <h1 className="text-4xl font-bold mb-8 text-center">{t('products_title')}</h1>
+        <HeroSection />
+        
+        <h1 id="products" className="text-4xl font-bold mb-8 text-center">{t('products_title')}</h1>
 
         {loading ? (
           <div className="text-center py-12">{t('loading')}</div>

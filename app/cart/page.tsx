@@ -110,7 +110,7 @@ export default function CartPage() {
                         {getPrice(item.product.id).toFixed(2)} {t('currency_symbol')}
                       </p>
                       <p className="text-sm text-muted-foreground">
-                        {item.quantity} {t('product_boxes')} × {getPrice(item.product.id).toFixed(2)} ₺
+                        {item.quantity} {t('product_boxes')} × {getPrice(item.product.id).toFixed(2)} {t('currency_symbol')}
                       </p>
                       {item.product.itemsPerBox && (
                         <p className="text-xs text-muted-foreground">
