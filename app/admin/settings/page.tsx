@@ -23,34 +23,34 @@ export default function SettingsPage() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    const loadData = async () => {
+      try {
+        // Fetch price types
+        const priceTypesSnapshot = await getDocs(collection(db, 'priceTypes'));
+        const priceTypesData = priceTypesSnapshot.docs.map(doc => ({
+          id: doc.id,
+          name: doc.data().name
+        }));
+        setPriceTypes(priceTypesData);
 
-  const fetchData = async () => {
-    try {
-      // Fetch price types
-      const priceTypesSnapshot = await getDocs(collection(db, 'priceTypes'));
-      const priceTypesData = priceTypesSnapshot.docs.map(doc => ({
-        id: doc.id,
-        name: doc.data().name
-      }));
-      setPriceTypes(priceTypesData);
-
-      // Fetch current settings
-      const settingsDoc = await getDoc(doc(db, 'settings', 'general'));
-      if (settingsDoc.exists() && settingsDoc.data().defaultPriceTypeId) {
-        setSelectedPriceTypeId(settingsDoc.data().defaultPriceTypeId);
-      } else if (priceTypesData.length > 0) {
-        // Default to first price type if no setting exists
-        setSelectedPriceTypeId(priceTypesData[0].id);
+        // Fetch current settings
+        const settingsDoc = await getDoc(doc(db, 'settings', 'general'));
+        if (settingsDoc.exists() && settingsDoc.data().defaultPriceTypeId) {
+          setSelectedPriceTypeId(settingsDoc.data().defaultPriceTypeId);
+        } else if (priceTypesData.length > 0) {
+          // Default to first price type if no setting exists
+          setSelectedPriceTypeId(priceTypesData[0].id);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        toast.error(t('error'));
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      toast.error(t('error'));
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+
+    loadData();
+  }, [t]);
 
   const handleSave = async () => {
     if (!selectedPriceTypeId) {
