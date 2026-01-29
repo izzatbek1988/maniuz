@@ -79,10 +79,10 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         </div>
-        <CardTitle className="line-clamp-2 group-hover:text-primary transition-colors">
+        <CardTitle className="line-clamp-2 min-h-[3rem] group-hover:text-primary transition-colors">
           {product.name}
         </CardTitle>
-        <CardDescription className="line-clamp-2">
+        <CardDescription className="line-clamp-3 min-h-[4.5rem]">
           {product.description}
         </CardDescription>
       </CardHeader>
@@ -90,7 +90,7 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
         <div className="space-y-2">
           {user && customer ? (
             <p className="text-2xl font-bold text-primary">
-              {displayPrice} ₺
+              {displayPrice} {t('currency_symbol')}
             </p>
           ) : (
             <p className="text-sm text-muted-foreground">

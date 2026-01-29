@@ -7,11 +7,14 @@ import { Order } from '@/types';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useRouter } from 'next/navigation';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
+import { ShoppingBag } from 'lucide-react';
+import Link from 'next/link';
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -33,12 +36,17 @@ export default function OrdersPage() {
     if (!customer) return;
 
     try {
+      console.log('Fetching orders for customer:', customer.id); // DEBUG
+
       const ordersQuery = query(
         collection(db, 'orders'),
         where('customerId', '==', customer.id),
         orderBy('createdAt', 'desc')
       );
       const ordersSnapshot = await getDocs(ordersQuery);
+      
+      console.log('Orders found:', ordersSnapshot.size); // DEBUG
+
       const ordersData = ordersSnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -46,6 +54,11 @@ export default function OrdersPage() {
       setOrders(ordersData);
     } catch (error) {
       console.error('Error fetching orders:', error);
+      // Check if this is a Firestore index error
+      // @ts-expect-error Accessing error code
+      if (error?.code === 'failed-precondition') {
+        console.error('Firestore index needed. Check console for link.');
+      }
     } finally {
       setLoading(false);
     }
@@ -75,7 +88,11 @@ export default function OrdersPage() {
         ) : orders.length === 0 ? (
           <Card>
             <CardContent className="text-center py-12">
-              <p className="text-muted-foreground">{t('orders_empty')}</p>
+              <ShoppingBag className="h-16 w-16 mx-auto text-gray-400 mb-4" />
+              <p className="text-xl text-gray-600 mb-4">{t('no_orders')}</p>
+              <Link href="/">
+                <Button>{t('start_shopping')}</Button>
+              </Link>
             </CardContent>
           </Card>
         ) : (
@@ -87,7 +104,10 @@ export default function OrdersPage() {
                     <div>
                       <CardTitle>{t('order_items')} #{order.id.slice(0, 8)}</CardTitle>
                       <p className="text-sm text-muted-foreground mt-1">
-                        {order.createdAt && format(order.createdAt.toDate(), 'PPP p', { locale: tr })}
+                        {t('order_number')}: <span className="font-mono">{order.id}</span>
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {t('order_date')}: {order.createdAt && format(order.createdAt.toDate(), 'PPP p', { locale: tr })}
                       </p>
                     </div>
                     <div className="text-right">

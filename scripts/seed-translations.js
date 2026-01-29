@@ -65,7 +65,13 @@ const uzbekTranslations = {
   "order_status_preparing": "Tayyorlanmoqda",
   "order_status_delivering": "Yetkazilmoqda",
   "order_status_completed": "Bajarildi",
+  "order_status_cancelled": "Bekor qilindi",
   "order_items": "Mahsulotlar",
+  "order_number": "Buyurtma raqami",
+  "order_date": "Sana",
+  "my_orders": "Mening buyurtmalarim",
+  "no_orders": "Hali buyurtmalar yo'q",
+  "start_shopping": "Xarid qilishni boshlang",
   
   // Auth
   "login_title": "Kirish",
@@ -262,7 +268,13 @@ const turkishTranslations = {
   "order_status_preparing": "Hazırlanıyor",
   "order_status_delivering": "Teslim Ediliyor",
   "order_status_completed": "Tamamlandı",
+  "order_status_cancelled": "İptal edildi",
   "order_items": "Ürünler",
+  "order_number": "Sipariş numarası",
+  "order_date": "Tarih",
+  "my_orders": "Siparişlerim",
+  "no_orders": "Henüz sipariş yok",
+  "start_shopping": "Alışverişe başla",
   
   // Auth
   "login_title": "Giriş Yap",
@@ -459,7 +471,13 @@ const russianTranslations = {
   "order_status_preparing": "Готовится",
   "order_status_delivering": "Доставляется",
   "order_status_completed": "Выполнен",
+  "order_status_cancelled": "Отменен",
   "order_items": "Товары",
+  "order_number": "Номер заказа",
+  "order_date": "Дата",
+  "my_orders": "Мои заказы",
+  "no_orders": "Заказов пока нет",
+  "start_shopping": "Начать покупки",
   
   // Auth
   "login_title": "Войти",
