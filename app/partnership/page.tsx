@@ -71,23 +71,23 @@ export default function PartnershipPage() {
               <ul className="space-y-3 text-muted-foreground">
                 <li className="flex items-start">
                   <span className="mr-2">✓</span>
-                  <span>Competitive profit margins</span>
+                  <span>{t('partnership_benefit_1')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2">✓</span>
-                  <span>Exclusive territory rights</span>
+                  <span>{t('partnership_benefit_2')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2">✓</span>
-                  <span>Marketing and promotional support</span>
+                  <span>{t('partnership_benefit_3')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2">✓</span>
-                  <span>Training and ongoing support</span>
+                  <span>{t('partnership_benefit_4')}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2">✓</span>
-                  <span>Flexible payment terms</span>
+                  <span>{t('partnership_benefit_5')}</span>
                 </li>
               </ul>
             </CardContent>

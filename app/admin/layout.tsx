@@ -6,7 +6,7 @@ import { useTranslation } from '@/contexts/TranslationContext';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Home, Package, Users, ShoppingBag, DollarSign, LogOut, Languages, Handshake } from 'lucide-react';
+import { Home, Package, Users, ShoppingBag, DollarSign, LogOut, Languages, Handshake, Settings } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const { customer, signOut, loading } = useAuth();
@@ -87,6 +87,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <Button variant="ghost" className="w-full justify-start">
                 <Handshake className="mr-2 h-4 w-4" />
                 {t('admin_partnerships')}
+              </Button>
+            </Link>
+            <Link href="/admin/settings">
+              <Button variant="ghost" className="w-full justify-start">
+                <Settings className="mr-2 h-4 w-4" />
+                {t('admin_settings')}
               </Button>
             </Link>
             <Link href="/admin/seed">
