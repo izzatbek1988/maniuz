@@ -12,7 +12,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useRouter } from 'next/navigation';
 import { format } from 'date-fns';
-import { tr } from 'date-fns/locale';
+import { tr, ru } from 'date-fns/locale';
 import { ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
 
@@ -20,8 +20,22 @@ export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const { user, customer } = useAuth();
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const router = useRouter();
+
+  // Dinamik locale seçimi
+  const getLocale = () => {
+    switch (language) {
+      case 'tr':
+        return tr;
+      case 'ru':
+        return ru;
+      case 'uz':
+        return ru; // Özbekçe için Rusça locale kullan (date-fns'de uz yok)
+      default:
+        return undefined; // İngilizce default
+    }
+  };
 
   const getStatusLabel = (status: string) => {
     const statusKey = `order_status_${status}`;
@@ -41,12 +55,14 @@ export default function OrdersPage() {
         where('customerId', '==', customer.id),
         orderBy('createdAt', 'desc')
       );
+      
       const ordersSnapshot = await getDocs(ordersQuery);
-
+      
       const ordersData = ordersSnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       })) as Order[];
+      
       setOrders(ordersData);
     } catch (error) {
       console.error('Error fetching orders:', error);
@@ -98,7 +114,7 @@ export default function OrdersPage() {
                         {t('order_number')}: <span className="font-mono">{order.id}</span>
                       </p>
                       <p className="text-sm text-muted-foreground">
-                        {t('order_date')}: {order.createdAt && format(order.createdAt.toDate(), 'PPP p', { locale: tr })}
+                        {t('order_date')}: {order.createdAt && format(order.createdAt.toDate(), 'PPP p', { locale: getLocale() })}
                       </p>
                     </div>
                     <div className="text-right">

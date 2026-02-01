@@ -18,6 +18,7 @@ export interface Customer {
   id: string;
   email: string;
   name: string;
+  phone?: string; // YENİ: Telefon numarası (optional - eski customerlar için)
   priceTypeId: string;
   role: 'admin' | 'customer';
   createdAt: Timestamp;
@@ -37,7 +38,7 @@ export interface Order {
   items: OrderItem[];
   totalAmount: number;
   deliveryType: 'pickup' | 'delivery';
-  status: 'pending' | 'preparing' | 'delivering' | 'completed';
+  status: 'pending' | 'preparing' | 'delivering' | 'completed' | 'cancelled';
   createdAt: Timestamp;
 }
 

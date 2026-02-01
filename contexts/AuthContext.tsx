@@ -17,7 +17,7 @@ interface AuthContextType {
   customer: Customer | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, name: string) => Promise<void>;
+  signUp: (email: string, password: string, name: string, phone: string) => Promise<void>;
   signOut: () => Promise<void>;
 }
 
@@ -52,7 +52,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await signInWithEmailAndPassword(auth, email, password);
   };
 
-  const signUp = async (email: string, password: string, name: string) => {
+  const signUp = async (email: string, password: string, name: string, phone: string) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     
     // Get default price type
@@ -66,6 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await setDoc(doc(db, 'customers', userCredential.user.uid), {
       email,
       name,
+      phone,
       priceTypeId: defaultPriceTypeId,
       role: isAdmin ? 'admin' : 'customer',
       createdAt: serverTimestamp(),
