@@ -17,6 +17,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function Navbar() {
   const { user, customer, signOut } = useAuth();
@@ -101,84 +107,105 @@ export default function Navbar() {
               </div>
 
               {user ? (
-                <>
+                <TooltipProvider>
                   {/* Cart Button */}
-                  <Link href="/cart">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="relative group hover:bg-blue-50 transition-colors"
-                    >
-                      <ShoppingCart className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                      {cartCount > 0 && (
-                        <span className="absolute -top-1 -right-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-lg animate-pulse">
-                          {cartCount}
-                        </span>
-                      )}
-                    </Button>
-                  </Link>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/cart">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="relative group hover:bg-blue-50 transition-colors"
+                        >
+                          <ShoppingCart className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                          {cartCount > 0 && (
+                            <span className="absolute -top-1 -right-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-lg animate-pulse">
+                              {cartCount}
+                            </span>
+                          )}
+                        </Button>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{t('cart')}</p>
+                    </TooltipContent>
+                  </Tooltip>
 
                   {/* Orders Button */}
-                  <Link href="/orders" className="hidden sm:block">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="hover:bg-purple-50 transition-colors group"
-                    >
-                      <Package className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                    </Button>
-                  </Link>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/orders" className="hidden sm:block">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="hover:bg-purple-50 transition-colors group"
+                        >
+                          <Package className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                        </Button>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{t('my_orders')}</p>
+                    </TooltipContent>
+                  </Tooltip>
 
                   {/* User Dropdown Menu */}
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="relative group hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all"
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-0 group-hover:opacity-20 transition-opacity blur"></div>
-                        <User className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-56 bg-white/95 backdrop-blur-lg border-gray-200 shadow-xl">
-                      <DropdownMenuLabel className="font-semibold">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold">
-                            {customer?.name?.[0]?.toUpperCase() || 'U'}
-                          </div>
-                          <div className="flex flex-col">
-                            <span className="text-sm">{customer?.name || t('nav_my_account')}</span>
-                            <span className="text-xs text-gray-500 font-normal">{user.email}</span>
-                          </div>
-                        </div>
-                      </DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={() => router.push('/profile')} className="cursor-pointer">
-                        <UserCircle className="mr-2 h-4 w-4" />
-                        <span>{t('nav_profile')}</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => router.push('/orders')} className="cursor-pointer sm:hidden">
-                        <Package className="mr-2 h-4 w-4" />
-                        <span>{t('nav_orders')}</span>
-                      </DropdownMenuItem>
-                      {customer?.role === 'admin' && (
-                        <>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="relative group hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all"
+                          >
+                            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-0 group-hover:opacity-20 transition-opacity blur"></div>
+                            <User className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-56 bg-white/95 backdrop-blur-lg border-gray-200 shadow-xl">
+                          <DropdownMenuLabel className="font-semibold">
+                            <div className="flex items-center gap-2">
+                              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold">
+                                {customer?.name?.[0]?.toUpperCase() || 'U'}
+                              </div>
+                              <div className="flex flex-col">
+                                <span className="text-sm">{customer?.name || t('nav_my_account')}</span>
+                                <span className="text-xs text-gray-500 font-normal">{user.email}</span>
+                              </div>
+                            </div>
+                          </DropdownMenuLabel>
                           <DropdownMenuSeparator />
-                          <DropdownMenuItem onClick={() => router.push('/admin')} className="cursor-pointer">
-                            <Settings className="mr-2 h-4 w-4" />
-                            <span>{t('nav_admin')}</span>
+                          <DropdownMenuItem onClick={() => router.push('/profile')} className="cursor-pointer">
+                            <UserCircle className="mr-2 h-4 w-4" />
+                            <span>{t('nav_profile')}</span>
                           </DropdownMenuItem>
-                        </>
-                      )}
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50">
-                        <LogOut className="mr-2 h-4 w-4" />
-                        <span>{t('nav_logout')}</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </>
+                          <DropdownMenuItem onClick={() => router.push('/orders')} className="cursor-pointer sm:hidden">
+                            <Package className="mr-2 h-4 w-4" />
+                            <span>{t('nav_orders')}</span>
+                          </DropdownMenuItem>
+                          {customer?.role === 'admin' && (
+                            <>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuItem onClick={() => router.push('/admin')} className="cursor-pointer">
+                                <Settings className="mr-2 h-4 w-4" />
+                                <span>{t('nav_admin')}</span>
+                              </DropdownMenuItem>
+                            </>
+                          )}
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50">
+                            <LogOut className="mr-2 h-4 w-4" />
+                            <span>{t('nav_logout')}</span>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{t('profile')}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               ) : (
                 <>
                   <Link href="/login" className="hidden sm:block">

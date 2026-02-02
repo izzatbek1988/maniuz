@@ -81,7 +81,7 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
 
   const stockDisplay = useMemo(() => {
     const itemsPerBox = product.itemsPerBox || 1;
-    return `${product.stock} ${t('product_boxes')} (${product.stock * itemsPerBox} ${t('product_pieces')})`;
+    return `${product.stock} ${t('box')} (${product.stock * itemsPerBox} ${t('units')})`;
   }, [product.stock, product.itemsPerBox, t]);
 
   const isOutOfStock = product.stock === 0;
@@ -106,8 +106,8 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
         </div>
       )}
 
-      <CardHeader className="pb-3">
-        <div className="aspect-square relative mb-4 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl overflow-hidden shadow-inner">
+      <CardHeader className="pb-2">
+        <div className="aspect-square relative mb-3 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl overflow-hidden shadow-inner">
           <img
             src={product.imageUrl || '/placeholder.png'}
             alt={product.name}
@@ -115,24 +115,15 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
-        <CardTitle className="line-clamp-2 h-[3.5rem] group-hover:text-blue-600 transition-colors text-lg leading-tight">
+        <CardTitle className="line-clamp-2 mb-1 group-hover:text-blue-600 transition-colors text-lg leading-tight">
           {product.name}
         </CardTitle>
-        <CardDescription 
-          className="text-sm text-gray-600 overflow-hidden"
-          style={{
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical',
-            height: '2.8rem',
-            lineHeight: '1.4rem'
-          }}
-        >
+        <CardDescription className="line-clamp-2 text-sm min-h-0 mb-2">
           {product.description}
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-2">
         <div className="space-y-2">
           {user && customer ? (
             <>
@@ -145,22 +136,34 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
                 </p>
               </div>
               
-              {/* Dual Pricing Display */}
+              {/* Improved Dual Pricing Display with Emojis and Translations */}
               {(product.pricePerUnit || product.pricePerBox) && (
-                <div className="space-y-1 p-2 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg border border-purple-200">
+                <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-2 space-y-1">
                   {product.pricePerUnit && (
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs font-medium text-gray-600">🔢 Adet:</span>
-                      <span className="text-sm font-bold text-purple-700">{product.pricePerUnit.toLocaleString()} so'm</span>
+                    <div className="flex items-center justify-between text-sm">
+                      <div className="flex items-center gap-1">
+                        <span className="text-lg">🔢</span>
+                        <span className="text-xs font-medium text-gray-600">{t('unit_price')}:</span>
+                      </div>
+                      <span className="text-sm font-bold text-purple-600">
+                        {product.pricePerUnit.toLocaleString()} {t('currency_symbol')}
+                      </span>
                     </div>
                   )}
                   {product.pricePerBox && product.unitsPerBox && (
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs font-medium text-gray-600">📦 Koli:</span>
-                      <span className="text-sm font-bold text-blue-700">
-                        {product.pricePerBox.toLocaleString()} so'm
-                        <span className="text-xs text-gray-500 ml-1">({product.unitsPerBox} adet)</span>
-                      </span>
+                    <div className="flex items-center justify-between text-sm">
+                      <div className="flex items-center gap-1">
+                        <span className="text-lg">📦</span>
+                        <span className="text-xs font-medium text-gray-600">{t('box_price')}:</span>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-sm font-bold text-blue-600">
+                          {product.pricePerBox.toLocaleString()} {t('currency_symbol')}
+                        </span>
+                        <span className="text-[10px] text-gray-500 ml-1">
+                          ({product.unitsPerBox} {t('units')})
+                        </span>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -181,29 +184,29 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
 
         {/* Quantity Selector */}
         {user && customer && !isOutOfStock && (
-          <div className="p-3 bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl border-2 border-blue-100" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center gap-3">
+          <div className="p-2 bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl border-2 border-blue-100" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center gap-2">
               <button
                 onClick={handleDecrement}
                 disabled={quantity <= 1}
-                className="w-9 h-9 rounded-lg bg-white border-2 border-gray-200 flex items-center justify-center hover:bg-blue-50 hover:border-blue-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
+                className="w-8 h-8 rounded-lg bg-white border-2 border-gray-200 flex items-center justify-center hover:bg-blue-50 hover:border-blue-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
               >
                 <Minus className="h-4 w-4 text-blue-600" />
               </button>
 
               <div className="flex-1 text-center">
-                <div className="font-bold text-lg text-gray-900">
-                  {quantity} {t('product_boxes')}
+                <div className="font-bold text-base text-gray-900">
+                  {quantity} {t('box')}
                 </div>
-                <div className="text-xs text-blue-600 font-medium">
-                  = {totalItems} {t('product_pieces')}
+                <div className="text-[10px] text-blue-600 font-medium">
+                  = {totalItems} {t('units')}
                 </div>
               </div>
 
               <button
                 onClick={handleIncrement}
                 disabled={quantity >= product.stock}
-                className="w-9 h-9 rounded-lg bg-white border-2 border-gray-200 flex items-center justify-center hover:bg-blue-50 hover:border-blue-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
+                className="w-8 h-8 rounded-lg bg-white border-2 border-gray-200 flex items-center justify-center hover:bg-blue-50 hover:border-blue-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
               >
                 <Plus className="h-4 w-4 text-blue-600" />
               </button>
@@ -212,7 +215,7 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
         )}
       </CardContent>
 
-      <CardFooter className="flex gap-2 pt-4" onClick={(e) => e.stopPropagation()}>
+      <CardFooter className="flex gap-2 pt-2" onClick={(e) => e.stopPropagation()}>
         <Button
           variant="outline"
           className="flex-1 border-2 hover:bg-gray-50 transition-all"
@@ -280,7 +283,7 @@ export default function HomePage() {
     const totalItems = quantity * itemsPerBox;
 
     toast.success(
-      `${quantity} ${t('product_boxes')} (${totalItems} ${t('product_pieces')}) ${t('cart_added')}!`,
+      `${quantity} ${t('box')} (${totalItems} ${t('units')}) ${t('cart_added')}!`,
       {
         duration: 3000,
         icon: '🛒',
