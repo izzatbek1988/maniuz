@@ -18,7 +18,7 @@ interface PriceType {
 
 interface ToastSettings {
   position: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
-  duration: 2000 | 3000 | 5000;
+  duration: 1000 | 2000 | 3000 | 5000; // ADDED: 1000ms (1 second)
 }
 
 export default function SettingsPage() {
@@ -192,6 +192,12 @@ export default function SettingsPage() {
                 onValueChange={(value) => setToastSettings({ ...toastSettings, duration: parseInt(value) as ToastSettings['duration'] })}
               >
                 <div className="space-y-3">
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="1000" id="1s" />
+                    <Label htmlFor="1s" className="cursor-pointer font-normal">
+                      1 {t('second')} ⚡⚡
+                    </Label>
+                  </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="2000" id="2s" />
                     <Label htmlFor="2s" className="cursor-pointer font-normal">

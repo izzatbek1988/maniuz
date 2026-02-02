@@ -107,7 +107,7 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
       )}
 
       <CardHeader className="pb-2">
-        <div className="aspect-square relative mb-3 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl overflow-hidden shadow-inner">
+        <div className="aspect-square relative mb-2 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl overflow-hidden shadow-inner max-h-[180px]">
           <img
             src={product.imageUrl || '/placeholder.png'}
             alt={product.name}
@@ -115,23 +115,23 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
-        <CardTitle className="line-clamp-2 mb-1 group-hover:text-blue-600 transition-colors text-lg leading-tight">
+        <CardTitle className="line-clamp-2 mb-0.5 group-hover:text-blue-600 transition-colors text-base leading-tight">
           {product.name}
         </CardTitle>
-        <CardDescription className="line-clamp-2 text-sm min-h-0 mb-2">
+        <CardDescription className="line-clamp-2 text-xs min-h-0 mb-1">
           {product.description}
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="space-y-2">
-        <div className="space-y-2">
+      <CardContent className="space-y-1.5 px-3 pb-2">
+        <div className="space-y-1.5">
           {user && customer ? (
             <>
               <div className="flex items-baseline gap-2">
-                <p className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <p className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   {displayPrice}
                 </p>
-                <p className="text-lg text-gray-600 font-semibold">
+                <p className="text-base text-gray-600 font-semibold">
                   {t('currency_symbol')}
                 </p>
               </div>
@@ -142,7 +142,7 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
                   {product.pricePerUnit && (
                     <div className="flex items-center justify-between text-sm">
                       <div className="flex items-center gap-1">
-                        <span className="text-lg">🔢</span>
+                        <span className="text-base">🔢</span>
                         <span className="text-xs font-medium text-gray-600">{t('unit_price')}:</span>
                       </div>
                       <span className="text-sm font-bold text-purple-600">
@@ -153,7 +153,7 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
                   {product.pricePerBox && product.unitsPerBox && (
                     <div className="flex items-center justify-between text-sm">
                       <div className="flex items-center gap-1">
-                        <span className="text-lg">📦</span>
+                        <span className="text-base">📦</span>
                         <span className="text-xs font-medium text-gray-600">{t('box_price')}:</span>
                       </div>
                       <div className="text-right">
@@ -176,29 +176,29 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
             </div>
           )}
 
-          <div className="flex items-center gap-2 text-sm text-gray-600 bg-blue-50 px-3 py-2 rounded-lg">
-            <Package className="h-4 w-4 text-blue-600" />
-            <span className="font-medium">{stockDisplay}</span>
+          <div className="flex items-center gap-2 text-sm text-gray-600 bg-blue-50 px-2 py-1.5 rounded-lg">
+            <Package className="h-3 w-3 text-blue-600" />
+            <span className="font-medium text-xs">{stockDisplay}</span>
           </div>
         </div>
 
         {/* Quantity Selector */}
         {user && customer && !isOutOfStock && (
-          <div className="p-2 bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl border-2 border-blue-100" onClick={(e) => e.stopPropagation()}>
+          <div className="p-1.5 bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl border-2 border-blue-100" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center gap-2">
               <button
                 onClick={handleDecrement}
                 disabled={quantity <= 1}
-                className="w-8 h-8 rounded-lg bg-white border-2 border-gray-200 flex items-center justify-center hover:bg-blue-50 hover:border-blue-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
+                className="w-7 h-7 rounded-lg bg-white border-2 border-gray-200 flex items-center justify-center hover:bg-blue-50 hover:border-blue-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
               >
-                <Minus className="h-4 w-4 text-blue-600" />
+                <Minus className="h-3 w-3 text-blue-600" />
               </button>
 
               <div className="flex-1 text-center">
-                <div className="font-bold text-base text-gray-900">
+                <div className="font-bold text-sm text-gray-900">
                   {quantity} {t('box')}
                 </div>
-                <div className="text-[10px] text-blue-600 font-medium">
+                <div className="text-[9px] text-blue-600 font-medium">
                   = {totalItems} {t('units')}
                 </div>
               </div>
@@ -206,34 +206,36 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
               <button
                 onClick={handleIncrement}
                 disabled={quantity >= product.stock}
-                className="w-8 h-8 rounded-lg bg-white border-2 border-gray-200 flex items-center justify-center hover:bg-blue-50 hover:border-blue-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
+                className="w-7 h-7 rounded-lg bg-white border-2 border-gray-200 flex items-center justify-center hover:bg-blue-50 hover:border-blue-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
               >
-                <Plus className="h-4 w-4 text-blue-600" />
+                <Plus className="h-3 w-3 text-blue-600" />
               </button>
             </div>
           </div>
         )}
       </CardContent>
 
-      <CardFooter className="flex gap-2 pt-2" onClick={(e) => e.stopPropagation()}>
+      <CardFooter className="flex gap-1.5 pt-1 px-3 pb-3" onClick={(e) => e.stopPropagation()}>
         <Button
           variant="outline"
-          className="flex-1 border-2 hover:bg-gray-50 transition-all"
+          size="sm"
+          className="flex-1 border-2 hover:bg-gray-50 transition-all h-8 text-xs"
           onClick={(e) => {
             e.stopPropagation();
             router.push(`/product/${product.id}`);
           }}
         >
-          <Eye className="mr-2 h-4 w-4" />
+          <Eye className="mr-1 h-3 w-3" />
           {t('product_view_details')}
         </Button>
         {user && customer && (
           <Button
-            className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+            size="sm"
+            className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 h-8 text-xs"
             onClick={handleAddToCartClick}
             disabled={isOutOfStock}
           >
-            <ShoppingCart className="mr-2 h-4 w-4" />
+            <ShoppingCart className="mr-1 h-3 w-3" />
             {t('product_add_to_cart')}
           </Button>
         )}
