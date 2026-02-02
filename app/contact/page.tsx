@@ -119,7 +119,7 @@ export default function ContactPage() {
               </div>
               
               <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                {loading ? (t('loading') || 'Yuklanmoqda...') : (t('send_message') || 'Xabar yuborish')} 📨
+                {loading ? (t('loading') || 'Yuklanmoqda...') : `${t('send_message') || 'Xabar yuborish'} 📨`}
               </Button>
             </form>
           </div>
