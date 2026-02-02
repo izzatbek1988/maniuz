@@ -127,10 +127,38 @@ export default function ProductDetailPage() {
             </div>
 
             {user && customer ? (
-              <div>
+              <div className="space-y-3">
                 <p className="text-4xl font-bold text-primary">
                   {getPrice().toFixed(2)} {t('currency_symbol')}
                 </p>
+                
+                {/* Dual Pricing Display */}
+                {(product.pricePerUnit || product.pricePerBox) && (
+                  <Card className="bg-gradient-to-r from-purple-50 to-blue-50 border-purple-200">
+                    <CardContent className="pt-4">
+                      <h3 className="text-sm font-semibold text-gray-700 mb-3">💰 Fiyat Bilgileri</h3>
+                      <div className="space-y-2">
+                        {product.pricePerUnit && (
+                          <div className="flex justify-between items-center p-2 bg-white rounded-lg">
+                            <span className="text-sm font-medium text-gray-600">🔢 Adet Fiyatı:</span>
+                            <span className="text-lg font-bold text-purple-700">
+                              {product.pricePerUnit.toLocaleString()} so'm
+                            </span>
+                          </div>
+                        )}
+                        {product.pricePerBox && product.unitsPerBox && (
+                          <div className="flex justify-between items-center p-2 bg-white rounded-lg">
+                            <span className="text-sm font-medium text-gray-600">📦 Koli Fiyatı:</span>
+                            <span className="text-lg font-bold text-blue-700">
+                              {product.pricePerBox.toLocaleString()} so'm
+                              <span className="text-xs text-gray-500 ml-2">({product.unitsPerBox} adet)</span>
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
               </div>
             ) : (
               <p className="text-lg text-muted-foreground">

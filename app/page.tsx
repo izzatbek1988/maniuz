@@ -135,14 +135,37 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
       <CardContent className="space-y-3">
         <div className="space-y-2">
           {user && customer ? (
-            <div className="flex items-baseline gap-2">
-              <p className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                {displayPrice}
-              </p>
-              <p className="text-lg text-gray-600 font-semibold">
-                {t('currency_symbol')}
-              </p>
-            </div>
+            <>
+              <div className="flex items-baseline gap-2">
+                <p className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  {displayPrice}
+                </p>
+                <p className="text-lg text-gray-600 font-semibold">
+                  {t('currency_symbol')}
+                </p>
+              </div>
+              
+              {/* Dual Pricing Display */}
+              {(product.pricePerUnit || product.pricePerBox) && (
+                <div className="space-y-1 p-2 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg border border-purple-200">
+                  {product.pricePerUnit && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs font-medium text-gray-600">🔢 Adet:</span>
+                      <span className="text-sm font-bold text-purple-700">{product.pricePerUnit.toLocaleString()} so'm</span>
+                    </div>
+                  )}
+                  {product.pricePerBox && product.unitsPerBox && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs font-medium text-gray-600">📦 Koli:</span>
+                      <span className="text-sm font-bold text-blue-700">
+                        {product.pricePerBox.toLocaleString()} so'm
+                        <span className="text-xs text-gray-500 ml-1">({product.unitsPerBox} adet)</span>
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </>
           ) : (
             <div className="flex items-center gap-2 text-sm text-gray-500 bg-gray-50 px-3 py-2 rounded-lg">
               <Eye className="h-4 w-4" />
