@@ -69,7 +69,8 @@ export const useCartStore = create<CartStore>()(
       getTotalAmount: (priceTypeId) => {
         const { items } = get();
         return items.reduce((total, item) => {
-          const price = item.product.prices[priceTypeId] || 0;
+          // FIXED: Use pricePerBox if available (wholesale pricing), otherwise fall back to dynamic pricing
+          const price = item.product.pricePerBox || item.product.prices[priceTypeId] || 0;
           return total + price * item.quantity;
         }, 0);
       },

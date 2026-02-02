@@ -298,7 +298,8 @@ export default function HomePage() {
 
   const getPrice = useCallback((product: Product) => {
     if (!customer?.priceTypeId) return 0;
-    return product.prices[customer.priceTypeId] || 0;
+    // FIXED: Use pricePerBox if available (wholesale pricing), otherwise fall back to dynamic pricing
+    return product.pricePerBox || product.prices[customer.priceTypeId] || 0;
   }, [customer]);
 
   return (

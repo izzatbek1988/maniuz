@@ -36,7 +36,8 @@ export default function CartPage() {
         productId: item.product.id,
         productName: item.product.name,
         quantity: item.quantity,
-        price: item.product.prices[customer.priceTypeId] || 0,
+        // FIXED: Use pricePerBox if available (wholesale pricing)
+        price: item.product.pricePerBox || item.product.prices[customer.priceTypeId] || 0,
       }));
 
       await addDoc(collection(db, 'orders'), {
@@ -77,7 +78,8 @@ export default function CartPage() {
     if (!customer) return 0;
     const item = items.find((i) => i.product.id === productId);
     if (!item) return 0;
-    return item.product.prices[customer.priceTypeId] || 0;
+    // FIXED: Use pricePerBox if available (wholesale pricing), otherwise fall back to dynamic pricing
+    return item.product.pricePerBox || item.product.prices[customer.priceTypeId] || 0;
   };
 
   const handleRemove = (productId: string, productName: string) => {
