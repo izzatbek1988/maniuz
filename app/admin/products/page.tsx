@@ -185,11 +185,19 @@ export default function AdminProductsPage() {
   };
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold">Ürün Yönetimi</h1>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            Ürün Yönetimi
+          </h1>
+          <p className="text-gray-600 mt-2">Ürünlerinizi yönetin, fiyatları güncelleyin ve resimler yükleyin</p>
+        </div>
         {!showForm && (
-          <Button onClick={() => setShowForm(true)}>
+          <Button 
+            onClick={() => setShowForm(true)}
+            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+          >
             <Plus className="mr-2 h-4 w-4" />
             Yeni Ürün
           </Button>
@@ -197,7 +205,7 @@ export default function AdminProductsPage() {
       </div>
 
       {showForm && (
-        <Card className="mb-8">
+        <Card className="shadow-xl border-purple-100 animate-slide-up">
           <CardHeader>
             <CardTitle>{editingProduct ? 'Ürün Düzenle' : 'Yeni Ürün Ekle'}</CardTitle>
           </CardHeader>
@@ -419,55 +427,71 @@ export default function AdminProductsPage() {
 
       <div className="grid gap-4">
         {products.map((product) => (
-          <Card key={product.id}>
+          <Card 
+            key={product.id}
+            className="shadow-lg hover:shadow-2xl transition-all duration-300 border-purple-100 hover:border-purple-300 animate-fade-in"
+          >
             <CardContent className="p-6">
               <div className="flex gap-4">
-                <div className="w-24 h-24 bg-gray-100 rounded-md overflow-hidden flex-shrink-0">
+                <div className="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg overflow-hidden flex-shrink-0 shadow-md">
                   <img
                     src={product.imageUrl || '/placeholder.png'}
                     alt={product.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
                   />
                 </div>
                 <div className="flex-grow">
-                  <h3 className="font-semibold text-lg">{product.name}</h3>
-                  <p className="text-sm text-muted-foreground">{product.description}</p>
-                  <p className="text-sm mt-2">
-                    Stok: <span className="font-semibold">{product.stock} koli</span>
+                  <h3 className="font-semibold text-lg text-gray-800">{product.name}</h3>
+                  <p className="text-sm text-muted-foreground line-clamp-2">{product.description}</p>
+                  <p className="text-sm mt-2 flex items-center gap-2">
+                    <span className="inline-flex items-center px-2 py-1 rounded-md bg-blue-100 text-blue-700 font-medium">
+                      📦 Stok: {product.stock} koli
+                    </span>
                     {product.itemsPerBox && (
-                      <span className="text-muted-foreground"> ({product.stock * product.itemsPerBox} adet)</span>
+                      <span className="text-muted-foreground">({product.stock * product.itemsPerBox} adet)</span>
                     )}
                   </p>
                   
                   {/* Dual Pricing Display */}
                   {(product.pricePerUnit || product.pricePerBox) && (
-                    <div className="flex gap-4 mt-2 p-2 bg-blue-50 rounded">
+                    <div className="flex gap-4 mt-3 p-3 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg border border-purple-200">
                       {product.pricePerUnit && (
-                        <span className="text-xs font-medium">
-                          🔢 Adet: {product.pricePerUnit.toLocaleString()} so'm
+                        <span className="text-sm font-medium flex items-center gap-1">
+                          🔢 Adet: <span className="text-purple-700 font-bold">{product.pricePerUnit.toLocaleString()} so'm</span>
                         </span>
                       )}
                       {product.pricePerBox && product.unitsPerBox && (
-                        <span className="text-xs font-medium">
-                          📦 Koli: {product.pricePerBox.toLocaleString()} so'm ({product.unitsPerBox} adet)
+                        <span className="text-sm font-medium flex items-center gap-1">
+                          📦 Koli: <span className="text-blue-700 font-bold">{product.pricePerBox.toLocaleString()} so'm</span>
+                          <span className="text-xs text-gray-500">({product.unitsPerBox} adet)</span>
                         </span>
                       )}
                     </div>
                   )}
                   
-                  <div className="flex flex-wrap gap-2 mt-2">
+                  <div className="flex flex-wrap gap-2 mt-3">
                     {priceTypes.map((pt) => (
-                      <span key={pt.id} className="text-xs bg-gray-100 px-2 py-1 rounded">
+                      <span key={pt.id} className="text-xs bg-gray-100 px-3 py-1 rounded-full font-medium text-gray-700 border border-gray-200">
                         {pt.name}: {product.prices[pt.id]?.toFixed(2) || '0.00'} {t('currency_symbol')}
                       </span>
                     ))}
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <Button size="icon" variant="outline" onClick={() => handleEdit(product)}>
-                    <Edit className="h-4 w-4" />
+                  <Button 
+                    size="icon" 
+                    variant="outline" 
+                    onClick={() => handleEdit(product)}
+                    className="hover:bg-blue-50 hover:border-blue-300 transition-all"
+                  >
+                    <Edit className="h-4 w-4 text-blue-600" />
                   </Button>
-                  <Button size="icon" variant="destructive" onClick={() => handleDelete(product.id)}>
+                  <Button 
+                    size="icon" 
+                    variant="destructive" 
+                    onClick={() => handleDelete(product.id)}
+                    className="hover:shadow-lg transition-all"
+                  >
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
