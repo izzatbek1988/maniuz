@@ -253,6 +253,7 @@ const uzbekTranslations = {
   "top_left": "Yuqori chap",
   "bottom_right": "Pastki o'ng",
   "bottom_left": "Pastki chap",
+  "second": "soniya", // Singular for 1 second
   "seconds": "soniya",
   "test_toast": "Sinab ko'rish",
   "test_message": "Bu test xabari!",
@@ -275,6 +276,68 @@ const uzbekTranslations = {
   "nav_partnership": "Hamkorlik",
   "nav_my_account": "Mening hisobim",
   "order_success": "Buyurtma muvaffaqiyatli yaratildi!",
+  
+  // Contact Page - NEW ADDITIONS
+  "contact_description": "Savol yoki takliflaringiz bormi? Biz bilan bog'laning!",
+  "full_name": "To'liq ism",
+  "email_address": "Elektron pochta",
+  "phone_number": "Telefon raqami",
+  "message": "Xabar",
+  "send_message": "Xabar yuborish",
+  "contact_info": "Aloqa ma'lumotlari",
+  "address": "Manzil",
+  "working_hours": "Ish vaqti",
+  "monday_friday": "Dushanba - Juma",
+  "saturday_sunday": "Shanba - Yakshanba",
+  "sending": "Yuborilmoqda...",
+  "message_sent": "Xabar yuborildi!",
+  
+  // Orders Page - NEW ADDITIONS
+  "view_details": "Batafsil",
+  "pending": "Kutilmoqda",
+  "processing": "Qayta ishlanmoqda",
+  "shipped": "Yuborildi",
+  "delivered": "Yetkazildi",
+  "cancelled": "Bekor qilindi",
+  
+  // Profile Page - NEW ADDITIONS
+  "my_profile": "Mening profilim",
+  "personal_info": "Shaxsiy ma'lumotlar",
+  "edit_profile": "Profilni tahrirlash",
+  "change_password": "Parolni o'zgartirish",
+  "logout": "Chiqish",
+  "save_changes": "O'zgarishlarni saqlash",
+  
+  // Admin Panel - NEW ADDITIONS
+  "dashboard": "Boshqaruv paneli",
+  "total_products": "Jami mahsulotlar",
+  "total_orders": "Jami buyurtmalar",
+  "total_customers": "Jami mijozlar",
+  "revenue": "Daromad",
+  "recent_orders": "So'nggi buyurtmalar",
+  "low_stock_products": "Kam qolgan mahsulotlar",
+  "add_product": "Mahsulot qo'shish",
+  "edit_product": "Mahsulotni tahrirlash",
+  "delete_product": "Mahsulotni o'chirish",
+  "confirm_delete": "O'chirishni tasdiqlaysizmi?",
+  "yes_delete": "Ha, o'chirish",
+  "cancel": "Bekor qilish",
+  
+  // Form Validation - NEW ADDITIONS
+  "field_required": "Bu maydon to'ldirilishi shart",
+  "invalid_email": "Noto'g'ri email manzil",
+  "invalid_phone": "Noto'g'ri telefon raqami",
+  "password_min_length": "Parol kamida 6 ta belgidan iborat bo'lishi kerak",
+  "passwords_not_match": "Parollar mos kelmadi",
+  
+  // Success/Error Messages - NEW ADDITIONS
+  "added_to_cart": "Savatga qo'shildi",
+  "removed_from_cart": "Savatdan o'chirildi",
+  "order_placed": "Buyurtma qabul qilindi",
+  "profile_updated": "Profil yangilandi",
+  "product_added": "Mahsulot qo'shildi",
+  "product_updated": "Mahsulot yangilandi",
+  "product_deleted": "Mahsulot o'chirildi",
 };
 
 // Turkish translations
@@ -512,6 +575,7 @@ const turkishTranslations = {
   "top_left": "Sol üst",
   "bottom_right": "Sağ alt",
   "bottom_left": "Sol alt",
+  "second": "saniye", // Singular for 1 second
   "seconds": "saniye",
   "test_toast": "Test et",
   "test_message": "Bu bir test mesajıdır!",
@@ -534,6 +598,68 @@ const turkishTranslations = {
   "nav_partnership": "İş Ortaklığı",
   "nav_my_account": "Hesabım",
   "order_success": "Sipariş başarıyla oluşturuldu!",
+  
+  // Contact Page - NEW ADDITIONS
+  "contact_description": "Sorularınız veya önerileriniz mi var? Bizimle iletişime geçin!",
+  "full_name": "Tam adınız",
+  "email_address": "E-posta adresi",
+  "phone_number": "Telefon numarası",
+  "message": "Mesaj",
+  "send_message": "Mesaj gönder",
+  "contact_info": "İletişim bilgileri",
+  "address": "Adres",
+  "working_hours": "Çalışma saatleri",
+  "monday_friday": "Pazartesi - Cuma",
+  "saturday_sunday": "Cumartesi - Pazar",
+  "sending": "Gönderiliyor...",
+  "message_sent": "Mesaj gönderildi!",
+  
+  // Orders Page - NEW ADDITIONS
+  "view_details": "Detaylar",
+  "pending": "Beklemede",
+  "processing": "İşleniyor",
+  "shipped": "Kargoya verildi",
+  "delivered": "Teslim edildi",
+  "cancelled": "İptal edildi",
+  
+  // Profile Page - NEW ADDITIONS
+  "my_profile": "Profilim",
+  "personal_info": "Kişisel bilgiler",
+  "edit_profile": "Profili düzenle",
+  "change_password": "Şifre değiştir",
+  "logout": "Çıkış yap",
+  "save_changes": "Değişiklikleri kaydet",
+  
+  // Admin Panel - NEW ADDITIONS
+  "dashboard": "Kontrol paneli",
+  "total_products": "Toplam ürün",
+  "total_orders": "Toplam sipariş",
+  "total_customers": "Toplam müşteri",
+  "revenue": "Gelir",
+  "recent_orders": "Son siparişler",
+  "low_stock_products": "Stok azalan ürünler",
+  "add_product": "Ürün ekle",
+  "edit_product": "Ürünü düzenle",
+  "delete_product": "Ürünü sil",
+  "confirm_delete": "Silmek istediğinizden emin misiniz?",
+  "yes_delete": "Evet, sil",
+  "cancel": "İptal",
+  
+  // Form Validation - NEW ADDITIONS
+  "field_required": "Bu alan zorunludur",
+  "invalid_email": "Geçersiz e-posta adresi",
+  "invalid_phone": "Geçersiz telefon numarası",
+  "password_min_length": "Şifre en az 6 karakter olmalıdır",
+  "passwords_not_match": "Şifreler eşleşmiyor",
+  
+  // Success/Error Messages - NEW ADDITIONS
+  "added_to_cart": "Sepete eklendi",
+  "removed_from_cart": "Sepetten çıkarıldı",
+  "order_placed": "Sipariş alındı",
+  "profile_updated": "Profil güncellendi",
+  "product_added": "Ürün eklendi",
+  "product_updated": "Ürün güncellendi",
+  "product_deleted": "Ürün silindi",
 };
 
 // Russian translations
@@ -771,6 +897,7 @@ const russianTranslations = {
   "top_left": "Верхний левый",
   "bottom_right": "Нижний правый",
   "bottom_left": "Нижний левый",
+  "second": "секунда", // Singular for 1 second
   "seconds": "секунд",
   "test_toast": "Тест",
   "test_message": "Это тестовое сообщение!",
@@ -793,6 +920,68 @@ const russianTranslations = {
   "nav_partnership": "Партнёрство",
   "nav_my_account": "Мой аккаунт",
   "order_success": "Заказ успешно создан!",
+  
+  // Contact Page - NEW ADDITIONS
+  "contact_description": "Есть вопросы или предложения? Свяжитесь с нами!",
+  "full_name": "Полное имя",
+  "email_address": "Адрес электронной почты",
+  "phone_number": "Номер телефона",
+  "message": "Сообщение",
+  "send_message": "Отправить сообщение",
+  "contact_info": "Контактная информация",
+  "address": "Адрес",
+  "working_hours": "Часы работы",
+  "monday_friday": "Понедельник - Пятница",
+  "saturday_sunday": "Суббота - Воскресенье",
+  "sending": "Отправка...",
+  "message_sent": "Сообщение отправлено!",
+  
+  // Orders Page - NEW ADDITIONS
+  "view_details": "Подробнее",
+  "pending": "Ожидает",
+  "processing": "Обрабатывается",
+  "shipped": "Отправлено",
+  "delivered": "Доставлено",
+  "cancelled": "Отменено",
+  
+  // Profile Page - NEW ADDITIONS
+  "my_profile": "Мой профиль",
+  "personal_info": "Личная информация",
+  "edit_profile": "Редактировать профиль",
+  "change_password": "Изменить пароль",
+  "logout": "Выйти",
+  "save_changes": "Сохранить изменения",
+  
+  // Admin Panel - NEW ADDITIONS
+  "dashboard": "Панель управления",
+  "total_products": "Всего товаров",
+  "total_orders": "Всего заказов",
+  "total_customers": "Всего клиентов",
+  "revenue": "Доход",
+  "recent_orders": "Последние заказы",
+  "low_stock_products": "Товары с низким запасом",
+  "add_product": "Добавить товар",
+  "edit_product": "Редактировать товар",
+  "delete_product": "Удалить товар",
+  "confirm_delete": "Вы уверены, что хотите удалить?",
+  "yes_delete": "Да, удалить",
+  "cancel": "Отмена",
+  
+  // Form Validation - NEW ADDITIONS
+  "field_required": "Это поле обязательно",
+  "invalid_email": "Недействительный адрес электронной почты",
+  "invalid_phone": "Недействительный номер телефона",
+  "password_min_length": "Пароль должен содержать не менее 6 символов",
+  "passwords_not_match": "Пароли не совпадают",
+  
+  // Success/Error Messages - NEW ADDITIONS
+  "added_to_cart": "Добавлено в корзину",
+  "removed_from_cart": "Удалено из корзины",
+  "order_placed": "Заказ принят",
+  "profile_updated": "Профиль обновлен",
+  "product_added": "Товар добавлен",
+  "product_updated": "Товар обновлен",
+  "product_deleted": "Товар удален",
 };
 
 async function seedTranslations() {
