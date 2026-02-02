@@ -72,7 +72,8 @@ export default function ProductDetailPage() {
 
   const getPrice = () => {
     if (!customer?.priceTypeId || !product) return 0;
-    return product.prices[customer.priceTypeId] || 0;
+    // FIXED: Use pricePerBox if available (wholesale pricing), otherwise fall back to dynamic pricing
+    return product.pricePerBox || product.prices[customer.priceTypeId] || 0;
   };
 
   if (loading) {
