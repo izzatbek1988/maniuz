@@ -102,9 +102,9 @@ const ProductCard = memo(({ product, user, customer, onAddToCart }: {
       )}
 
       <CardHeader className="pb-2">
-        <div className="relative w-full h-[240px] mb-2 bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-t-lg overflow-hidden">
-          <div className="absolute inset-0 flex items-center justify-center p-6">
-            <div className="relative w-full h-full">
+        <div className="relative w-full h-[300px] mb-2 bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-t-lg overflow-hidden">
+          <div className="absolute inset-0 flex items-center justify-center p-3">
+  <div className="relative w-full h-full">
               <img
                 src={product.imageUrl || '/placeholder.png'}
                 alt={product.name}
