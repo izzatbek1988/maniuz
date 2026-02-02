@@ -10,6 +10,10 @@ export interface Product {
   prices: {
     [priceTypeId: string]: number;
   };
+  // NEW: Dual pricing system fields (optional for backward compatibility)
+  pricePerUnit?: number;        // Adet fiyatı (so'm)
+  pricePerBox?: number;         // Koli fiyatı (so'm)
+  unitsPerBox?: number;         // Koli başına adet sayısı
   createdAt: Timestamp;
   updatedAt: Timestamp;
 }
