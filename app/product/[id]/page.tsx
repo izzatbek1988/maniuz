@@ -70,12 +70,6 @@ export default function ProductDetailPage() {
     }
   };
 
-  const getPrice = () => {
-    if (!customer?.priceTypeId || !product) return 0;
-    // FIXED: Use pricePerBox if available (wholesale pricing), otherwise fall back to dynamic pricing
-    return product.pricePerBox || product.prices[customer.priceTypeId] || 0;
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -113,11 +107,11 @@ export default function ProductDetailPage() {
         </Link>
 
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="aspect-square relative bg-gray-100 rounded-lg overflow-hidden">
+          <div className="relative w-full h-[240px] md:h-[400px] bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg overflow-hidden">
             <img
               src={product.imageUrl || '/placeholder.png'}
               alt={product.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain p-4"
             />
           </div>
 
@@ -129,10 +123,6 @@ export default function ProductDetailPage() {
 
             {user && customer ? (
               <div className="space-y-3">
-                <p className="text-4xl font-bold text-primary">
-                  {getPrice().toFixed(2)} {t('currency_symbol')}
-                </p>
-                
                 {/* Improved Dual Pricing Display with Translations */}
                 {(product.pricePerUnit || product.pricePerBox) && (
                   <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-3 space-y-2">

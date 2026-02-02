@@ -36,12 +36,11 @@ const ProductSkeleton = () => (
 );
 
 // Memoized ProductCard component
-const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
+const ProductCard = memo(({ product, user, customer, onAddToCart }: {
   product: Product;
   user: any;
   customer: Customer | null;
   onAddToCart: (product: Product, quantity: number) => void;
-  getPrice: (product: Product) => number;
 }) => {
   const [quantity, setQuantity] = useState(1);
   const { t } = useTranslation();
@@ -75,10 +74,6 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
     return quantity * (product.itemsPerBox || 1);
   }, [quantity, product.itemsPerBox]);
 
-  const displayPrice = useMemo(() => {
-    return getPrice(product).toFixed(2);
-  }, [product, getPrice]);
-
   const stockDisplay = useMemo(() => {
     const itemsPerBox = product.itemsPerBox || 1;
     return `${product.stock} ${t('box')} (${product.stock * itemsPerBox} ${t('units')})`;
@@ -107,11 +102,11 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
       )}
 
       <CardHeader className="pb-2">
-        <div className="aspect-square relative mb-2 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl overflow-hidden shadow-inner max-h-[180px]">
+        <div className="relative w-full h-[240px] mb-2 bg-gradient-to-br from-gray-50 to-gray-100 rounded-t-lg overflow-hidden">
           <img
             src={product.imageUrl || '/placeholder.png'}
             alt={product.name}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
@@ -127,15 +122,6 @@ const ProductCard = memo(({ product, user, customer, onAddToCart, getPrice }: {
         <div className="space-y-1.5">
           {user && customer ? (
             <>
-              <div className="flex items-baseline gap-2">
-                <p className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  {displayPrice}
-                </p>
-                <p className="text-base text-gray-600 font-semibold">
-                  {t('currency_symbol')}
-                </p>
-              </div>
-              
               {/* Improved Dual Pricing Display with Emojis and Translations */}
               {(product.pricePerUnit || product.pricePerBox) && (
                 <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-2 space-y-1">
@@ -298,12 +284,6 @@ export default function HomePage() {
     );
   }, [user, router, addItem, t]);
 
-  const getPrice = useCallback((product: Product) => {
-    if (!customer?.priceTypeId) return 0;
-    // FIXED: Use pricePerBox if available (wholesale pricing), otherwise fall back to dynamic pricing
-    return product.pricePerBox || product.prices[customer.priceTypeId] || 0;
-  }, [customer]);
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 flex flex-col">
       <Navbar />
@@ -352,7 +332,6 @@ export default function HomePage() {
                 user={user}
                 customer={customer}
                 onAddToCart={handleAddToCart}
-                getPrice={getPrice}
               />
             ))}
           </div>
