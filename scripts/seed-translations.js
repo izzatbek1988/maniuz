@@ -219,6 +219,62 @@ const uzbekTranslations = {
   
   // Currency
   "currency_symbol": "so'm",
+  
+  // Unit/Box Labels
+  "unit_price": "Dona narxi",
+  "box_price": "Quti narxi",
+  "units": "dona",
+  "unit": "Dona",
+  "box": "Quti",
+  
+  // Cart Translations
+  "cart_items": "mahsulot",
+  "cart_summary": "Buyurtma xulosasi",
+  "cart_removed": "o'chirildi",
+  "cart_empty_description": "Savatingiz bo'sh. Mahsulotlarni ko'rib chiqing!",
+  "product": "Mahsulot",
+  "price": "Narx",
+  "quantity": "Miqdor",
+  "total": "Jami",
+  "actions": "Amallar",
+  "remove": "O'chirish",
+  "clear_cart": "Savatni tozalash",
+  "checkout": "Buyurtma berish",
+  "subtotal": "Oraliq jami",
+  "shipping": "Yetkazib berish",
+  "calculated_at_checkout": "To'lovda hisoblanadi",
+  "continue_shopping": "Xarid qilishni davom ettirish",
+  
+  // Toast Settings
+  "toast_settings": "Bildirishnoma sozlamalari",
+  "toast_position": "Bildirishnoma joylashuvi",
+  "toast_duration": "Bildirishnoma davomiyligi",
+  "top_right": "Yuqori o'ng",
+  "top_left": "Yuqori chap",
+  "bottom_right": "Pastki o'ng",
+  "bottom_left": "Pastki chap",
+  "seconds": "soniya",
+  "test_toast": "Sinab ko'rish",
+  "test_message": "Bu test xabari!",
+  "save_settings": "Saqlash",
+  "settings_error": "Xatolik yuz berdi",
+  "saving": "Saqlanmoqda...",
+  
+  // Navbar Tooltips
+  "cart": "Savat",
+  "profile": "Profil",
+  "my_orders": "Buyurtmalarim",
+  
+  // Products Page
+  "products_subtitle": "Eng sifatli mahsulotlarimiz bilan tanishing",
+  "products_empty_description": "Hozircha mahsulotlar mavjud emas",
+  "product_new": "Yangi",
+  
+  // About Page
+  "nav_about": "Haqimizda",
+  "nav_partnership": "Hamkorlik",
+  "nav_my_account": "Mening hisobim",
+  "order_success": "Buyurtma muvaffaqiyatli yaratildi!",
 };
 
 // Turkish translations
@@ -422,6 +478,62 @@ const turkishTranslations = {
   
   // Currency
   "currency_symbol": "₺",
+  
+  // Unit/Box Labels
+  "unit_price": "Adet fiyatı",
+  "box_price": "Koli fiyatı",
+  "units": "adet",
+  "unit": "Adet",
+  "box": "Koli",
+  
+  // Cart Translations
+  "cart_items": "ürün",
+  "cart_summary": "Sipariş özeti",
+  "cart_removed": "kaldırıldı",
+  "cart_empty_description": "Sepetiniz boş. Ürünlere göz atın!",
+  "product": "Ürün",
+  "price": "Fiyat",
+  "quantity": "Miktar",
+  "total": "Toplam",
+  "actions": "İşlemler",
+  "remove": "Kaldır",
+  "clear_cart": "Sepeti temizle",
+  "checkout": "Sipariş ver",
+  "subtotal": "Ara toplam",
+  "shipping": "Kargo",
+  "calculated_at_checkout": "Ödemede hesaplanır",
+  "continue_shopping": "Alışverişe devam et",
+  
+  // Toast Settings
+  "toast_settings": "Bildirim ayarları",
+  "toast_position": "Bildirim konumu",
+  "toast_duration": "Bildirim süresi",
+  "top_right": "Sağ üst",
+  "top_left": "Sol üst",
+  "bottom_right": "Sağ alt",
+  "bottom_left": "Sol alt",
+  "seconds": "saniye",
+  "test_toast": "Test et",
+  "test_message": "Bu bir test mesajıdır!",
+  "save_settings": "Kaydet",
+  "settings_error": "Hata oluştu",
+  "saving": "Kaydediliyor...",
+  
+  // Navbar Tooltips
+  "cart": "Sepet",
+  "profile": "Profil",
+  "my_orders": "Siparişlerim",
+  
+  // Products Page
+  "products_subtitle": "En kaliteli ürünlerimizle tanışın",
+  "products_empty_description": "Şu anda ürün bulunmamaktadır",
+  "product_new": "Yeni",
+  
+  // About Page
+  "nav_about": "Hakkımızda",
+  "nav_partnership": "İş Ortaklığı",
+  "nav_my_account": "Hesabım",
+  "order_success": "Sipariş başarıyla oluşturuldu!",
 };
 
 // Russian translations
@@ -625,6 +737,62 @@ const russianTranslations = {
   
   // Currency
   "currency_symbol": "сум",
+  
+  // Unit/Box Labels
+  "unit_price": "Цена за штуку",
+  "box_price": "Цена за коробку",
+  "units": "штук",
+  "unit": "Штук",
+  "box": "Коробка",
+  
+  // Cart Translations
+  "cart_items": "товар",
+  "cart_summary": "Итоги заказа",
+  "cart_removed": "удалено",
+  "cart_empty_description": "Ваша корзина пуста. Посмотрите товары!",
+  "product": "Товар",
+  "price": "Цена",
+  "quantity": "Количество",
+  "total": "Итого",
+  "actions": "Действия",
+  "remove": "Удалить",
+  "clear_cart": "Очистить корзину",
+  "checkout": "Оформить заказ",
+  "subtotal": "Промежуточный итог",
+  "shipping": "Доставка",
+  "calculated_at_checkout": "Рассчитывается при оплате",
+  "continue_shopping": "Продолжить покупки",
+  
+  // Toast Settings
+  "toast_settings": "Настройки уведомлений",
+  "toast_position": "Позиция уведомлений",
+  "toast_duration": "Длительность уведомлений",
+  "top_right": "Верхний правый",
+  "top_left": "Верхний левый",
+  "bottom_right": "Нижний правый",
+  "bottom_left": "Нижний левый",
+  "seconds": "секунд",
+  "test_toast": "Тест",
+  "test_message": "Это тестовое сообщение!",
+  "save_settings": "Сохранить",
+  "settings_error": "Произошла ошибка",
+  "saving": "Сохранение...",
+  
+  // Navbar Tooltips
+  "cart": "Корзина",
+  "profile": "Профиль",
+  "my_orders": "Мои заказы",
+  
+  // Products Page
+  "products_subtitle": "Познакомьтесь с нашими лучшими товарами",
+  "products_empty_description": "Пока нет товаров",
+  "product_new": "Новое",
+  
+  // About Page
+  "nav_about": "О нас",
+  "nav_partnership": "Партнёрство",
+  "nav_my_account": "Мой аккаунт",
+  "order_success": "Заказ успешно создан!",
 };
 
 async function seedTranslations() {

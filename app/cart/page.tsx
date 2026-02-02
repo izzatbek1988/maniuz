@@ -169,7 +169,7 @@ export default function CartPage() {
                           <h3 className="font-bold text-xl text-gray-900 mb-1">{item.product.name}</h3>
                           <p className="text-sm text-gray-500 flex items-center gap-2">
                             <Package className="h-4 w-4" />
-                            {item.product.itemsPerBox} {t('product_pieces')} / {t('product_boxes')}
+                            {item.product.itemsPerBox} {t('units')} / {t('box')}
                           </p>
                         </div>
                         <Button
@@ -193,12 +193,12 @@ export default function CartPage() {
                             {t('currency_symbol')}
                           </span>
                           <span className="text-sm text-gray-500">
-                            / {t('product_boxes')}
+                            / {t('box')}
                           </span>
                         </div>
                         {item.product.itemsPerBox && (
                           <p className="text-sm text-blue-600 font-medium mt-1">
-                            {t('cart_total')}: {item.quantity * item.product.itemsPerBox} {t('product_pieces')}
+                            {t('cart_total')}: {item.quantity * item.product.itemsPerBox} {t('units')}
                           </p>
                         )}
                       </div>
@@ -230,7 +230,7 @@ export default function CartPage() {
                       {/* Subtotal */}
                       <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-100">
                         <div className="flex justify-between items-center">
-                          <span className="text-sm text-gray-600">Jami:</span>
+                          <span className="text-sm text-gray-600">{t('subtotal')}:</span>
                           <span className="text-xl font-bold text-blue-600">
                             {(getPrice(item.product.id) * item.quantity).toFixed(2)} {t('currency_symbol')}
                           </span>

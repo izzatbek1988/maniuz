@@ -17,6 +17,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function Navbar() {
   const { user, customer, signOut } = useAuth();
@@ -101,33 +107,47 @@ export default function Navbar() {
               </div>
 
               {user ? (
-                <>
+                <TooltipProvider>
                   {/* Cart Button */}
-                  <Link href="/cart">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="relative group hover:bg-blue-50 transition-colors"
-                    >
-                      <ShoppingCart className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                      {cartCount > 0 && (
-                        <span className="absolute -top-1 -right-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-lg animate-pulse">
-                          {cartCount}
-                        </span>
-                      )}
-                    </Button>
-                  </Link>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/cart">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="relative group hover:bg-blue-50 transition-colors"
+                        >
+                          <ShoppingCart className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                          {cartCount > 0 && (
+                            <span className="absolute -top-1 -right-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-lg animate-pulse">
+                              {cartCount}
+                            </span>
+                          )}
+                        </Button>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{t('cart')}</p>
+                    </TooltipContent>
+                  </Tooltip>
 
                   {/* Orders Button */}
-                  <Link href="/orders" className="hidden sm:block">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="hover:bg-purple-50 transition-colors group"
-                    >
-                      <Package className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                    </Button>
-                  </Link>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/orders" className="hidden sm:block">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="hover:bg-purple-50 transition-colors group"
+                        >
+                          <Package className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                        </Button>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{t('my_orders')}</p>
+                    </TooltipContent>
+                  </Tooltip>
 
                   {/* User Dropdown Menu */}
                   <DropdownMenu>
@@ -178,7 +198,7 @@ export default function Navbar() {
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
-                </>
+                </TooltipProvider>
               ) : (
                 <>
                   <Link href="/login" className="hidden sm:block">

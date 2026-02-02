@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { collection, getDocs, doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { toast } from 'react-hot-toast';
@@ -15,10 +16,19 @@ interface PriceType {
   name: string;
 }
 
+interface ToastSettings {
+  position: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
+  duration: 2000 | 3000 | 5000;
+}
+
 export default function SettingsPage() {
   const { t } = useTranslation();
   const [priceTypes, setPriceTypes] = useState<PriceType[]>([]);
   const [selectedPriceTypeId, setSelectedPriceTypeId] = useState<string>('');
+  const [toastSettings, setToastSettings] = useState<ToastSettings>({
+    position: 'bottom-left',
+    duration: 3000
+  });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -40,6 +50,12 @@ export default function SettingsPage() {
         } else if (priceTypesData.length > 0) {
           // Default to first price type if no setting exists
           setSelectedPriceTypeId(priceTypesData[0].id);
+        }
+
+        // Fetch toast settings
+        const toastDoc = await getDoc(doc(db, 'settings', 'toast'));
+        if (toastDoc.exists()) {
+          setToastSettings(toastDoc.data() as ToastSettings);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -63,13 +79,27 @@ export default function SettingsPage() {
       await setDoc(doc(db, 'settings', 'general'), {
         defaultPriceTypeId: selectedPriceTypeId,
       });
-      toast.success(t('settings_saved'));
+      
+      // Save toast settings
+      await setDoc(doc(db, 'settings', 'toast'), toastSettings);
+      
+      toast.success(t('settings_saved'), {
+        position: toastSettings.position,
+        duration: toastSettings.duration
+      });
     } catch (error) {
       console.error('Error saving settings:', error);
-      toast.error(t('error'));
+      toast.error(t('settings_error') || t('error'));
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleTestToast = () => {
+    toast.success(t('test_message'), {
+      position: toastSettings.position,
+      duration: toastSettings.duration
+    });
   };
 
   if (loading) {
@@ -80,35 +110,125 @@ export default function SettingsPage() {
     <div>
       <h1 className="text-3xl font-bold mb-6">{t('settings_title')}</h1>
 
-      <Card className="max-w-2xl">
-        <CardHeader>
-          <CardTitle>{t('settings_title')}</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="defaultPriceType">{t('settings_default_price_type')}</Label>
-            <Select
-              value={selectedPriceTypeId}
-              onValueChange={setSelectedPriceTypeId}
-            >
-              <SelectTrigger id="defaultPriceType">
-                <SelectValue placeholder={t('settings_default_price_type')} />
-              </SelectTrigger>
-              <SelectContent>
-                {priceTypes.map((priceType) => (
-                  <SelectItem key={priceType.id} value={priceType.id}>
-                    {priceType.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+      <div className="space-y-6">
+        {/* Price Type Settings */}
+        <Card className="max-w-2xl">
+          <CardHeader>
+            <CardTitle>{t('settings_default_price_type')}</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="defaultPriceType">{t('settings_default_price_type')}</Label>
+              <Select
+                value={selectedPriceTypeId}
+                onValueChange={setSelectedPriceTypeId}
+              >
+                <SelectTrigger id="defaultPriceType">
+                  <SelectValue placeholder={t('settings_default_price_type')} />
+                </SelectTrigger>
+                <SelectContent>
+                  {priceTypes.map((priceType) => (
+                    <SelectItem key={priceType.id} value={priceType.id}>
+                      {priceType.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </CardContent>
+        </Card>
 
-          <Button onClick={handleSave} disabled={saving || !selectedPriceTypeId}>
-            {saving ? t('loading') : t('settings_save')}
+        {/* Toast Notification Settings */}
+        <Card className="max-w-2xl">
+          <CardHeader>
+            <CardTitle>{t('toast_settings')}</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Position Settings */}
+            <div className="space-y-3">
+              <Label className="text-base font-semibold">
+                {t('toast_position')}
+              </Label>
+              <RadioGroup
+                value={toastSettings.position}
+                onValueChange={(value) => setToastSettings({ ...toastSettings, position: value as ToastSettings['position'] })}
+              >
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="top-right" id="top-right" />
+                    <Label htmlFor="top-right" className="cursor-pointer font-normal">
+                      {t('top_right')} ↗️
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="top-left" id="top-left" />
+                    <Label htmlFor="top-left" className="cursor-pointer font-normal">
+                      {t('top_left')} ↖️
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="bottom-right" id="bottom-right" />
+                    <Label htmlFor="bottom-right" className="cursor-pointer font-normal">
+                      {t('bottom_right')} ↘️
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="bottom-left" id="bottom-left" />
+                    <Label htmlFor="bottom-left" className="cursor-pointer font-normal">
+                      {t('bottom_left')} ↙️
+                    </Label>
+                  </div>
+                </div>
+              </RadioGroup>
+            </div>
+
+            {/* Duration Settings */}
+            <div className="space-y-3">
+              <Label className="text-base font-semibold">
+                {t('toast_duration')}
+              </Label>
+              <RadioGroup
+                value={toastSettings.duration.toString()}
+                onValueChange={(value) => setToastSettings({ ...toastSettings, duration: parseInt(value) as ToastSettings['duration'] })}
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="2000" id="2s" />
+                    <Label htmlFor="2s" className="cursor-pointer font-normal">
+                      2 {t('seconds')} ⚡
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="3000" id="3s" />
+                    <Label htmlFor="3s" className="cursor-pointer font-normal">
+                      3 {t('seconds')} ✅
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="5000" id="5s" />
+                    <Label htmlFor="5s" className="cursor-pointer font-normal">
+                      5 {t('seconds')} 🕐
+                    </Label>
+                  </div>
+                </div>
+              </RadioGroup>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Actions */}
+        <div className="flex gap-4 max-w-2xl">
+          <Button
+            onClick={handleTestToast}
+            variant="outline"
+          >
+            {t('test_toast')} 🧪
           </Button>
-        </CardContent>
-      </Card>
+          <Button onClick={handleSave} disabled={saving || !selectedPriceTypeId}>
+            {saving ? t('saving') : t('save_settings')} 💾
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

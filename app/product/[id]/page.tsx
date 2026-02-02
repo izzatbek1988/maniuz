@@ -59,7 +59,7 @@ export default function ProductDetailPage() {
       const totalItems = quantity * itemsPerBox;
       
       toast.success(
-        `${quantity} ${t('product_boxes')} (${totalItems} ${t('product_pieces')}) ${t('cart_added')}!`,
+        `${quantity} ${t('box')} (${totalItems} ${t('units')}) ${t('cart_added')}!`,
         {
           duration: 3000,
           icon: '🛒',
@@ -132,32 +132,41 @@ export default function ProductDetailPage() {
                   {getPrice().toFixed(2)} {t('currency_symbol')}
                 </p>
                 
-                {/* Dual Pricing Display */}
+                {/* Improved Dual Pricing Display with Translations */}
                 {(product.pricePerUnit || product.pricePerBox) && (
-                  <Card className="bg-gradient-to-r from-purple-50 to-blue-50 border-purple-200">
-                    <CardContent className="pt-4">
-                      <h3 className="text-sm font-semibold text-gray-700 mb-3">💰 Fiyat Bilgileri</h3>
-                      <div className="space-y-2">
-                        {product.pricePerUnit && (
-                          <div className="flex justify-between items-center p-2 bg-white rounded-lg">
-                            <span className="text-sm font-medium text-gray-600">🔢 Adet Fiyatı:</span>
-                            <span className="text-lg font-bold text-purple-700">
-                              {product.pricePerUnit.toLocaleString()} so'm
-                            </span>
-                          </div>
-                        )}
-                        {product.pricePerBox && product.unitsPerBox && (
-                          <div className="flex justify-between items-center p-2 bg-white rounded-lg">
-                            <span className="text-sm font-medium text-gray-600">📦 Koli Fiyatı:</span>
-                            <span className="text-lg font-bold text-blue-700">
-                              {product.pricePerBox.toLocaleString()} so'm
-                              <span className="text-xs text-gray-500 ml-2">({product.unitsPerBox} adet)</span>
-                            </span>
-                          </div>
-                        )}
+                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-3 space-y-2">
+                    {product.pricePerUnit && (
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="text-2xl">🔢</span>
+                          <span className="text-sm font-medium text-gray-600">
+                            {t('unit_price')}:
+                          </span>
+                        </div>
+                        <span className="text-lg font-bold text-purple-600">
+                          {product.pricePerUnit.toLocaleString()} {t('currency_symbol')}
+                        </span>
                       </div>
-                    </CardContent>
-                  </Card>
+                    )}
+                    {product.pricePerBox && product.unitsPerBox && (
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="text-2xl">📦</span>
+                          <span className="text-sm font-medium text-gray-600">
+                            {t('box_price')}:
+                          </span>
+                        </div>
+                        <div className="text-right">
+                          <span className="text-lg font-bold text-blue-600">
+                            {product.pricePerBox.toLocaleString()} {t('currency_symbol')}
+                          </span>
+                          <span className="text-xs text-gray-500 ml-1">
+                            ({product.unitsPerBox} {t('units')})
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 )}
               </div>
             ) : (
@@ -170,10 +179,10 @@ export default function ProductDetailPage() {
               <p className={`text-lg ${product.stock > 0 ? 'text-green-600' : 'text-red-600'}`}>
                 {product.stock > 0 ? (
                   <>
-                    {t('product_stock')}: <span className="font-semibold">{product.stock} {t('product_boxes')}</span>
+                    📦 {t('product_stock')}: <span className="font-semibold">{product.stock} {t('box')}</span>
                     {product.itemsPerBox && (
                       <span className="text-muted-foreground text-base">
-                        {' '}({product.stock * product.itemsPerBox} {t('product_pieces')})
+                        {' '}({product.stock * product.itemsPerBox} {t('units')})
                       </span>
                     )}
                   </>
@@ -187,7 +196,7 @@ export default function ProductDetailPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="quantity">{t('product_quantity')} ({t('product_boxes')})</Label>
+                  <Label htmlFor="quantity">{t('product_quantity')} ({t('box')})</Label>
                   <Input
                     id="quantity"
                     type="number"
@@ -198,7 +207,7 @@ export default function ProductDetailPage() {
                   />
                   {product.itemsPerBox && quantity > 0 && (
                     <p className="text-sm text-muted-foreground">
-                      {t('cart_total')}: {quantity * product.itemsPerBox} {t('product_pieces')}
+                      {t('cart_total')}: {quantity * product.itemsPerBox} {t('units')}
                     </p>
                   )}
                 </div>
