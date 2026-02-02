@@ -83,7 +83,7 @@ const ProductCard = memo(({ product, user, customer, onAddToCart }: {
 
   return (
     <Card
-      className="flex flex-col cursor-pointer group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-0 bg-white overflow-hidden relative"
+      className="h-full flex flex-col cursor-pointer group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-0 bg-white overflow-hidden relative"
       onClick={handleCardClick}
     >
       {/* Stock Badge */}
@@ -102,23 +102,27 @@ const ProductCard = memo(({ product, user, customer, onAddToCart }: {
       )}
 
       <CardHeader className="pb-2">
-        <div className="relative w-full h-[240px] mb-2 bg-gradient-to-br from-gray-50 to-gray-100 rounded-t-lg overflow-hidden">
-          <img
-            src={product.imageUrl || '/placeholder.png'}
-            alt={product.name}
-            className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
-          />
+        <div className="relative w-full h-[240px] mb-2 bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-t-lg overflow-hidden">
+          <div className="absolute inset-0 flex items-center justify-center p-6">
+            <div className="relative w-full h-full">
+              <img
+                src={product.imageUrl || '/placeholder.png'}
+                alt={product.name}
+                className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-md"
+              />
+            </div>
+          </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
-        <CardTitle className="line-clamp-2 mb-0.5 group-hover:text-blue-600 transition-colors text-base leading-tight">
+        <CardTitle className="line-clamp-2 min-h-[3rem] mb-0.5 group-hover:text-blue-600 transition-colors text-base leading-tight">
           {product.name}
         </CardTitle>
-        <CardDescription className="line-clamp-2 text-xs min-h-0 mb-1">
+        <CardDescription className="line-clamp-2 min-h-[2.5rem] text-xs mb-1">
           {product.description}
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="space-y-1.5 px-3 pb-2">
+      <CardContent className="flex-1 flex flex-col space-y-1.5 px-3 pb-2">
         <div className="space-y-1.5">
           {user && customer ? (
             <>
@@ -199,33 +203,36 @@ const ProductCard = memo(({ product, user, customer, onAddToCart }: {
             </div>
           </div>
         )}
-      </CardContent>
 
-      <CardFooter className="flex gap-1.5 pt-1 px-3 pb-3" onClick={(e) => e.stopPropagation()}>
-        <Button
-          variant="outline"
-          size="sm"
-          className="flex-1 border-2 hover:bg-gray-50 transition-all h-8 text-xs"
-          onClick={(e) => {
-            e.stopPropagation();
-            router.push(`/product/${product.id}`);
-          }}
-        >
-          <Eye className="mr-1 h-3 w-3" />
-          {t('product_view_details')}
-        </Button>
-        {user && customer && (
-          <Button
-            size="sm"
-            className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 h-8 text-xs"
-            onClick={handleAddToCartClick}
-            disabled={isOutOfStock}
-          >
-            <ShoppingCart className="mr-1 h-3 w-3" />
-            {t('product_add_to_cart')}
-          </Button>
-        )}
-      </CardFooter>
+        {/* Button wrapper with mt-auto to push to bottom */}
+        <div className="mt-auto pt-3">
+          <CardFooter className="flex gap-1.5 p-0" onClick={(e) => e.stopPropagation()}>
+            <Button
+              variant="outline"
+              size="sm"
+              className="flex-1 border-2 hover:bg-gray-50 transition-all h-8 text-xs"
+              onClick={(e) => {
+                e.stopPropagation();
+                router.push(`/product/${product.id}`);
+              }}
+            >
+              <Eye className="mr-1 h-3 w-3" />
+              {t('product_view_details')}
+            </Button>
+            {user && customer && (
+              <Button
+                size="sm"
+                className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 h-8 text-xs"
+                onClick={handleAddToCartClick}
+                disabled={isOutOfStock}
+              >
+                <ShoppingCart className="mr-1 h-3 w-3" />
+                {t('product_add_to_cart')}
+              </Button>
+            )}
+          </CardFooter>
+        </div>
+      </CardContent>
     </Card>
   );
 });
