@@ -22,7 +22,7 @@ export default function Hero() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-6 animate-fade-in">
             <Sparkles className="h-4 w-4" />
-            <span>Premium İçimliklar</span>
+            <span>{t('hero_badge')}</span>
           </div>
 
           {/* Main Heading */}
@@ -51,19 +51,19 @@ export default function Hero() {
             </Link>
           </div>
 
-          {/* Stats or Features (Optional) */}
+          {/* Stats or Features */}
           <div className="grid grid-cols-3 gap-8 mt-16 max-w-2xl mx-auto animate-fade-in-up animation-delay-600">
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-600 mb-2">500+</div>
-              <div className="text-sm text-gray-600">Mahsulotlar</div>
+              <div className="text-sm text-gray-600">{t('stats_products')}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-purple-600 mb-2">24/7</div>
-              <div className="text-sm text-gray-600">Yetkazib berish</div>
+              <div className="text-sm text-gray-600">{t('stats_delivery')}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-pink-600 mb-2">1000+</div>
-              <div className="text-sm text-gray-600">Mijozlar</div>
+              <div className="text-sm text-gray-600">{t('stats_customers')}</div>
             </div>
           </div>
         </div>
