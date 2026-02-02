@@ -230,7 +230,7 @@ export default function CartPage() {
                       {/* Subtotal */}
                       <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-100">
                         <div className="flex justify-between items-center">
-                          <span className="text-sm text-gray-600">Jami:</span>
+                          <span className="text-sm text-gray-600">{t('subtotal')}:</span>
                           <span className="text-xl font-bold text-blue-600">
                             {(getPrice(item.product.id) * item.quantity).toFixed(2)} {t('currency_symbol')}
                           </span>
