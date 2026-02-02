@@ -150,61 +150,54 @@ export default function Navbar() {
                   </Tooltip>
 
                   {/* User Dropdown Menu */}
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="relative group hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all"
-                          >
-                            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-0 group-hover:opacity-20 transition-opacity blur"></div>
-                            <User className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-56 bg-white/95 backdrop-blur-lg border-gray-200 shadow-xl">
-                          <DropdownMenuLabel className="font-semibold">
-                            <div className="flex items-center gap-2">
-                              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold">
-                                {customer?.name?.[0]?.toUpperCase() || 'U'}
-                              </div>
-                              <div className="flex flex-col">
-                                <span className="text-sm">{customer?.name || t('nav_my_account')}</span>
-                                <span className="text-xs text-gray-500 font-normal">{user.email}</span>
-                              </div>
-                            </div>
-                          </DropdownMenuLabel>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="relative group hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all"
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-0 group-hover:opacity-20 transition-opacity blur"></div>
+                        <User className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-56 bg-white/95 backdrop-blur-lg border-gray-200 shadow-xl">
+                      <DropdownMenuLabel className="font-semibold">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold">
+                            {customer?.name?.[0]?.toUpperCase() || 'U'}
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-sm">{customer?.name || t('nav_my_account')}</span>
+                            <span className="text-xs text-gray-500 font-normal">{user.email}</span>
+                          </div>
+                        </div>
+                      </DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem onClick={() => router.push('/profile')} className="cursor-pointer">
+                        <UserCircle className="mr-2 h-4 w-4" />
+                        <span>{t('nav_profile')}</span>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => router.push('/orders')} className="cursor-pointer sm:hidden">
+                        <Package className="mr-2 h-4 w-4" />
+                        <span>{t('nav_orders')}</span>
+                      </DropdownMenuItem>
+                      {customer?.role === 'admin' && (
+                        <>
                           <DropdownMenuSeparator />
-                          <DropdownMenuItem onClick={() => router.push('/profile')} className="cursor-pointer">
-                            <UserCircle className="mr-2 h-4 w-4" />
-                            <span>{t('nav_profile')}</span>
+                          <DropdownMenuItem onClick={() => router.push('/admin')} className="cursor-pointer">
+                            <Settings className="mr-2 h-4 w-4" />
+                            <span>{t('nav_admin')}</span>
                           </DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => router.push('/orders')} className="cursor-pointer sm:hidden">
-                            <Package className="mr-2 h-4 w-4" />
-                            <span>{t('nav_orders')}</span>
-                          </DropdownMenuItem>
-                          {customer?.role === 'admin' && (
-                            <>
-                              <DropdownMenuSeparator />
-                              <DropdownMenuItem onClick={() => router.push('/admin')} className="cursor-pointer">
-                                <Settings className="mr-2 h-4 w-4" />
-                                <span>{t('nav_admin')}</span>
-                              </DropdownMenuItem>
-                            </>
-                          )}
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50">
-                            <LogOut className="mr-2 h-4 w-4" />
-                            <span>{t('nav_logout')}</span>
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{t('profile')}</p>
-                    </TooltipContent>
-                  </Tooltip>
+                        </>
+                      )}
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50">
+                        <LogOut className="mr-2 h-4 w-4" />
+                        <span>{t('nav_logout')}</span>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </TooltipProvider>
               ) : (
                 <>

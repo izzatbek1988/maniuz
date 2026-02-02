@@ -96,7 +96,7 @@ export default function SettingsPage() {
   };
 
   const handleTestToast = () => {
-    toast.success(t('test_message') || 'Bu test xabari!', {
+    toast.success(t('test_message'), {
       position: toastSettings.position,
       duration: toastSettings.duration
     });
@@ -151,7 +151,7 @@ export default function SettingsPage() {
               </Label>
               <RadioGroup
                 value={toastSettings.position}
-                onValueChange={(value) => setToastSettings({ ...toastSettings, position: value as any })}
+                onValueChange={(value) => setToastSettings({ ...toastSettings, position: value as ToastSettings['position'] })}
               >
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-center space-x-2">
@@ -189,7 +189,7 @@ export default function SettingsPage() {
               </Label>
               <RadioGroup
                 value={toastSettings.duration.toString()}
-                onValueChange={(value) => setToastSettings({ ...toastSettings, duration: parseInt(value) as any })}
+                onValueChange={(value) => setToastSettings({ ...toastSettings, duration: parseInt(value) as ToastSettings['duration'] })}
               >
                 <div className="space-y-3">
                   <div className="flex items-center space-x-2">
