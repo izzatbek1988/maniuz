@@ -24,7 +24,7 @@ export default function RegisterPage() {
   const [phone, setPhone] = useState('');
   const [nickname, setNickname] = useState('');
   const [district, setDistrict] = useState('');
-  const [storeCoordinates, setStoreCoordinates] = useState<{ lat: number; lng: number } | null>(null);
+  const [storeCoordinates, setStoreCoordinates] = useState<{ lat: number; lng: number; address?: string } | null>(null);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
@@ -53,8 +53,8 @@ export default function RegisterPage() {
     setNickname(value);
   };
 
-  const handleLocationChange = (lat: number, lng: number) => {
-    setStoreCoordinates({ lat, lng });
+  const handleLocationChange = (lat: number, lng: number, address?: string) => {
+    setStoreCoordinates({ lat, lng, address });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -129,7 +129,7 @@ export default function RegisterPage() {
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-green-50 via-white to-blue-50">
       <Navbar />
       <div className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-6xl">
           {/* Decorative Element */}
           <div className="text-center mb-8 animate-fade-in">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-green-500 to-blue-600 mb-4 shadow-lg">
@@ -149,7 +149,7 @@ export default function RegisterPage() {
               </CardDescription>
             </CardHeader>
             <form onSubmit={handleSubmit}>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-6">
                 {error && (
                   <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm flex items-start gap-2 animate-shake">
                     <span className="text-lg">⚠️</span>
@@ -157,6 +157,10 @@ export default function RegisterPage() {
                   </div>
                 )}
                 
+                {/* 2-Column Grid Layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {/* Left Column: Form Fields */}
+                  <div className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="name" className="text-sm font-semibold flex items-center gap-2">
                     <User className="h-4 w-4 text-green-500" />
@@ -201,6 +205,7 @@ export default function RegisterPage() {
                     placeholder="+998901234567"
                     value={phone}
                     onChange={handlePhoneChange}
+                    maxLength={13}
                     required
                     className={`h-11 border-2 transition-all ${
                       phoneValid === true ? 'border-green-500' : phoneValid === false ? 'border-red-500' : 'focus:border-purple-500'
@@ -210,7 +215,7 @@ export default function RegisterPage() {
                     <p className={`text-xs ${phoneValid ? 'text-green-600' : 'text-red-600'}`}>
                       {phoneValid 
                         ? `✓ ${t('phone_valid') || 'To\'g\'ri format'}` 
-                        : t('phone_format_hint') || 'Format: +998XXXXXXXXX (12 ta belgi)'}
+                        : t('phone_format_hint') || 'Format: +998XXXXXXXXX (13 ta belgi)'}
                     </p>
                   )}
                 </div>
@@ -298,24 +303,6 @@ export default function RegisterPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-sm font-semibold flex items-center gap-2">
-                    <MapPin className="h-4 w-4 text-red-500" />
-                    {t('store_location') || 'Do\'kon joylashuvi'}
-                    <span className="text-red-500">*</span>
-                  </Label>
-                  <StoreLocationPicker
-                    onLocationChange={handleLocationChange}
-                    initialLat={41.550151}
-                    initialLng={60.627490}
-                  />
-                  {!storeCoordinates && (
-                    <p className="text-xs text-gray-600">
-                      {t('store_location_hint') || 'Xaritada do\'koningiz joylashuvini belgilang'}
-                    </p>
-                  )}
-                </div>
-
-                <div className="space-y-2">
                   <Label htmlFor="password" className="text-sm font-semibold flex items-center gap-2">
                     <Lock className="h-4 w-4 text-orange-500" />
                     {t('login_password')}
@@ -345,6 +332,29 @@ export default function RegisterPage() {
                     required
                     className="h-11 border-2 focus:border-pink-500 transition-all"
                   />
+                </div>
+                  </div>
+
+                  {/* Right Column: Map + Address */}
+                  <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label className="text-sm font-semibold flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-red-500" />
+                    {t('store_location') || 'Do\'kon joylashuvi'}
+                    <span className="text-red-500">*</span>
+                  </Label>
+                  <StoreLocationPicker
+                    onLocationChange={handleLocationChange}
+                    initialLat={41.550151}
+                    initialLng={60.627490}
+                  />
+                  {!storeCoordinates && (
+                    <p className="text-xs text-gray-600">
+                      {t('store_location_hint') || 'Xaritada do\'koningiz joylashuvini belgilang'}
+                    </p>
+                  )}
+                </div>
+                  </div>
                 </div>
               </CardContent>
               

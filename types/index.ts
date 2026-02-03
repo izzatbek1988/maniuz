@@ -30,6 +30,7 @@ export interface Customer {
   storeCoordinates?: {
     lat: number;
     lng: number;
+    address?: string; // Human-readable address from reverse geocoding
   };
   createdAt: Timestamp;
 }

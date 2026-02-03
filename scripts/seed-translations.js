@@ -403,6 +403,11 @@ const uzbekTranslations = {
   "geolocation_not_supported": "Geolokatsiya qo'llab-quvvatlanmaydi",
   "map_load_error": "Xaritani yuklashda xatolik",
   "location_required": "Do'kon joylashuvini xaritada belgilang",
+  
+  // Address & Geocoding - NEW
+  "address_label": "Manzil",
+  "fetching_address": "Manzil aniqlanmoqda...",
+  "address_not_found": "Manzil topilmadi",
 };
 
 // Turkish translations
@@ -790,6 +795,11 @@ const turkishTranslations = {
   "geolocation_not_supported": "Coğrafi konum desteklenmiyor",
   "map_load_error": "Harita yüklenirken hata",
   "location_required": "Mağaza konumunu haritada işaretleyin",
+  
+  // Address & Geocoding - NEW
+  "address_label": "Adres",
+  "fetching_address": "Adres alınıyor...",
+  "address_not_found": "Adres bulunamadı",
 };
 
 // Russian translations
@@ -1177,6 +1187,11 @@ const russianTranslations = {
   "geolocation_not_supported": "Геолокация не поддерживается",
   "map_load_error": "Ошибка загрузки карты",
   "location_required": "Отметьте местоположение магазина на карте",
+  
+  // Address & Geocoding - NEW
+  "address_label": "Адрес",
+  "fetching_address": "Получение адреса...",
+  "address_not_found": "Адрес не найден",
 };
 
 async function seedTranslations() {
