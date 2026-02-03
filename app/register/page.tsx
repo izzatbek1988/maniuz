@@ -128,18 +128,9 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-green-50 via-white to-blue-50">
       <Navbar />
-      <div className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-6xl">
-          {/* Decorative Element */}
-          <div className="text-center mb-8 animate-fade-in">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-green-500 to-blue-600 mb-4 shadow-lg">
-              <UserPlus className="h-8 w-8 text-white" />
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">{t('register_welcome') || "Boshlaylik!"}</h2>
-            <p className="text-gray-600">{t('register_description') || 'Yangi hisob yaratish'}</p>
-          </div>
-
-          <Card className="shadow-2xl border-0 backdrop-blur-sm bg-white/90 animate-slide-up">
+      <div className="flex-1 flex items-center justify-center px-4 py-8 lg:py-12">
+        <div className="w-full max-w-5xl">
+          <Card className="shadow-xl border-0 backdrop-blur-sm bg-white/90 animate-slide-up">
             <CardHeader className="space-y-1 pb-4">
               <CardTitle className="text-2xl font-bold text-center">
                 {t('register_title')}
@@ -149,7 +140,7 @@ export default function RegisterPage() {
               </CardDescription>
             </CardHeader>
             <form onSubmit={handleSubmit}>
-              <CardContent className="space-y-6">
+              <CardContent className="space-y-4 p-6">
                 {error && (
                   <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm flex items-start gap-2 animate-shake">
                     <span className="text-lg">⚠️</span>
@@ -158,7 +149,7 @@ export default function RegisterPage() {
                 )}
                 
                 {/* 2-Column Grid Layout */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
                   {/* Left Column: Form Fields */}
                   <div className="space-y-4">
                 <div className="space-y-2">
@@ -280,12 +271,12 @@ export default function RegisterPage() {
                 <div className="space-y-2">
                   <Label htmlFor="district" className="text-sm font-semibold flex items-center gap-2">
                     <MapPin className="h-4 w-4 text-teal-500" />
-                    {t('district_label') || 'Tuman'}
+                    {t('district_label')}
                     <span className="text-red-500">*</span>
                   </Label>
                   <Select value={district} onValueChange={setDistrict}>
                     <SelectTrigger className="h-11 border-2">
-                      <SelectValue placeholder={t('district_placeholder') || 'Tumanni tanlang'} />
+                      <SelectValue placeholder={t('district_placeholder')} />
                     </SelectTrigger>
                     <SelectContent>
                       {XORAZM_DISTRICTS[language in XORAZM_DISTRICTS ? language : 'uz'].map((dist) => (
@@ -297,7 +288,7 @@ export default function RegisterPage() {
                   </Select>
                   {!district && (
                     <p className="text-xs text-gray-600">
-                      {t('district_hint') || 'Xorazm viloyati tumanlaridan birini tanlang'}
+                      {t('district_hint')}
                     </p>
                   )}
                 </div>
