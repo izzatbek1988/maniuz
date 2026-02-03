@@ -361,6 +361,48 @@ const uzbekTranslations = {
   "no_price_type": "Narx turi yo'q",
   "admin_customers_title": "Mijozlar boshqaruvi",
   "edit": "Tahrirlash",
+  
+  // Registration Enhancement - Phone
+  "phone_number": "Telefon raqami",
+  "phone_invalid": "Telefon raqami noto'g'ri formatda",
+  "phone_valid": "To'g'ri format",
+  "phone_format_hint": "Format: +998XXXXXXXXX (12 ta belgi)",
+  "validation_phone_required": "Telefon raqami majburiy",
+  
+  // Registration Enhancement - Nickname
+  "nickname": "Nickname",
+  "nickname_hint": "3-20 belgi, faqat kichik harflar, raqamlar va _",
+  "nickname_available": "Mavjud",
+  "nickname_taken": "Band",
+  "nickname_invalid": "Nickname noto'g'ri formatda",
+  "nickname_too_short": "Nickname juda qisqa (kamida 3 belgi)",
+  "nickname_too_long": "Nickname juda uzun (maksimal 20 belgi)",
+  "checking_availability": "Tekshirilmoqda...",
+  "optional": "ixtiyoriy",
+  
+  // Registration Enhancement - District
+  "district_label": "Tuman",
+  "district_placeholder": "Tumanni tanlang",
+  "district_required": "Tumanni tanlash majburiy",
+  "district_hint": "Xorazm viloyati tumanlaridan birini tanlang",
+  
+  // Registration Enhancement - Store Location
+  "store_location": "Do'kon joylashuvi",
+  "store_location_hint": "Xaritada do'koningiz joylashuvini belgilang",
+  "use_current_location": "Hozirgi joylashuvimdan foydalanish",
+  "loading_map": "Xarita yuklanmoqda...",
+  "selected_coordinates": "Tanlangan koordinatalar",
+  "latitude": "Kenglik",
+  "longitude": "Uzunlik",
+  "how_to_use": "Qanday foydalanish",
+  "map_instruction_click": "Xaritada joy tanlash uchun bosing",
+  "map_instruction_drag": "Belgilashni siljitish mumkin",
+  "map_instruction_gps": "GPS tugmasidan hozirgi joylashuvingizni aniqlang",
+  "drag_to_adjust": "Belgilashni siljitish uchun torting",
+  "geolocation_error": "Joylashuvni aniqlab bo'lmadi",
+  "geolocation_not_supported": "Geolokatsiya qo'llab-quvvatlanmaydi",
+  "map_load_error": "Xaritani yuklashda xatolik",
+  "location_required": "Do'kon joylashuvini xaritada belgilang",
 };
 
 // Turkish translations
@@ -706,6 +748,48 @@ const turkishTranslations = {
   "no_price_type": "Fiyat tipi yok",
   "admin_customers_title": "Müşteri Yönetimi",
   "edit": "Düzenle",
+  
+  // Registration Enhancement - Phone
+  "phone_number": "Telefon numarası",
+  "phone_invalid": "Telefon numarası yanlış formatta",
+  "phone_valid": "Doğru format",
+  "phone_format_hint": "Format: +998XXXXXXXXX (12 karakter)",
+  "validation_phone_required": "Telefon numarası zorunludur",
+  
+  // Registration Enhancement - Nickname
+  "nickname": "Nickname",
+  "nickname_hint": "3-20 karakter, sadece küçük harfler, sayılar ve _",
+  "nickname_available": "Mevcut",
+  "nickname_taken": "Kullanılıyor",
+  "nickname_invalid": "Nickname yanlış formatta",
+  "nickname_too_short": "Nickname çok kısa (en az 3 karakter)",
+  "nickname_too_long": "Nickname çok uzun (maksimum 20 karakter)",
+  "checking_availability": "Kontrol ediliyor...",
+  "optional": "isteğe bağlı",
+  
+  // Registration Enhancement - District
+  "district_label": "İlçe",
+  "district_placeholder": "İlçe seçin",
+  "district_required": "İlçe seçimi zorunludur",
+  "district_hint": "Xorazm vilayeti ilçelerinden birini seçin",
+  
+  // Registration Enhancement - Store Location
+  "store_location": "Mağaza konumu",
+  "store_location_hint": "Haritada mağazanızın konumunu işaretleyin",
+  "use_current_location": "Mevcut konumumu kullan",
+  "loading_map": "Harita yükleniyor...",
+  "selected_coordinates": "Seçilen koordinatlar",
+  "latitude": "Enlem",
+  "longitude": "Boylam",
+  "how_to_use": "Nasıl kullanılır",
+  "map_instruction_click": "Haritada yer seçmek için tıklayın",
+  "map_instruction_drag": "İşareti sürükleyebilirsiniz",
+  "map_instruction_gps": "GPS düğmesi ile mevcut konumunuzu belirleyin",
+  "drag_to_adjust": "Ayarlamak için sürükleyin",
+  "geolocation_error": "Konum belirlenemedi",
+  "geolocation_not_supported": "Coğrafi konum desteklenmiyor",
+  "map_load_error": "Harita yüklenirken hata",
+  "location_required": "Mağaza konumunu haritada işaretleyin",
 };
 
 // Russian translations
@@ -1051,6 +1135,48 @@ const russianTranslations = {
   "no_price_type": "Нет типа цены",
   "admin_customers_title": "Управление клиентами",
   "edit": "Редактировать",
+  
+  // Registration Enhancement - Phone
+  "phone_number": "Номер телефона",
+  "phone_invalid": "Неправильный формат номера телефона",
+  "phone_valid": "Правильный формат",
+  "phone_format_hint": "Формат: +998XXXXXXXXX (12 символов)",
+  "validation_phone_required": "Номер телефона обязателен",
+  
+  // Registration Enhancement - Nickname
+  "nickname": "Псевдоним",
+  "nickname_hint": "3-20 символов, только строчные буквы, цифры и _",
+  "nickname_available": "Доступен",
+  "nickname_taken": "Занят",
+  "nickname_invalid": "Неправильный формат псевдонима",
+  "nickname_too_short": "Псевдоним слишком короткий (минимум 3 символа)",
+  "nickname_too_long": "Псевдоним слишком длинный (максимум 20 символов)",
+  "checking_availability": "Проверка...",
+  "optional": "необязательно",
+  
+  // Registration Enhancement - District
+  "district_label": "Район",
+  "district_placeholder": "Выберите район",
+  "district_required": "Необходимо выбрать район",
+  "district_hint": "Выберите один из районов Хорезмской области",
+  
+  // Registration Enhancement - Store Location
+  "store_location": "Местоположение магазина",
+  "store_location_hint": "Отметьте местоположение вашего магазина на карте",
+  "use_current_location": "Использовать текущее местоположение",
+  "loading_map": "Загрузка карты...",
+  "selected_coordinates": "Выбранные координаты",
+  "latitude": "Широта",
+  "longitude": "Долгота",
+  "how_to_use": "Как использовать",
+  "map_instruction_click": "Нажмите на карте, чтобы выбрать место",
+  "map_instruction_drag": "Можно перетащить метку",
+  "map_instruction_gps": "Используйте кнопку GPS для определения текущего местоположения",
+  "drag_to_adjust": "Перетащите для настройки",
+  "geolocation_error": "Не удалось определить местоположение",
+  "geolocation_not_supported": "Геолокация не поддерживается",
+  "map_load_error": "Ошибка загрузки карты",
+  "location_required": "Отметьте местоположение магазина на карте",
 };
 
 async function seedTranslations() {

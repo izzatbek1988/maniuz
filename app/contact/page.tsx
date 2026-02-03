@@ -8,23 +8,39 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { validatePhone, formatPhoneInput } from '@/lib/validation';
+import { XORAZM_DISTRICTS } from '@/constants/districts';
 
 export default function ContactPage() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
+    district: '',
     message: '',
   });
   const [loading, setLoading] = useState(false);
 
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatPhoneInput(e.target.value);
+    setFormData({ ...formData, phone: formatted });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate phone format
+    if (formData.phone && !validatePhone(formData.phone)) {
+      toast.error(t('phone_invalid') || 'Telefon raqami noto\'g\'ri formatda');
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -38,7 +54,7 @@ export default function ContactPage() {
         duration: 3000,
         icon: '📨',
       });
-      setFormData({ name: '', email: '', phone: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', district: '', message: '' });
     } catch (err) {
       console.error('Error submitting message:', err);
       toast.error(t('error') || 'Xatolik yuz berdi');
@@ -99,11 +115,35 @@ export default function ContactPage() {
                 <Input
                   id="phone"
                   type="tel"
+                  placeholder="+998901234567"
                   value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                  onChange={handlePhoneChange}
                   required
-                  className="mt-1"
+                  className={`mt-1 ${
+                    formData.phone && !validatePhone(formData.phone) ? 'border-red-500' : ''
+                  }`}
                 />
+                {formData.phone && !validatePhone(formData.phone) && (
+                  <p className="text-xs text-red-600 mt-1">
+                    {t('phone_format_hint') || 'Format: +998XXXXXXXXX'}
+                  </p>
+                )}
+              </div>
+              
+              <div>
+                <Label htmlFor="district">{t('district_label') || 'Tuman'}</Label>
+                <Select value={formData.district} onValueChange={(value) => setFormData({...formData, district: value})}>
+                  <SelectTrigger className="mt-1">
+                    <SelectValue placeholder={t('district_placeholder') || 'Tumanni tanlang'} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {XORAZM_DISTRICTS[language as keyof typeof XORAZM_DISTRICTS].map((dist) => (
+                      <SelectItem key={dist} value={dist}>
+                        {dist}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               
               <div>
