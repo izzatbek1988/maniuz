@@ -193,6 +193,9 @@ const uzbekTranslations = {
   "sort": "Saralash",
   "all": "Hammasi",
   "view_price": "Narxni ko'rish uchun kiring",
+  "name": "Ism",
+  "email": "Email",
+  "admin_price_type": "Narx turi",
   
   // Partnership benefits
   "partnership_benefit_1": "Raqobatbardosh foyda marjasi",
@@ -338,6 +341,26 @@ const uzbekTranslations = {
   "product_added": "Mahsulot qo'shildi",
   "product_updated": "Mahsulot yangilandi",
   "product_deleted": "Mahsulot o'chirildi",
+  
+  // User Roles - NEW ADDITIONS
+  "admin_user_role": "Foydalanuvchi roli",
+  "role": "Rol",
+  "role_admin": "Administrator",
+  "role_admin_desc": "To'liq tizim kirishga ega",
+  "role_customer": "Mijoz",
+  "role_customer_desc": "Oddiy mijoz (standart)",
+  "role_operator": "Operator",
+  "role_operator_desc": "Buyurtmalar va ombor boshqaruvi",
+  "role_supervisor": "Nazoratchi",
+  "role_supervisor_desc": "Jamoa boshqaruvi va hisobotlar",
+  "admin_only_feature": "Faqat administratorlar uchun",
+  "customer_updated_success": "Mijoz muvaffaqiyatli yangilandi",
+  "error_updating_customer": "Mijozni yangilashda xatolik",
+  "no_customers_found": "Mijozlar topilmadi",
+  "edit_customer": "Mijozni tahrirlash",
+  "no_price_type": "Narx turi yo'q",
+  "admin_customers_title": "Mijozlar boshqaruvi",
+  "edit": "Tahrirlash",
 };
 
 // Turkish translations
@@ -515,6 +538,9 @@ const turkishTranslations = {
   "sort": "Sırala",
   "all": "Tümü",
   "view_price": "Fiyat görmek için giriş yapın",
+  "name": "İsim",
+  "email": "E-posta",
+  "admin_price_type": "Fiyat Türü",
   
   // Partnership benefits
   "partnership_benefit_1": "Rekabetçi kar marjları",
@@ -660,6 +686,26 @@ const turkishTranslations = {
   "product_added": "Ürün eklendi",
   "product_updated": "Ürün güncellendi",
   "product_deleted": "Ürün silindi",
+  
+  // User Roles - NEW ADDITIONS
+  "admin_user_role": "Kullanıcı Rolü",
+  "role": "Rol",
+  "role_admin": "Yönetici",
+  "role_admin_desc": "Tam sistem erişimi",
+  "role_customer": "Müşteri",
+  "role_customer_desc": "Normal müşteri (varsayılan)",
+  "role_operator": "Operatör",
+  "role_operator_desc": "Sipariş ve envanter yönetimi",
+  "role_supervisor": "Süpervizör",
+  "role_supervisor_desc": "Ekip yönetimi ve raporlar",
+  "admin_only_feature": "Sadece yöneticiler için",
+  "customer_updated_success": "Müşteri başarıyla güncellendi",
+  "error_updating_customer": "Müşteri güncellenirken hata",
+  "no_customers_found": "Müşteri bulunamadı",
+  "edit_customer": "Müşteriyi Düzenle",
+  "no_price_type": "Fiyat tipi yok",
+  "admin_customers_title": "Müşteri Yönetimi",
+  "edit": "Düzenle",
 };
 
 // Russian translations
@@ -837,6 +883,9 @@ const russianTranslations = {
   "sort": "Сортировка",
   "all": "Все",
   "view_price": "Войдите, чтобы увидеть цену",
+  "name": "Имя",
+  "email": "Email",
+  "admin_price_type": "Тип цены",
   
   // Partnership benefits
   "partnership_benefit_1": "Конкурентная прибыль",
@@ -982,6 +1031,26 @@ const russianTranslations = {
   "product_added": "Товар добавлен",
   "product_updated": "Товар обновлен",
   "product_deleted": "Товар удален",
+  
+  // User Roles - NEW ADDITIONS
+  "admin_user_role": "Роль пользователя",
+  "role": "Роль",
+  "role_admin": "Администратор",
+  "role_admin_desc": "Полный доступ к системе",
+  "role_customer": "Клиент",
+  "role_customer_desc": "Обычный клиент (по умолчанию)",
+  "role_operator": "Оператор",
+  "role_operator_desc": "Управление заказами и складом",
+  "role_supervisor": "Супервайзер",
+  "role_supervisor_desc": "Управление командой и отчеты",
+  "admin_only_feature": "Только для администраторов",
+  "customer_updated_success": "Клиент успешно обновлен",
+  "error_updating_customer": "Ошибка при обновлении клиента",
+  "no_customers_found": "Клиенты не найдены",
+  "edit_customer": "Редактировать клиента",
+  "no_price_type": "Нет типа цены",
+  "admin_customers_title": "Управление клиентами",
+  "edit": "Редактировать",
 };
 
 async function seedTranslations() {

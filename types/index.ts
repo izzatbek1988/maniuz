@@ -24,8 +24,24 @@ export interface Customer {
   name: string;
   phone?: string; // YENİ: Telefon numarası (optional - eski customerlar için)
   priceTypeId: string;
-  role: 'admin' | 'customer';
+  role: 'admin' | 'customer' | 'operator' | 'supervisor';
+  district?: string;
+  storeCoordinates?: {
+    lat: number;
+    lng: number;
+  };
   createdAt: Timestamp;
+}
+
+export type UserRole = 'admin' | 'customer' | 'operator' | 'supervisor';
+
+// Role configuration for UI
+export interface RoleConfig {
+  value: UserRole;
+  label: string;
+  description: string;
+  color: string; // Tailwind color class
+  badgeClass: string;
 }
 
 export interface OrderItem {
