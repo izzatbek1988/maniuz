@@ -1,26 +1,29 @@
 /**
- * Phone validation for Uzbekistan format: +998XXXXXXXXX (12 characters total)
+ * Phone validation for Uzbekistan format: +998XXXXXXXXX (13 characters total)
+ * Format: +998 + 9 digits = 13 characters
  */
 export const validatePhone = (phone: string): boolean => {
-  return /^\+998[0-9]{9}$/.test(phone);
+  return /^\+998\d{9}$/.test(phone);
 };
 
 /**
- * Format phone input as user types - ensures +998 prefix and max 12 characters
+ * Format phone input as user types - ensures +998 prefix and max 13 characters
+ * Handles: +998XXXXXXXXX (13 chars total: + + 998 + 9 digits)
  */
 export const formatPhoneInput = (input: string): string => {
-  // Remove all non-digit characters except +
-  let cleaned = input.replace(/[^\d+]/g, '');
+  // Remove all non-digits
+  const digits = input.replace(/\D/g, '');
   
-  // If doesn't start with +998, add it
-  if (!cleaned.startsWith('+998')) {
-    // Remove any existing + or 998 at the start
-    cleaned = cleaned.replace(/^[+998]*/g, '');
-    cleaned = '+998' + cleaned;
+  // If starts with 998, add + prefix
+  if (digits.startsWith('998')) {
+    const phoneDigits = digits.substring(0, 12); // 998XXXXXXXXX (12 digits)
+    return '+' + phoneDigits; // +998XXXXXXXXX (13 chars total)
   }
   
-  // Limit to 12 characters (+998 + 9 digits)
-  return cleaned.substring(0, 12);
+  // Otherwise, ensure +998 prefix and limit to 9 digits after
+  const withoutPrefix = digits.replace(/^998/, ''); // Remove leading 998 if any
+  const limitedDigits = withoutPrefix.substring(0, 9);
+  return '+998' + limitedDigits;
 };
 
 /**

@@ -4,9 +4,10 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { Button } from '@/components/ui/button';
 import { MapPin, Loader2, Navigation } from 'lucide-react';
+import { reverseGeocode } from '@/lib/geocoding';
 
 interface StoreLocationPickerProps {
-  onLocationChange: (lat: number, lng: number) => void;
+  onLocationChange: (lat: number, lng: number, address?: string) => void;
   initialLat?: number;
   initialLng?: number;
 }
@@ -26,7 +27,7 @@ export default function StoreLocationPicker({
   initialLat = DEFAULT_LAT,
   initialLng = DEFAULT_LNG,
 }: StoreLocationPickerProps) {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
   const placemarkRef = useRef<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -34,6 +35,8 @@ export default function StoreLocationPicker({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [coordinates, setCoordinates] = useState({ lat: initialLat, lng: initialLng });
+  const [address, setAddress] = useState<string | null>(null);
+  const [fetchingAddress, setFetchingAddress] = useState(false);
   const [gettingLocation, setGettingLocation] = useState(false);
 
   useEffect(() => {
@@ -126,9 +129,21 @@ export default function StoreLocationPicker({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const updateCoordinates = (lat: number, lng: number) => {
+  const updateCoordinates = async (lat: number, lng: number) => {
     setCoordinates({ lat, lng });
-    onLocationChange(lat, lng);
+    
+    // Fetch address from coordinates
+    setFetchingAddress(true);
+    const fetchedAddress = await reverseGeocode(lat, lng, language);
+    setFetchingAddress(false);
+    
+    if (fetchedAddress) {
+      setAddress(fetchedAddress);
+      onLocationChange(lat, lng, fetchedAddress);
+    } else {
+      setAddress(null);
+      onLocationChange(lat, lng);
+    }
   };
 
   const handleUseCurrentLocation = () => {
@@ -206,6 +221,27 @@ export default function StoreLocationPicker({
           </>
         )}
       </Button>
+
+      {/* Address Loading State */}
+      {fetchingAddress && (
+        <div className="bg-yellow-50 rounded-lg p-3 flex items-center gap-2 border border-yellow-200">
+          <Loader2 className="h-4 w-4 animate-spin text-yellow-600" />
+          <p className="text-sm text-yellow-700">
+            {t('fetching_address') || 'Manzil aniqlanmoqda...'}
+          </p>
+        </div>
+      )}
+
+      {/* Address Display */}
+      {address && !fetchingAddress && (
+        <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+          <p className="text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+            <MapPin className="h-4 w-4 text-green-600" />
+            {t('address_label') || 'Manzil'}:
+          </p>
+          <p className="text-sm text-gray-900">{address}</p>
+        </div>
+      )}
 
       {/* Coordinates Display */}
       <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
