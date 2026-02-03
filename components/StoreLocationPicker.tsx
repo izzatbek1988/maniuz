@@ -17,7 +17,7 @@ const DEFAULT_LNG = 60.627490;
 
 declare global {
   interface Window {
-    ymaps: any;
+    ymaps: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   }
 }
 
@@ -28,8 +28,8 @@ export default function StoreLocationPicker({
 }: StoreLocationPickerProps) {
   const { t } = useTranslation();
   const mapContainerRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<any>(null);
-  const placemarkRef = useRef<any>(null);
+  const mapRef = useRef<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
+  const placemarkRef = useRef<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -97,7 +97,7 @@ export default function StoreLocationPicker({
         });
 
         // Handle map click
-        map.events.add('click', function (e: any) {
+        map.events.add('click', function (e: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
           const coords = e.get('coords');
           placemark.geometry.setCoordinates(coords);
           updateCoordinates(coords[0], coords[1]);
@@ -123,6 +123,7 @@ export default function StoreLocationPicker({
         mapRef.current.destroy();
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const updateCoordinates = (lat: number, lng: number) => {

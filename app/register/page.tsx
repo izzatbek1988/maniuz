@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import StoreLocationPicker from '@/components/StoreLocationPicker';
-import { UserPlus, Mail, Lock, User, Phone, Loader2, CheckCircle2, MapPin, AtSign, Check, X, AlertCircle } from 'lucide-react';
+import { UserPlus, Mail, Lock, User, Phone, Loader2, CheckCircle2, MapPin, AtSign, Check, X } from 'lucide-react';
 import { validatePhone, formatPhoneInput, validateNickname } from '@/lib/validation';
 import { useNicknameCheck } from '@/hooks/useNicknameCheck';
 import { XORAZM_DISTRICTS } from '@/constants/districts';
