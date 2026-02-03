@@ -84,6 +84,14 @@ const uzbekTranslations = {
   "register_name": "Ism",
   "register_button": "Ro'yxatdan o'tish",
   "register_have_account": "Hisobingiz bormi?",
+  "store_location": "Do'kon joylashuvi",
+  "store_location_hint": "Xaritada do'koningizning aniq manzilini belgilang",
+  "get_current_location": "Joriy joylashuvimni ishlatish",
+  "latitude": "Kenglik (Lat)",
+  "longitude": "Uzunlik (Lng)",
+  "map_instructions": "Xaritani bosing yoki pinni suring",
+  "coordinates_saved": "Koordinatalar saqlandi",
+  "select_location_error": "Iltimos, do'kon joylashuvini tanlang!",
   
   // Profile
   "profile_title": "Profil",
@@ -406,6 +414,14 @@ const turkishTranslations = {
   "register_name": "İsim",
   "register_button": "Kayıt Ol",
   "register_have_account": "Hesabınız var mı?",
+  "store_location": "Mağaza konumu",
+  "store_location_hint": "Haritada mağazanızın tam konumunu işaretleyin",
+  "get_current_location": "Mevcut konumumu kullan",
+  "latitude": "Enlem (Lat)",
+  "longitude": "Boylam (Lng)",
+  "map_instructions": "Haritaya tıklayın veya pini sürükleyin",
+  "coordinates_saved": "Koordinatlar kaydedildi",
+  "select_location_error": "Lütfen mağaza konumunu seçin!",
   
   // Profile
   "profile_title": "Profil",
@@ -728,6 +744,14 @@ const russianTranslations = {
   "register_name": "Имя",
   "register_button": "Зарегистрироваться",
   "register_have_account": "Уже есть аккаунт?",
+  "store_location": "Местоположение магазина",
+  "store_location_hint": "Отметьте точное местоположение вашего магазина на карте",
+  "get_current_location": "Использовать мое текущее местоположение",
+  "latitude": "Широта (Lat)",
+  "longitude": "Долгота (Lng)",
+  "map_instructions": "Нажмите на карту или перетащите булавку",
+  "coordinates_saved": "Координаты сохранены",
+  "select_location_error": "Пожалуйста, выберите местоположение магазина!",
   
   // Profile
   "profile_title": "Профиль",
