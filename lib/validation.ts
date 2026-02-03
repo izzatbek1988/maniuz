@@ -40,7 +40,7 @@ export const validateNickname = (nickname: string) => {
   
   // Must start with a letter and contain only lowercase letters, numbers, and underscores
   if (!/^[a-z][a-z0-9_]*$/.test(nickname)) {
-    return { valid: false, error: 'nickname_invalid_format' };
+    return { valid: false, error: 'nickname_invalid' };
   }
   
   return { valid: true };

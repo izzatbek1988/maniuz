@@ -283,7 +283,7 @@ export default function RegisterPage() {
                       <SelectValue placeholder={t('district_placeholder') || 'Tumanni tanlang'} />
                     </SelectTrigger>
                     <SelectContent>
-                      {XORAZM_DISTRICTS[language as keyof typeof XORAZM_DISTRICTS].map((dist) => (
+                      {XORAZM_DISTRICTS[language in XORAZM_DISTRICTS ? language : 'uz'].map((dist) => (
                         <SelectItem key={dist} value={dist}>
                           {dist}
                         </SelectItem>
