@@ -23,6 +23,7 @@ export interface Customer {
   email: string;
   name: string;
   phone?: string; // YENİ: Telefon numarası (optional - eski customerlar için)
+  nickname?: string; // NEW: Unique nickname (3-20 chars, a-z 0-9 _)
   priceTypeId: string;
   role: 'admin' | 'customer' | 'operator' | 'supervisor';
   district?: string;
