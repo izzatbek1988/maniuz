@@ -12,12 +12,17 @@ import { doc, getDoc, setDoc, serverTimestamp, getDocs, collection } from 'fireb
 import { auth, db } from '@/lib/firebase';
 import { Customer } from '@/types';
 
+interface Coordinates {
+  lat: number;
+  lng: number;
+}
+
 interface AuthContextType {
   user: User | null;
   customer: Customer | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, name: string, phone: string) => Promise<void>;
+  signUp: (email: string, password: string, name: string, phone: string, storeCoordinates?: Coordinates) => Promise<void>;
   signOut: () => Promise<void>;
 }
 
@@ -52,7 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await signInWithEmailAndPassword(auth, email, password);
   };
 
-  const signUp = async (email: string, password: string, name: string, phone: string) => {
+  const signUp = async (email: string, password: string, name: string, phone: string, storeCoordinates?: Coordinates) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     
     // Get default price type
@@ -69,6 +74,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       phone,
       priceTypeId: defaultPriceTypeId,
       role: isAdmin ? 'admin' : 'customer',
+      ...(storeCoordinates && { storeCoordinates }),
       createdAt: serverTimestamp(),
     });
   };

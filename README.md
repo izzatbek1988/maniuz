@@ -15,6 +15,7 @@ Dil değiştirme navigation bar'ın sağ üst köşesindeki dil seçicisinden ya
 
 ### Müşteri Özellikleri
 - ✅ **Çok dilli arayüz** (Özbekçe, Türkçe, Rusça)
+- ✅ **Mağaza konumu seçimi** (Yandex Maps ile kayıt sırasında)
 - ✅ Ürün listeleme ve detay sayfaları
 - ✅ Kullanıcıya özel fiyatlandırma (fiyat tipleri)
 - ✅ Alışveriş sepeti yönetimi
@@ -99,7 +100,18 @@ NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 
 NEXT_PUBLIC_ADMIN_EMAIL=admin@maniuz.com
+
+# Yandex Maps API Key (FREE - get from https://developer.tech.yandex.ru/)
+NEXT_PUBLIC_YANDEX_MAPS_API_KEY=your_yandex_maps_api_key_here
 ```
+
+**Yandex Maps API Key nasıl alınır:**
+1. [Yandex Developer](https://developer.tech.yandex.ru/) sitesine gidin
+2. Ücretsiz hesap oluşturun
+3. Maps JavaScript API key oluşturun
+4. API key'i `.env.local` dosyasına ekleyin
+
+> **Not:** Yandex Maps JavaScript API çoğu kullanım durumu için ÜCRETSİZDİR ve Özbekistan'da daha iyi harita kapsama alanı sağlar.
 
 ### 5. Firestore Security Rules Ayarlayın
 

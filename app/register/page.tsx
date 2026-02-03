@@ -11,7 +11,13 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import StoreLocationPicker from '@/components/StoreLocationPicker';
 import { UserPlus, Mail, Lock, User, Phone, Loader2, CheckCircle2 } from 'lucide-react';
+
+interface Coordinates {
+  lat: number;
+  lng: number;
+}
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
@@ -19,11 +25,16 @@ export default function RegisterPage() {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [storeCoordinates, setStoreCoordinates] = useState<Coordinates | null>(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { signUp } = useAuth();
   const { t } = useTranslation();
   const router = useRouter();
+
+  const handleLocationSelect = (coords: Coordinates) => {
+    setStoreCoordinates(coords);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,10 +55,15 @@ export default function RegisterPage() {
       return;
     }
 
+    if (!storeCoordinates) {
+      setError(t('select_location_error') || 'Iltimos, do\'kon joylashuvini xaritadan tanlang!');
+      return;
+    }
+
     setLoading(true);
 
     try {
-      await signUp(email, password, name, phone);
+      await signUp(email, password, name, phone, storeCoordinates);
       router.push('/');
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -172,6 +188,12 @@ export default function RegisterPage() {
                     className="h-11 border-2 focus:border-pink-500 transition-all"
                   />
                 </div>
+
+                {/* Store Location Picker */}
+                <StoreLocationPicker
+                  onLocationSelect={handleLocationSelect}
+                  initialCoords={{ lat: 41.311081, lng: 69.240562 }}
+                />
               </CardContent>
               
               <CardFooter className="flex flex-col space-y-4 pt-2">
