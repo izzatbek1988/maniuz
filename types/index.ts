@@ -25,6 +25,10 @@ export interface Customer {
   phone?: string; // YENİ: Telefon numarası (optional - eski customerlar için)
   priceTypeId: string;
   role: 'admin' | 'customer';
+  storeCoordinates?: {
+    lat: number;
+    lng: number;
+  };
   createdAt: Timestamp;
 }
 
