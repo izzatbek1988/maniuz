@@ -5,6 +5,7 @@ import { YMaps, Map, Placemark, GeolocationControl } from 'react-yandex-maps';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MapPin, Locate } from 'lucide-react';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 interface Coordinates {
   lat: number;
@@ -20,6 +21,8 @@ export default function StoreLocationPicker({
   onLocationSelect, 
   initialCoords 
 }: StoreLocationPickerProps) {
+  const { t } = useTranslation();
+  
   // Default: Tashkent, Uzbekistan
   const [coordinates, setCoordinates] = useState<Coordinates>(
     initialCoords || { lat: 41.311081, lng: 69.240562 }
@@ -55,11 +58,11 @@ export default function StoreLocationPicker({
         },
         (error) => {
           console.error('Geolocation error:', error);
-          alert('Joylashuvni aniqlab bo\'lmadi. Xaritadan tanlang.');
+          alert(t('geolocation_error') || 'Joylashuvni aniqlab bo\'lmadi. Xaritadan tanlang.');
         }
       );
     } else {
-      alert('Brauzer joylashuvni qo\'llab-quvvatlamaydi.');
+      alert(t('geolocation_not_supported') || 'Brauzer joylashuvni qo\'llab-quvvatlamaydi.');
     }
   };
 
@@ -68,10 +71,10 @@ export default function StoreLocationPicker({
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <MapPin className="h-5 w-5 text-blue-600" />
-          Do&apos;kon manzili
+          {t('store_location') || "Do'kon manzili"}
         </CardTitle>
         <p className="text-sm text-gray-600">
-          Xaritada do&apos;koningizning joylashuvini belgilang
+          {t('store_location_hint') || "Xaritada do'koningizning joylashuvini belgilang"}
         </p>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -83,7 +86,7 @@ export default function StoreLocationPicker({
           className="w-full"
         >
           <Locate className="h-4 w-4 mr-2" />
-          Joriy joylashuvimni ishlatish
+          {t('get_current_location') || 'Joriy joylashuvimni ishlatish'}
         </Button>
 
         {/* Yandex Map */}
@@ -118,17 +121,17 @@ export default function StoreLocationPicker({
         {/* Coordinates Display */}
         <div className="bg-blue-50 rounded-lg p-4 space-y-2">
           <p className="text-sm font-medium text-gray-700">
-            Tanlangan koordinatalar:
+            {t('selected_coordinates') || 'Tanlangan koordinatalar:'}
           </p>
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <span className="text-gray-600">Kenglik (Lat):</span>
+              <span className="text-gray-600">{t('latitude') || 'Kenglik (Lat)'}:</span>
               <p className="font-mono font-bold text-blue-600">
                 {coordinates.lat.toFixed(6)}
               </p>
             </div>
             <div>
-              <span className="text-gray-600">Uzunlik (Lng):</span>
+              <span className="text-gray-600">{t('longitude') || 'Uzunlik (Lng)'}:</span>
               <p className="font-mono font-bold text-blue-600">
                 {coordinates.lng.toFixed(6)}
               </p>
@@ -138,11 +141,11 @@ export default function StoreLocationPicker({
 
         {/* Instructions */}
         <div className="bg-gray-50 rounded-lg p-3 text-xs text-gray-600 space-y-1">
-          <p>💡 <strong>Qanday ishlatish:</strong></p>
+          <p>💡 <strong>{t('how_to_use') || 'Qanday ishlatish:'}:</strong></p>
           <ul className="list-disc list-inside space-y-1 ml-2">
-            <li>Xaritani bosing yoki pinni suring</li>
-            <li>&quot;Joriy joylashuvimni ishlatish&quot; tugmasini bosing</li>
-            <li>Koordinatalar avtomatik saqlanadi</li>
+            <li>{t('map_instructions') || 'Xaritani bosing yoki pinni suring'}</li>
+            <li>&quot;{t('get_current_location') || 'Joriy joylashuvimni ishlatish'}&quot; {t('button_click') || 'tugmasini bosing'}</li>
+            <li>{t('coordinates_auto_saved') || 'Koordinatalar avtomatik saqlanadi'}</li>
           </ul>
         </div>
       </CardContent>

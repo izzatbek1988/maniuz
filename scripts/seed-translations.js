@@ -92,6 +92,12 @@ const uzbekTranslations = {
   "map_instructions": "Xaritani bosing yoki pinni suring",
   "coordinates_saved": "Koordinatalar saqlandi",
   "select_location_error": "Iltimos, do'kon joylashuvini tanlang!",
+  "geolocation_error": "Joylashuvni aniqlab bo'lmadi. Xaritadan tanlang.",
+  "geolocation_not_supported": "Brauzer joylashuvni qo'llab-quvvatlamaydi.",
+  "selected_coordinates": "Tanlangan koordinatalar:",
+  "how_to_use": "Qanday ishlatish:",
+  "button_click": "tugmasini bosing",
+  "coordinates_auto_saved": "Koordinatalar avtomatik saqlanadi",
   
   // Profile
   "profile_title": "Profil",
@@ -422,6 +428,12 @@ const turkishTranslations = {
   "map_instructions": "Haritaya tıklayın veya pini sürükleyin",
   "coordinates_saved": "Koordinatlar kaydedildi",
   "select_location_error": "Lütfen mağaza konumunu seçin!",
+  "geolocation_error": "Konum tespit edilemedi. Haritadan seçin.",
+  "geolocation_not_supported": "Tarayıcı konum desteğine sahip değil.",
+  "selected_coordinates": "Seçilen koordinatlar:",
+  "how_to_use": "Nasıl kullanılır:",
+  "button_click": "düğmesine tıklayın",
+  "coordinates_auto_saved": "Koordinatlar otomatik olarak kaydedilir",
   
   // Profile
   "profile_title": "Profil",
@@ -752,6 +764,12 @@ const russianTranslations = {
   "map_instructions": "Нажмите на карту или перетащите булавку",
   "coordinates_saved": "Координаты сохранены",
   "select_location_error": "Пожалуйста, выберите местоположение магазина!",
+  "geolocation_error": "Не удалось определить местоположение. Выберите на карте.",
+  "geolocation_not_supported": "Браузер не поддерживает определение местоположения.",
+  "selected_coordinates": "Выбранные координаты:",
+  "how_to_use": "Как использовать:",
+  "button_click": "нажмите кнопку",
+  "coordinates_auto_saved": "Координаты сохраняются автоматически",
   
   // Profile
   "profile_title": "Профиль",

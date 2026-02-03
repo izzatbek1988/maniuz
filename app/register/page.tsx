@@ -56,7 +56,7 @@ export default function RegisterPage() {
     }
 
     if (!storeCoordinates) {
-      setError('Iltimos, do\'kon joylashuvini xaritadan tanlang!');
+      setError(t('select_location_error') || 'Iltimos, do\'kon joylashuvini xaritadan tanlang!');
       return;
     }
 
