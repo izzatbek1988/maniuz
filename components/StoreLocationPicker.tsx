@@ -212,12 +212,12 @@ export default function StoreLocationPicker({
         {gettingLocation ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            {t('loading') || 'Yuklanmoqda...'}
+            {t('loading')}
           </>
         ) : (
           <>
             <Navigation className="mr-2 h-4 w-4" />
-            {t('use_current_location') || 'Hozirgi joylashuvimdan foydalanish'}
+            {t('use_current_location')}
           </>
         )}
       </Button>
@@ -247,15 +247,15 @@ export default function StoreLocationPicker({
       <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
         <h4 className="font-semibold text-sm mb-2 flex items-center gap-2">
           <MapPin className="h-4 w-4 text-blue-600" />
-          {t('selected_coordinates') || 'Tanlangan koordinatalar'}
+          {t('selected_coordinates')}
         </h4>
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
-            <span className="text-gray-600">{t('latitude') || 'Kenglik'}:</span>
+            <span className="text-gray-600">{t('latitude')}:</span>
             <p className="font-mono font-semibold">{coordinates.lat.toFixed(6)}</p>
           </div>
           <div>
-            <span className="text-gray-600">{t('longitude') || 'Uzunlik'}:</span>
+            <span className="text-gray-600">{t('longitude')}:</span>
             <p className="font-mono font-semibold">{coordinates.lng.toFixed(6)}</p>
           </div>
         </div>
@@ -264,12 +264,12 @@ export default function StoreLocationPicker({
       {/* Instructions */}
       <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
         <h4 className="font-semibold text-sm mb-2 text-blue-900">
-          {t('how_to_use') || 'Qanday foydalanish'}
+          {t('how_to_use')}
         </h4>
         <ul className="text-sm text-blue-800 space-y-1">
-          <li>• {t('map_instruction_click') || 'Xaritada joy tanlash uchun bosing'}</li>
-          <li>• {t('map_instruction_drag') || 'Belgilashni siljitish mumkin'}</li>
-          <li>• {t('map_instruction_gps') || 'GPS tugmasidan hozirgi joylashuvingizni aniqlang'}</li>
+          <li>• {t('map_instruction_click')}</li>
+          <li>• {t('map_instruction_drag')}</li>
+          <li>• {t('map_instruction_gps')}</li>
         </ul>
       </div>
     </div>
