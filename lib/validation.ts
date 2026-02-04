@@ -48,3 +48,16 @@ export const validateNickname = (nickname: string) => {
   
   return { valid: true };
 };
+
+/**
+ * Format nickname input as user types
+ * - Convert to lowercase
+ * - Remove invalid characters
+ * - Limit to 20 characters
+ */
+export const formatNicknameInput = (input: string): string => {
+  return input
+    .toLowerCase()
+    .replace(/[^a-z0-9_]/g, '')
+    .substring(0, 20);
+};

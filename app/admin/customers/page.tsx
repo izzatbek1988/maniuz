@@ -32,8 +32,15 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
-import { Users, Edit, Shield, User, Briefcase, Eye } from 'lucide-react';
+import { Users, Edit, Shield, User, Briefcase, Eye, Phone, AtSign, MapPin, UserCog } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import StoreLocationPicker from '@/components/StoreLocationPicker';
+import { 
+  validatePhone, 
+  formatPhoneInput, 
+  validateNickname, 
+  formatNicknameInput 
+} from '@/lib/validation';
 
 // Role configurations
 const getRoleConfig = (role: UserRole, t: (key: string) => string) => {
@@ -122,7 +129,13 @@ export default function CustomersPage() {
   };
 
   const handleEditCustomer = (customer: Customer) => {
-    setEditingCustomer(customer);
+    setEditingCustomer({
+      ...customer,
+      phone: customer.phone || '',
+      nickname: customer.nickname || '',
+      district: customer.district || '',
+      storeCoordinates: customer.storeCoordinates || undefined,
+    });
     setShowEditDialog(true);
   };
 
@@ -137,10 +150,55 @@ export default function CustomersPage() {
 
     try {
       setSaving(true);
-      await updateDoc(doc(db, 'customers', editingCustomer.id), {
+
+      // Validate phone if provided
+      if (editingCustomer.phone && !validatePhone(editingCustomer.phone)) {
+        alert(t('phone_invalid') || 'Invalid phone number format');
+        setSaving(false);
+        return;
+      }
+
+      // Validate nickname if provided
+      if (editingCustomer.nickname) {
+        const validation = validateNickname(editingCustomer.nickname);
+        if (!validation.valid) {
+          alert(t(validation.error || 'nickname_invalid'));
+          setSaving(false);
+          return;
+        }
+      }
+
+      // Prepare update data
+      const updateData: Partial<Customer> = {
         priceTypeId: editingCustomer.priceTypeId,
         role: editingCustomer.role,
-      });
+      };
+
+      // Add phone if provided
+      if (editingCustomer.phone) {
+        updateData.phone = editingCustomer.phone;
+      }
+
+      // Add nickname if provided
+      if (editingCustomer.nickname) {
+        updateData.nickname = editingCustomer.nickname;
+      }
+
+      // Add district if provided
+      if (editingCustomer.district) {
+        updateData.district = editingCustomer.district;
+      }
+
+      // Add store coordinates if provided
+      if (editingCustomer.storeCoordinates) {
+        updateData.storeCoordinates = {
+          lat: editingCustomer.storeCoordinates.lat,
+          lng: editingCustomer.storeCoordinates.lng,
+          address: editingCustomer.storeCoordinates.address,
+        };
+      }
+
+      await updateDoc(doc(db, 'customers', editingCustomer.id), updateData);
       
       await fetchCustomers();
       setShowEditDialog(false);
@@ -238,128 +296,210 @@ export default function CustomersPage() {
 
       {/* Edit Customer Dialog */}
       <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
-        <DialogContent className="sm:max-w-[500px]">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Edit className="h-5 w-5" />
+              <UserCog className="h-5 w-5" />
               {t('edit_customer')}
             </DialogTitle>
           </DialogHeader>
 
           {editingCustomer && (
-            <div className="space-y-4 py-4">
-              {/* Name (Read-only) */}
-              <div className="space-y-2">
-                <Label>{t('name')}</Label>
-                <Input value={editingCustomer.name} disabled />
-              </div>
-
-              {/* Email (Read-only) */}
-              <div className="space-y-2">
-                <Label>{t('email')}</Label>
-                <Input value={editingCustomer.email} disabled />
-              </div>
-
-              {/* Role Selection */}
-              <div className="space-y-2">
-                <Label htmlFor="role" className="flex items-center gap-2">
-                  <Shield className="h-4 w-4" />
-                  {t('admin_user_role')}
-                </Label>
-                <Select
-                  value={editingCustomer.role}
-                  onValueChange={(value: UserRole) =>
-                    setEditingCustomer({ ...editingCustomer, role: value })
-                  }
-                  disabled={currentUser?.role !== 'admin'}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="admin">
-                      <div className="flex items-center gap-2">
-                        <Shield className="h-4 w-4 text-red-600" />
-                        <div>
-                          <p className="font-medium">{t('role_admin')}</p>
-                          <p className="text-xs text-muted-foreground">
-                            {t('role_admin_desc')}
-                          </p>
-                        </div>
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="customer">
-                      <div className="flex items-center gap-2">
-                        <User className="h-4 w-4 text-blue-600" />
-                        <div>
-                          <p className="font-medium">{t('role_customer')}</p>
-                          <p className="text-xs text-muted-foreground">
-                            {t('role_customer_desc')}
-                          </p>
-                        </div>
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="operator">
-                      <div className="flex items-center gap-2">
-                        <Briefcase className="h-4 w-4 text-green-600" />
-                        <div>
-                          <p className="font-medium">{t('role_operator')}</p>
-                          <p className="text-xs text-muted-foreground">
-                            {t('role_operator_desc')}
-                          </p>
-                        </div>
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="supervisor">
-                      <div className="flex items-center gap-2">
-                        <Eye className="h-4 w-4 text-purple-600" />
-                        <div>
-                          <p className="font-medium">{t('role_supervisor')}</p>
-                          <p className="text-xs text-muted-foreground">
-                            {t('role_supervisor_desc')}
-                          </p>
-                        </div>
-                      </div>
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-                
-                {currentUser?.role !== 'admin' && (
-                  <p className="text-xs text-orange-600">
-                    ⚠️ {t('admin_only_feature')}
-                  </p>
-                )}
-              </div>
-
-              {/* Price Type */}
-              <div className="space-y-2">
-                <Label htmlFor="priceType">{t('admin_price_type')}</Label>
-                <Select
-                  value={editingCustomer.priceTypeId}
-                  onValueChange={(value) =>
-                    setEditingCustomer({ ...editingCustomer, priceTypeId: value })
-                  }
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {priceTypes.map((pt) => (
-                      <SelectItem key={pt.id} value={pt.id}>
-                        {pt.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* District (Read-only) */}
-              {editingCustomer.district && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 py-4">
+              {/* Left Column: Form Fields */}
+              <div className="space-y-4">
+                {/* Name (Read-only) */}
                 <div className="space-y-2">
-                  <Label>{t('district')}</Label>
-                  <Input value={editingCustomer.district} disabled />
+                  <Label>{t('name')}</Label>
+                  <Input value={editingCustomer.name} disabled />
                 </div>
-              )}
+
+                {/* Email (Read-only) */}
+                <div className="space-y-2">
+                  <Label>{t('email')}</Label>
+                  <Input value={editingCustomer.email} disabled />
+                </div>
+
+                {/* Phone */}
+                <div className="space-y-2">
+                  <Label htmlFor="phone" className="flex items-center gap-2">
+                    <Phone className="h-4 w-4" />
+                    {t('phone_number')}
+                  </Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    value={editingCustomer.phone || ''}
+                    onChange={(e) => {
+                      const formatted = formatPhoneInput(e.target.value);
+                      setEditingCustomer({ ...editingCustomer, phone: formatted });
+                    }}
+                    placeholder="+998 XX XXX XX XX"
+                    maxLength={13}
+                  />
+                  {editingCustomer.phone && !validatePhone(editingCustomer.phone) && (
+                    <p className="text-xs text-red-600">
+                      {t('phone_invalid')}
+                    </p>
+                  )}
+                </div>
+
+                {/* Nickname */}
+                <div className="space-y-2">
+                  <Label htmlFor="nickname" className="flex items-center gap-2">
+                    <AtSign className="h-4 w-4" />
+                    {t('nickname')}
+                  </Label>
+                  <Input
+                    id="nickname"
+                    type="text"
+                    value={editingCustomer.nickname || ''}
+                    onChange={(e) => {
+                      const formatted = formatNicknameInput(e.target.value);
+                      setEditingCustomer({ ...editingCustomer, nickname: formatted });
+                    }}
+                    placeholder="mystore123"
+                  />
+                  <p className="text-xs text-gray-500">
+                    {t('nickname_hint')}
+                  </p>
+                </div>
+
+                {/* Role Selection */}
+                <div className="space-y-2">
+                  <Label htmlFor="role" className="flex items-center gap-2">
+                    <Shield className="h-4 w-4" />
+                    {t('admin_user_role')}
+                  </Label>
+                  <Select
+                    value={editingCustomer.role}
+                    onValueChange={(value: UserRole) =>
+                      setEditingCustomer({ ...editingCustomer, role: value })
+                    }
+                    disabled={currentUser?.role !== 'admin'}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="admin">
+                        <div className="flex items-center gap-2">
+                          <Shield className="h-4 w-4 text-red-600" />
+                          <div>
+                            <p className="font-medium">{t('role_admin')}</p>
+                            <p className="text-xs text-muted-foreground">
+                              {t('role_admin_desc')}
+                            </p>
+                          </div>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="customer">
+                        <div className="flex items-center gap-2">
+                          <User className="h-4 w-4 text-blue-600" />
+                          <div>
+                            <p className="font-medium">{t('role_customer')}</p>
+                            <p className="text-xs text-muted-foreground">
+                              {t('role_customer_desc')}
+                            </p>
+                          </div>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="operator">
+                        <div className="flex items-center gap-2">
+                          <Briefcase className="h-4 w-4 text-green-600" />
+                          <div>
+                            <p className="font-medium">{t('role_operator')}</p>
+                            <p className="text-xs text-muted-foreground">
+                              {t('role_operator_desc')}
+                            </p>
+                          </div>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="supervisor">
+                        <div className="flex items-center gap-2">
+                          <Eye className="h-4 w-4 text-purple-600" />
+                          <div>
+                            <p className="font-medium">{t('role_supervisor')}</p>
+                            <p className="text-xs text-muted-foreground">
+                              {t('role_supervisor_desc')}
+                            </p>
+                          </div>
+                        </div>
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  
+                  {currentUser?.role !== 'admin' && (
+                    <p className="text-xs text-orange-600">
+                      ⚠️ {t('admin_only_feature')}
+                    </p>
+                  )}
+                </div>
+
+                {/* Price Type */}
+                <div className="space-y-2">
+                  <Label htmlFor="priceType">{t('admin_price_type')}</Label>
+                  <Select
+                    value={editingCustomer.priceTypeId}
+                    onValueChange={(value) =>
+                      setEditingCustomer({ ...editingCustomer, priceTypeId: value })
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {priceTypes.map((pt) => (
+                        <SelectItem key={pt.id} value={pt.id}>
+                          {pt.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* District */}
+                <div className="space-y-2">
+                  <Label htmlFor="district">{t('district')}</Label>
+                  <Input
+                    id="district"
+                    value={editingCustomer.district || ''}
+                    onChange={(e) =>
+                      setEditingCustomer({ ...editingCustomer, district: e.target.value })
+                    }
+                    placeholder={t('district')}
+                  />
+                </div>
+              </div>
+
+              {/* Right Column: Map */}
+              <div className="space-y-4">
+                {/* Store Location Picker */}
+                <div className="space-y-2">
+                  <Label className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4" />
+                    {t('store_location')}
+                  </Label>
+                  <StoreLocationPicker
+                    onLocationChange={(lat, lng, address) => {
+                      setEditingCustomer({
+                        ...editingCustomer,
+                        storeCoordinates: { lat, lng, address }
+                      });
+                    }}
+                    initialLat={editingCustomer.storeCoordinates?.lat || 41.550151}
+                    initialLng={editingCustomer.storeCoordinates?.lng || 60.627490}
+                  />
+                  {editingCustomer.storeCoordinates?.address && (
+                    <div className="bg-green-50 rounded-lg p-3 mt-2">
+                      <p className="text-xs text-green-700 flex items-center gap-2">
+                        <MapPin className="h-3 w-3" />
+                        {editingCustomer.storeCoordinates.address}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           )}
 
