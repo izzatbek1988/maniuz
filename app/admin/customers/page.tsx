@@ -194,7 +194,7 @@ export default function CustomersPage() {
         updateData.storeCoordinates = {
           lat: editingCustomer.storeCoordinates.lat,
           lng: editingCustomer.storeCoordinates.lng,
-          address: editingCustomer.storeCoordinates.address || undefined,
+          address: editingCustomer.storeCoordinates.address,
         };
       }
 
