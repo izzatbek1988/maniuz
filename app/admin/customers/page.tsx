@@ -134,7 +134,7 @@ export default function CustomersPage() {
       phone: customer.phone || '',
       nickname: customer.nickname || '',
       district: customer.district || '',
-      storeCoordinates: customer.storeCoordinates || null,
+      storeCoordinates: customer.storeCoordinates || undefined,
     });
     setShowEditDialog(true);
   };
