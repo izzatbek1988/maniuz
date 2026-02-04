@@ -169,7 +169,7 @@ export default function CustomersPage() {
       }
 
       // Prepare update data
-      const updateData: any = {
+      const updateData: Partial<Customer> = {
         priceTypeId: editingCustomer.priceTypeId,
         role: editingCustomer.role,
       };
@@ -194,7 +194,7 @@ export default function CustomersPage() {
         updateData.storeCoordinates = {
           lat: editingCustomer.storeCoordinates.lat,
           lng: editingCustomer.storeCoordinates.lng,
-          address: editingCustomer.storeCoordinates.address || null,
+          address: editingCustomer.storeCoordinates.address || undefined,
         };
       }
 
