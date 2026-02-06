@@ -211,6 +211,27 @@ const uzbekTranslations = {
   "settings_save": "Saqlash",
   "settings_saved": "Saqlandi!",
   
+  // Test Mode Banner
+  "test_mode_warning": "⚠️ Sayt test rejimida ishlamoqda. Ba'zi funksiyalar cheklangan bo'lishi mumkin.",
+  "close": "Yopish",
+  
+  // Admin Test Mode Settings
+  "admin_test_mode": "Test rejimi",
+  "admin_test_mode_desc": "Test rejimi faol bo'lganda, saytning yuqori qismida ogohlantirish banneri ko'rsatiladi.",
+  "admin_test_mode_label": "Test rejimini yoqish",
+  "admin_test_mode_active": "Test rejimi faol",
+  "admin_test_mode_inactive": "Test rejimi o'chirilgan",
+  "admin_test_mode_enabled": "Test rejimi yoqildi",
+  "admin_test_mode_disabled": "Test rejimi o'chirildi",
+  "admin_last_updated": "Oxirgi yangilanish",
+  "admin_updated_by": "Yangilagan",
+  "admin_other_settings": "Boshqa sozlamalar",
+  "admin_more_settings_coming_soon": "Qo'shimcha sozlamalar tez orada qo'shiladi",
+  "admin_settings_placeholder": "Hozircha boshqa sozlamalar mavjud emas",
+  "error_loading_settings": "Sozlamalarni yuklashda xatolik",
+  "error_updating_settings": "Sozlamalarni yangilashda xatolik",
+  "unknown": "Noma'lum",
+  
   // About page content
   "about_mission_text": "Maniuz mijozlarimizga eng yuqori sifatli sovuq va energetik ichimliklar taqdim etishga intiladi. Biz chakana va ulgurji mijozlar ehtiyojlarini qondiradigan ajoyib xizmat va mahsulotlarni yetkazib berishga harakat qilamiz.",
   "about_vision_text": "Mintaqadagi sovuq va energetik ichimliklar yetkazib beruvchisining yetakchi kompaniyasiga aylanish, ishonchlilik, sifatli mahsulotlar va mukammal mijozlarga xizmat ko'rsatish bilan tanilish.",
@@ -603,6 +624,26 @@ const turkishTranslations = {
   "settings_save": "Kaydet",
   "settings_saved": "Kaydedildi!",
   
+  // Test Mode Banner
+  "test_mode_warning": "⚠️ Site test aşamasındadır. Bazı özellikler sınırlı olabilir.",
+  
+  // Admin Test Mode Settings
+  "admin_test_mode": "Test modu",
+  "admin_test_mode_desc": "Test modu aktif olduğunda, sitenin üst kısmında bir uyarı banner'ı görüntülenir.",
+  "admin_test_mode_label": "Test modunu etkinleştir",
+  "admin_test_mode_active": "Test modu aktif",
+  "admin_test_mode_inactive": "Test modu kapalı",
+  "admin_test_mode_enabled": "Test modu etkinleştirildi",
+  "admin_test_mode_disabled": "Test modu kapatıldı",
+  "admin_last_updated": "Son güncelleme",
+  "admin_updated_by": "Güncelleyen",
+  "admin_other_settings": "Diğer ayarlar",
+  "admin_more_settings_coming_soon": "Ek ayarlar yakında eklenecek",
+  "admin_settings_placeholder": "Şu anda başka ayar mevcut değil",
+  "error_loading_settings": "Ayarlar yüklenirken hata",
+  "error_updating_settings": "Ayarlar güncellenirken hata",
+  "unknown": "Bilinmiyor",
+  
   // About page content
   "about_mission_text": "Maniuz, müşterilerimize en yüksek kaliteli soğuk ve enerji içeceklerini sunmayı taahhüt eder. Hem perakende hem de toptan müşterilerin ihtiyaçlarını karşılayan olağanüstü hizmet ve ürünler sunmaya çalışıyoruz.",
   "about_vision_text": "Bölgedeki soğuk ve enerji içecekleri distribütörlerinin lider şirketi olmak, güvenilirlik, kaliteli ürünler ve olağanüstü müşteri hizmeti ile tanınmak.",
@@ -994,6 +1035,26 @@ const russianTranslations = {
   "settings_default_price_type": "Тип цены по умолчанию",
   "settings_save": "Сохранить",
   "settings_saved": "Сохранено!",
+  
+  // Test Mode Banner
+  "test_mode_warning": "⚠️ Сайт находится в тестовом режиме. Некоторые функции могут быть ограничены.",
+  
+  // Admin Test Mode Settings
+  "admin_test_mode": "Тестовый режим",
+  "admin_test_mode_desc": "Когда тестовый режим активен, в верхней части сайта отображается предупреждающий баннер.",
+  "admin_test_mode_label": "Включить тестовый режим",
+  "admin_test_mode_active": "Тестовый режим активен",
+  "admin_test_mode_inactive": "Тестовый режим выключен",
+  "admin_test_mode_enabled": "Тестовый режим включен",
+  "admin_test_mode_disabled": "Тестовый режим выключен",
+  "admin_last_updated": "Последнее обновление",
+  "admin_updated_by": "Обновил",
+  "admin_other_settings": "Другие настройки",
+  "admin_more_settings_coming_soon": "Дополнительные настройки скоро будут добавлены",
+  "admin_settings_placeholder": "В настоящее время других настроек нет",
+  "error_loading_settings": "Ошибка загрузки настроек",
+  "error_updating_settings": "Ошибка обновления настроек",
+  "unknown": "Неизвестно",
   
   // About page content
   "about_mission_text": "Maniuz стремится предоставлять нашим клиентам холодные и энергетические напитки высочайшего качества. Мы стремимся предоставлять исключительный сервис и продукты, которые отвечают потребностям как розничных, так и оптовых клиентов.",
