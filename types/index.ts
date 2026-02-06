@@ -97,6 +97,6 @@ export type PartnershipStatus = PartnershipApplication['status'];
 
 export interface SiteSettings {
   testMode: boolean;
-  updatedAt?: any; // Firestore Timestamp
+  updatedAt?: Timestamp;
   updatedBy?: string;
 }

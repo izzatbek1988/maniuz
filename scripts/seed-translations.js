@@ -213,7 +213,6 @@ const uzbekTranslations = {
   
   // Test Mode Banner
   "test_mode_warning": "⚠️ Sayt test rejimida ishlamoqda. Ba'zi funksiyalar cheklangan bo'lishi mumkin.",
-  "close": "Yopish",
   
   // Admin Test Mode Settings
   "admin_test_mode": "Test rejimi",

@@ -13,6 +13,7 @@ import { collection, getDocs, doc, getDoc, setDoc, serverTimestamp } from 'fireb
 import { db } from '@/lib/firebase';
 import { toast } from 'react-hot-toast';
 import { AlertTriangle, Loader2 } from 'lucide-react';
+import { SiteSettings } from '@/types';
 
 interface PriceType {
   id: string;
@@ -22,12 +23,6 @@ interface PriceType {
 interface ToastSettings {
   position: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
   duration: 1000 | 2000 | 3000 | 5000; // ADDED: 1000ms (1 second)
-}
-
-interface SiteSettings {
-  testMode: boolean;
-  updatedAt?: any;
-  updatedBy?: string;
 }
 
 export default function SettingsPage() {
