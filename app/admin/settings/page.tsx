@@ -2,14 +2,18 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useAuth } from '@/contexts/AuthContext';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { collection, getDocs, doc, getDoc, setDoc } from 'firebase/firestore';
+import { Switch } from '@/components/ui/switch';
+import { collection, getDocs, doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { toast } from 'react-hot-toast';
+import { AlertTriangle, Loader2 } from 'lucide-react';
+import { SiteSettings } from '@/types';
 
 interface PriceType {
   id: string;
@@ -23,14 +27,17 @@ interface ToastSettings {
 
 export default function SettingsPage() {
   const { t } = useTranslation();
+  const { user } = useAuth();
   const [priceTypes, setPriceTypes] = useState<PriceType[]>([]);
   const [selectedPriceTypeId, setSelectedPriceTypeId] = useState<string>('');
   const [toastSettings, setToastSettings] = useState<ToastSettings>({
     position: 'bottom-left',
     duration: 3000
   });
+  const [siteSettings, setSiteSettings] = useState<SiteSettings>({ testMode: false });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [savingTestMode, setSavingTestMode] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
@@ -56,6 +63,12 @@ export default function SettingsPage() {
         const toastDoc = await getDoc(doc(db, 'settings', 'toast'));
         if (toastDoc.exists()) {
           setToastSettings(toastDoc.data() as ToastSettings);
+        }
+
+        // Fetch site config settings
+        const siteConfigDoc = await getDoc(doc(db, 'settings', 'siteConfig'));
+        if (siteConfigDoc.exists()) {
+          setSiteSettings(siteConfigDoc.data() as SiteSettings);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -102,8 +115,47 @@ export default function SettingsPage() {
     });
   };
 
+  const handleTestModeToggle = async (enabled: boolean) => {
+    if (!user?.email) return;
+
+    setSavingTestMode(true);
+    try {
+      await setDoc(doc(db, 'settings', 'siteConfig'), {
+        testMode: enabled,
+        updatedAt: serverTimestamp(),
+        updatedBy: user.email,
+      });
+
+      setSiteSettings({
+        ...siteSettings,
+        testMode: enabled,
+        updatedBy: user.email,
+      });
+
+      // Clear dismissed state in localStorage if test mode is re-enabled
+      if (enabled) {
+        localStorage.removeItem('test-banner-dismissed');
+      }
+
+      toast.success(
+        enabled 
+          ? t('admin_test_mode_enabled') 
+          : t('admin_test_mode_disabled')
+      );
+    } catch (error) {
+      console.error('Error updating test mode:', error);
+      toast.error(t('error_updating_settings'));
+    } finally {
+      setSavingTestMode(false);
+    }
+  };
+
   if (loading) {
-    return <div className="text-center py-8">{t('loading')}</div>;
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
+      </div>
+    );
   }
 
   return (
@@ -111,6 +163,53 @@ export default function SettingsPage() {
       <h1 className="text-3xl font-bold mb-6">{t('settings_title')}</h1>
 
       <div className="space-y-6">
+        {/* Test Mode Card */}
+        <Card className="max-w-2xl">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-yellow-500" />
+              {t('admin_test_mode')}
+            </CardTitle>
+            <CardDescription>
+              {t('admin_test_mode_desc')}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Toggle Switch */}
+            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+              <div className="space-y-1">
+                <Label htmlFor="test-mode" className="text-base font-medium">
+                  {t('admin_test_mode_label')}
+                </Label>
+                <p className="text-sm text-gray-600">
+                  {siteSettings.testMode 
+                    ? t('admin_test_mode_active') 
+                    : t('admin_test_mode_inactive')}
+                </p>
+              </div>
+              <Switch
+                id="test-mode"
+                checked={siteSettings.testMode}
+                onCheckedChange={handleTestModeToggle}
+                disabled={savingTestMode}
+              />
+            </div>
+
+            {/* Last Updated Info */}
+            {siteSettings.updatedBy && (
+              <div className="text-sm text-gray-500 pt-4 border-t">
+                <p>
+                  {t('admin_last_updated')}:{' '}
+                  {siteSettings.updatedAt?.toDate?.()?.toLocaleString() || t('unknown')}
+                </p>
+                <p>
+                  {t('admin_updated_by')}: {siteSettings.updatedBy}
+                </p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
         {/* Price Type Settings */}
         <Card className="max-w-2xl">
           <CardHeader>

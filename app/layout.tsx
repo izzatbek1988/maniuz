@@ -3,6 +3,7 @@ import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { TranslationProvider } from "@/contexts/TranslationContext";
 import { Toaster } from "react-hot-toast";
+import TestModeBanner from "@/components/TestModeBanner";
 
 export const metadata: Metadata = {
   title: "Maniuz E-Tijоrat - Sovuq ichimliklar va energetik ichimliklar",
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body className="antialiased">
         <AuthProvider>
           <TranslationProvider>
+            <TestModeBanner />
             {children}
             <Toaster position="top-right" />
           </TranslationProvider>

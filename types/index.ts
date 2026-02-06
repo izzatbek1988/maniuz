@@ -94,3 +94,9 @@ export interface PartnershipApplication {
 }
 
 export type PartnershipStatus = PartnershipApplication['status'];
+
+export interface SiteSettings {
+  testMode: boolean;
+  updatedAt?: Timestamp;
+  updatedBy?: string;
+}
